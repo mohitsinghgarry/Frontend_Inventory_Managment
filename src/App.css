@@ -1,38 +1,134 @@
-.App {
+/* App.css */
+
+/* General body style */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #e8f5e9; /* Light green */
+
+
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Container for the full login page */
+.login-page {
+  display: flex;
+  width: 90%; /* Increase width to 90% */
+  max-width: 1400px; /* Increased max-width for larger card */
+  background-color: white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Card shadow */
+  border-radius: 15px; /* Rounded corners for the card */
+  overflow: hidden;
+}
+
+/* Left side: Inventory logo and title */
+.left-side {
+  width: 50%;
+  background-color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px; /* Increased padding */
+}
+
+.left-side img {
+  max-width: 250px; /* Increased logo size */
+  margin-bottom: 20px;
+}
+
+.left-side h1 {
+  font-size: 2.8rem; /* Increased font size */
+  color: #b70000;
+  margin: 0;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Right side: Login form */
+.right-side {
+  width: 50%;
+  padding: 40px; /* Keep padding consistent */
   display: flex;
   flex-direction: column;
+  justify-content: center;
+}
+
+.right-side h2 {
+  color: #b70000;
+  margin-bottom: 20px;
+  font-size: 2rem; /* Increased font size */
+  text-align: center;
+}
+
+.google-login-button {
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  font-weight: bold;
+  background-color: white;
+}
+
+.google-login-button img {
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+}
+
+.or-divider {
+  text-align: center;
+  margin: 10px 0;
+  color: #888;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form input {
+  padding: 12px; /* Increased padding */
+  font-size: 1.1rem; /* Increased font size */
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+form button {
+  padding: 12px; /* Increased padding */
+  background-color: #b70000;
   color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem; /* Increased font size */
+  cursor: pointer;
 }
 
-.App-link {
-  color: #61dafb;
+form button:hover {
+  background-color: #a30000;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 1rem; /* Increased footer font size */
+}
+
+.footer a {
+  color: #b70000;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.footer a:hover {
+  text-decoration: underline;
 }
