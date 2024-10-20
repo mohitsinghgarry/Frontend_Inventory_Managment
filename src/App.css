@@ -1,42 +1,140 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+.container {
+  border: 2px solid red;
+  justify-content: space-between;
+}
+
+/* Shared container styles */
+form {
+  display: flex;
+  width: 35rem;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 3rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.leftContainer {
+  border: 2px black solid;
   text-align: center;
+  width: 90%;
+  height: 90%;
+  padding: 40px;
+  border-radius: 3rem;
+  background-color: #fff;
+  box-sizing: border-box;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.container-form-image {
+  display: flex;
+
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.inputGroup {
+  margin-bottom: 15px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
 }
 
-.card {
-  padding: 2em;
+.submitButton {
+  width: 75%;
+  padding: 10px;
+  background-color: #ff3b3f;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
 }
 
-.read-the-docs {
-  color: #888;
+.footer {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.signInLink {
+  color: #ff3b3f;
+  text-decoration: none;
+}
+
+.googleSignUp {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.googleButton {
+  padding: 10px;
+  background-color: #4285F4;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  width: 75%;
+}
+
+/* Adjusting the image size */
+.imageContainer {
+  margin-top: 20px;
+}
+
+.image {
+  width: 90%;
+  /* Increased from 75% to 90% to make the image larger */
+  height: auto;
+  border-radius: 8px;
+}
+
+
+.passwordInstructionsContainer {
+  background-color: #f9f9f9;
+  /* Light background for contrast */
+  border: 1px solid #e0e0e0;
+  /* Light border for definition */
+  border-radius: 5px;
+  /* Rounded corners */
+  padding: 15px;
+  /* Padding for spacing */
+  margin-top: 10px;
+  /* Space above the instructions */
+}
+
+.passwordInstructionsList {
+  list-style-type: none;
+  /* Remove default list styling */
+  padding: 0;
+  /* Remove padding */
+  margin: 0;
+  /* Remove margin */
+}
+
+.passwordInstructionsList li {
+  color: #333;
+  /* Dark gray for text color */
+  font-size: 14px;
+  /* Slightly smaller font size */
+  margin: 5px 0;
+  /* Space between list items */
+}
+
+.passwordInstructionsList li::before {
+
+  margin-right: 8px;
+  /* Space between checkbox and text */
+  color: #4caf50;
+  /* Green color for the checkbox */
+}
+
+h4 {
+  color: #444;
+  /* Darker color for the heading */
+  margin-bottom: 10px;
+  /* Space below the heading */
 }
