@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import { toast } from 'react-toastify'; // Import toast
 import './VerifyOTP.css';
+ // Importing the CSS for toast notifications
 
 const VerifyOTP = () => {
   const navigate = useNavigate(); // Initialize navigate
@@ -36,15 +37,15 @@ const VerifyOTP = () => {
         throw new Error(data.message || 'Network response was not ok');
       }
 
-      console.log('OTP verified successfully:', data);
+      // console.log('OTP verified successfully:', data);
       setSuccess(true);
       setError(null);
       
       // Show success toast notification
-      toast.success('Signup successfully!'); // Display toast
-
-      // Navigate to the landing page
-      navigate('/'); // Update with the correct path to your landing page
+      toast.success(`Singup successful: ${data.message}`, {
+        autoClose: 1000, // Auto close after 1 second
+        onClose: () => navigate(`/`) // Navigate to /login after toast closes
+    });  
 
     } catch (error) {
       console.error('Error verifying the OTP:', error.message);

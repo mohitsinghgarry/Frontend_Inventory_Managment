@@ -14,6 +14,9 @@ const LandingPage = () => {
   const handleSignUpClick = () => {
     navigate('/signup'); // Navigate to the sign-up page
   };
+  const handlelogin =()=>{
+    navigate('/login');
+  }
 
   return (
     <div className="landing-page">
@@ -29,7 +32,7 @@ const LandingPage = () => {
           <li><a href="#pricing">Pricing</a></li>
         </ul>
         <div className="auth-buttons">
-          <button className="login-btn">Login</button>
+          <button className="login-btn" onClick={handlelogin}>Login</button>
           <button className="signup-btn" onClick={handleSignUpClick}>Sign Up</button> {/* Handle sign up click */}
         </div>
       </nav>

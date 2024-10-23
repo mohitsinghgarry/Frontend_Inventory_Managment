@@ -1,3 +1,4 @@
+/* Container for the login page */
 .container {
   border: 2px solid red;
   justify-content: space-between;
@@ -29,7 +30,6 @@ form {
 
 .container-form-image {
   display: flex;
-
 }
 
 .inputGroup {
@@ -65,19 +65,139 @@ form {
   text-decoration: none;
 }
 
-.googleSignUp {
-  text-align: center;
-  margin-top: 20px;
+.passwordInstructionsContainer {
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  padding: 15px;
+  margin-top: 10px;
 }
 
-.googleButton {
-  padding: 10px;
-  background-color: #4285F4;
-  color: #fff;
+.passwordInstructionsList {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.passwordInstructionsList li {
+  color: #333;
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+h4 {
+  color: #444;
+  margin-bottom: 10px;
+}
+
+/* Container for the full login page */
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  max-width: 1400px;
+  background-color: white;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+/* Left side: Inventory logo and title */
+.left-side {
+  /* border: 2px solid red; */
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  /* padding: 0; */
+}
+
+.left-side img {
+  /* border: 2px solid red; */
+  width: 500px;
+  /* height: 00px; */
+  margin-bottom: 5px;
+  object-fit: contain;
+  filter: brightness(1.2) contrast(1.1);
+  /* border: none; */
+}
+
+.left-side h1 {
+  font-size: 3rem;
+  color: #b70000;
+  margin-top: 2rem;
+  text-align: center;
+  padding-bottom: 20px;
+  line-height: 1.2;
+}
+
+/* Right side: Login form */
+.right-side {
+  width: 50%;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: white;
+  margin-left: auto;
+}
+
+.right-side h2 {
+  color: #b70000;
+  margin-bottom: 20px;
+  font-size: 3rem;
+  text-align: center;
+}
+
+/* Form inputs and buttons */
+form input {
+  padding: 12px;
+  font-size: 1.1rem;
+  margin-bottom: 15px;
   border-radius: 5px;
-  cursor: pointer;
+  border: 1px solid #ccc;
+}
+
+form button {
+  padding: 12px;
+  background-color: #b70000;
+  color: white;
   border: none;
-  width: 75%;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #a30000;
+}
+
+/* Footer section */
+.footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 1rem;
+}
+
+.footer a {
+  color: #b70000;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* Forgot password link */
+.forgot-password-link {
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.forgot-password-link:hover {
+  text-decoration: underline;
 }
 
 /* Adjusting the image size */
@@ -87,54 +207,15 @@ form {
 
 .image {
   width: 90%;
-  /* Increased from 75% to 90% to make the image larger */
   height: auto;
   border-radius: 8px;
 }
 
-
-.passwordInstructionsContainer {
-  background-color: #f9f9f9;
-  /* Light background for contrast */
-  border: 1px solid #e0e0e0;
-  /* Light border for definition */
-  border-radius: 5px;
-  /* Rounded corners */
-  padding: 15px;
-  /* Padding for spacing */
-  margin-top: 10px;
-  /* Space above the instructions */
-}
-
-.passwordInstructionsList {
-  list-style-type: none;
-  /* Remove default list styling */
-  padding: 0;
-  /* Remove padding */
-  margin: 0;
-  /* Remove margin */
-}
-
-.passwordInstructionsList li {
-  color: #333;
-  /* Dark gray for text color */
-  font-size: 14px;
-  /* Slightly smaller font size */
-  margin: 5px 0;
-  /* Space between list items */
-}
-
-.passwordInstructionsList li::before {
-
-  margin-right: 8px;
-  /* Space between checkbox and text */
-  color: #4caf50;
-  /* Green color for the checkbox */
-}
-
-h4 {
-  color: #444;
-  /* Darker color for the heading */
-  margin-bottom: 10px;
-  /* Space below the heading */
+.forgot-password-page, .reset-password-page{
+  /* border: 2px solid red; */
+  height: 100vh;
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  justify-content: center;
 }

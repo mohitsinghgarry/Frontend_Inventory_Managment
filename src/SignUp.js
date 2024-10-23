@@ -13,6 +13,7 @@ const SignUp = () => {
 
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // State for showing password
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,9 +39,7 @@ const SignUp = () => {
 
       if (!response.ok) {
         throw new Error(data.message || 'Network response was not ok');
-      }
-
-      console.log('Form submitted successfully:', data);
+      };
       setSuccess(true);
       setError(null);
 
@@ -53,82 +52,94 @@ const SignUp = () => {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
   return (
     <div className="container">
       {/* Left Side: Sign-up Form */}
-        <div className="leftContainer">
-          <div className='container-form-image'>
-            <form onSubmit={handleSubmit}>
-              <h2>Sign Up For Free.</h2>
-              <div className="inputGroup">
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Full Name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="input"
-                />
-              </div>
-              <div className="inputGroup">
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email Address"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="input"
-                />
-              </div>
-              <div className="inputGroup">
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
-                  className="input"
-                />
-              </div>
-              {/* Password Instructions */}
-              <div className="passwordInstructionsContainer">
-                <h4>Password Requirements:</h4>
-                <ul className="passwordInstructionsList">
-                  <li>✔️ At least 1 uppercase letter (A-Z)</li>
-                  <li>✔️ At least 1 lowercase letter (a-z)</li>
-                  <li>✔️ At least 1 number (0-9)</li>
-                  <li>✔️ At least 1 special character (e.g., !@#$%^&*)</li>
-                  <li>✔️ Minimum length of 8 characters</li>
-                </ul>
-              </div>
-              <button type="submit" className="submitButton">
-                Sign Up
-              </button>
-            </form>
-            {/* Right Side: Inventory Management and Image */}
-            <div>
-              <h2>Inventory Management System</h2>
-              <div className="imageContainer">
-                <img src={image1} alt="Inventory" className="image" />
-              </div>
+      <div className="leftContainer">
+        <div className='container-form-image'>
+          <form onSubmit={handleSubmit}>
+            <h2>Sign Up For Free.</h2>
+            <div className="inputGroup">
+              <input
+                type="text"
+                name="name"
+                placeholder="Full Name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                className="input"
+              />
+            </div>
+            <div className="inputGroup">
+              <input
+                type="email"
+                name="email"
+                placeholder="Email Address"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                className="input"
+              />
+            </div>
+            <div className="inputGroup">
+              <input
+                type={showPassword ? 'text' : 'password'} // Toggle password visibility
+                name="password"
+                placeholder="Password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+                className="input"
+              />
+              <input
+                type="checkbox"
+                id="showPassword"
+                checked={showPassword}
+                onChange={togglePasswordVisibility}
+                style={{ marginLeft: '10px' }} // Optional styling
+              />
+              <label htmlFor="showPassword">Show Password</label>
+            </div>
+            {/* Password Instructions */}
+            <div className="passwordInstructionsContainer">
+              <h4>Password Requirements:</h4>
+              <ul className="passwordInstructionsList">
+                <li>✔️ At least 1 uppercase letter (A-Z)</li>
+                <li>✔️ At least 1 lowercase letter (a-z)</li>
+                <li>✔️ At least 1 number (0-9)</li>
+                <li>✔️ At least 1 special character (e.g., !@#$%^&*)</li>
+                <li>✔️ Minimum length of 8 characters</li>
+              </ul>
+            </div>
+            <button type="submit" className="submitButton">
+              Sign Up
+            </button>
+          </form>
+          {/* Right Side: Inventory Management and Image */}
+          <div>
+            <h2>Inventory Management System</h2>
+            <div className="imageContainer">
+              <img src={image1} alt="Inventory" className="image" />
             </div>
           </div>
+        </div>
 
-          {error && <p className="errorMessage">{error}</p>}
-          {success && <p className="successMessage">Sign up successful! Check your email for the OTP.</p>}
-          <div className="footer">
-            <p>
-              Already have an account?{' '}
-              <a href="/" className="signInLink">
-                Sign In
-              </a>
-            </p>
-          </div>
+        {error && <p className="errorMessage">{error}</p>}
+        {success && <p className="successMessage">Sign up successful! Check your email for the OTP.</p>}
+        <div className="footer">
+          <p>
+            Already have an account?{' '}
+            <a href="/login" className="signInLink">
+              Log In
+            </a>
+          </p>
         </div>
       </div>
+    </div>
   );
 };
 
