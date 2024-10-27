@@ -2,26 +2,34 @@
 .container {
   border: 2px solid red;
   justify-content: space-between;
+  overflow: auto; /* Allow scrolling if content overflows */
+  height: 100vh; /* Set height to full viewport */
+  padding: 0 40px; /* Increased horizontal padding for more scroll space */
+  max-width: 90%; /* Reduced max width for the container */
+  margin: 0 auto; /* Center the container */
 }
 
 /* Shared container styles */
 form {
   display: flex;
-  width: 35rem;
+  width: 100%; /* Make form width 100% for better responsiveness */
+  max-width: 30rem; /* Reduced max width */
   flex-direction: column;
   background-color: #fff;
   border-radius: 3rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   padding: 20px;
+  margin: 0; /* Remove margin to prevent overflow issues */
   justify-content: center;
   align-items: center;
+  box-sizing: border-box; /* Include padding in width calculations */
 }
 
 .leftContainer {
   border: 2px black solid;
   text-align: center;
   width: 90%;
-  height: 90%;
+  height: auto; /* Change to auto for better responsiveness */
   padding: 40px;
   border-radius: 3rem;
   background-color: #fff;
@@ -95,35 +103,32 @@ h4 {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 90%;
-  max-width: 1400px;
+  width: 100%; /* Full width */
+  max-width: 1300px; /* Reduced max width */
   background-color: white;
   border-radius: 15px;
-  overflow: hidden;
+  overflow: auto; /* Allow scrolling if content overflows */
+  padding: 20px; /* Add padding to ensure content doesn't touch edges */
+  box-sizing: border-box; /* Include padding in width calculations */
 }
 
 /* Left side: Inventory logo and title */
 .left-side {
-  /* border: 2px solid red; */
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
-  /* padding: 0; */
 }
 
 .left-side img {
-  /* border: 2px solid red; */
-  width: 500px;
-  /* height: 00px; */
+  width: 100%; /* Make image responsive */
+  max-width: 350px; /* Further reduced max width */
   margin-bottom: 5px;
   object-fit: contain;
   filter: brightness(1.2) contrast(1.1);
-  /* border: none; */
 }
 
 .left-side h1 {
-  font-size: 3rem;
+  font-size: 2.2rem; /* Further reduced font size */
   color: #b70000;
   margin-top: 2rem;
   text-align: center;
@@ -133,7 +138,7 @@ h4 {
 
 /* Right side: Login form */
 .right-side {
-  width: 50%;
+  width: 100%; /* Make right side full width */
   padding: 40px;
   display: flex;
   flex-direction: column;
@@ -145,13 +150,13 @@ h4 {
 .right-side h2 {
   color: #b70000;
   margin-bottom: 20px;
-  font-size: 3rem;
+  font-size: 2.2rem; /* Further reduced font size */
   text-align: center;
 }
 
 /* Form inputs and buttons */
 form input {
-  padding: 12px;
+  padding: 10px;
   font-size: 1.1rem;
   margin-bottom: 15px;
   border-radius: 5px;
@@ -211,11 +216,141 @@ form button:hover {
   border-radius: 8px;
 }
 
-.forgot-password-page, .reset-password-page{
-  /* border: 2px solid red; */
+.forgot-password-page,
+.reset-password-page {
   height: 100vh;
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+/* Media Queries */
+
+/* Styles for devices with a width of 570px or less */
+@media screen and (max-width: 570px) {
+  .container {
+    flex-direction: column;
+    border: none; /* Optional: Remove border for mobile */
+    padding: 10px; /* Add some padding for better spacing */
+  }
+
+  .left-side img {
+    width: 90%; /* Make the image responsive */
+    max-width: 180px; /* Further limit the max width for smaller screens */
+  }
+
+  .left-side h1,
+  .right-side h2 {
+    font-size: 1.3rem; /* Decrease font size */
+  }
+
+  form {
+    width: 90%; /* Make the form responsive */
+    padding: 10px; /* Add padding to the form */
+  }
+
+  .input {
+    font-size: 14px; /* Adjust input font size */
+  }
+
+  .submitButton {
+    width: 100%; /* Full width on mobile */
+    padding: 12px; /* Increase padding for touch targets */
+  }
+
+  .footer {
+    font-size: 0.8rem; /* Smaller footer font */
+  }
+
+  .passwordInstructionsContainer {
+    padding: 10px; /* Adjust padding for mobile */
+  }
+}
+
+/* Styles for devices with a width of 600px or less (mobile) */
+@media screen and (max-width: 600px) {
+  .right-side {
+    width: 100%;
+    padding: 15px; /* Reduce padding for mobile */
+  }
+
+  .right-side h2 {
+    font-size: 1.4rem; /* Further decrease font size */
+  }
+
+  form {
+    width: 90%; /* Make the form responsive */
+    padding: 10px; /* Add padding to the form */
+  }
+
+  .input {
+    font-size: 14px; /* Adjust input font size */
+  }
+
+  .submitButton {
+    width: 100%; /* Full width on mobile */
+    padding: 12px; /* Increase padding for touch targets */
+  }
+
+  .footer {
+    font-size: 0.8rem; /* Smaller footer font */
+  }
+
+  .passwordInstructionsContainer {
+    padding: 10px; /* Adjust padding for mobile */
+  }
+}
+
+/* Styles for devices with a width of 601px to 900px (tablets) */
+@media screen and (min-width: 601px) and (max-width: 900px) {
+  .right-side {
+    padding: 25px; /* Adjust padding for tablets */
+  }
+
+  .left-side h1,
+  .right-side h2 {
+    font-size: 1.8rem; /* Adjust font size for tablets */
+  }
+
+  form {
+    width: 85%; /* Make the form narrower on tablets */
+  }
+
+  .submitButton {
+    width: 90%; /* Wider button on tablets */
+  }
+}
+
+/* Styles for devices wider than 900px (desktops) */
+@media screen and (min-width: 901px) {
+  .container {
+    display: flex; /* Ensure flex layout on desktop */
+  }
+
+  .right-side {
+    padding: 40px; /* Standard padding for larger screens */
+  }
+
+  .left-side img {
+    width: 350px; /* Full size for large screens */
+  }
+
+  form {
+    width: 30rem; /* Maintain width for large screens */
+  }
+}
+
+/* Portrait orientation adjustments */
+@media screen and (orientation: portrait) {
+  .right-side {
+    padding: 15px; /* Adjust padding in portrait mode */
+  }
+}
+
+/* Landscape orientation adjustments */
+@media screen and (orientation: landscape) {
+  .right-side {
+    padding: 30px; /* Adjust padding in landscape mode */
+  }
 }
