@@ -1,12 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
-import './LandingPage.css';
-import logo from './images/Picsart_24-10-12_14-02-47-432__1_-removebg-preview.png';
-import heroImage from './images/Hero Section@2x.png';
-import riskManagementImg from './images/WhatsApp Image 2024-10-19 at 10.42.12 PM.jpeg';
-import customizedSolutionsImg from './images/WhatsApp Image 2024-10-19 at 10.42.55 PM.jpeg';
-import cardsfirstimg from './images/pana.jpg';
-import footerleft from './images/WhatsApp Image 2024-10-19 at 10.43.44 PM.jpeg';
+import '../Login_signup_css/LandingPage.css'
+import logo from '../images/Picsart_24-10-12_14-02-47-432__1_-removebg-preview.png';
+import heroImage from '../images/Hero Section@2x.png';
+import riskManagementImg from '../images/WhatsApp Image 2024-10-19 at 10.42.12 PM.jpeg';
+import customizedSolutionsImg from '../images/WhatsApp Image 2024-10-19 at 10.42.55 PM.jpeg';
+import cardsfirstimg from '../images/pana.jpg';
+import footerleft from '../images/WhatsApp Image 2024-10-19 at 10.43.44 PM.jpeg';
 
 const LandingPage = () => {
   const navigate = useNavigate(); // Initialize navigate
@@ -47,7 +47,7 @@ const LandingPage = () => {
       {/* Cards Section */}
       <div className="cards-section">
         <img src={cardsfirstimg} className="firstcard" alt="First Card" />
-        <div className="card">
+        <div className="card_new">
           <div className="card-image">
             <img src={riskManagementImg} alt="Risk Management" className="card-img-placeholder" />
           </div>
@@ -57,7 +57,7 @@ const LandingPage = () => {
             the safeguard of assets and overall stability.
           </p>
         </div>
-        <div className="card">
+        <div className="card_new">
           <div className="card-image">
             <img src={customizedSolutionsImg} alt="Customized Solutions" className="card-img-placeholder" />
           </div>

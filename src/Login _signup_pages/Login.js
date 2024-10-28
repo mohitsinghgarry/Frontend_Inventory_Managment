@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import './App.css'; // Linking to App.css for styles
-import image1 from './images/image2.png'; // Importing the image
+import '../App.css'; // Linking to App.css for styles
+import image1 from '../images/image2.png'; // Importing the image
 import { ToastContainer, toast } from 'react-toastify'; // Importing ToastContainer and toast
 import 'react-toastify/dist/ReactToastify.css'; // Importing the CSS for toast notifications
 
@@ -14,14 +14,14 @@ function Login() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-    
+
         // Basic email and password validation
         if (!email || !password) {
             setErrorMessage('Please enter both email and password.');
             toast.error('Please enter both email and password.'); // Show error toast
             return;
         }
-    
+
         try {
             // Sending a POST request to the backend API
             const response = await fetch('http://localhost:3000/user/login', {
@@ -31,14 +31,20 @@ function Login() {
                 },
                 body: JSON.stringify({ email, password }), // Sending email and password as JSON
             });
-    
+
             const data = await response.json(); // Parse JSON response
-            // console.log(data);
             if (response.ok) {
                 // Show success toast before navigating
                 toast.success(`Login successful: ${data.message}`, {
                     autoClose: 1000,
-                    onClose: () => navigate(`/user/${data.user.id}`, { state: { userData: data.user } }) // Navigate after toast closes
+                    onClose: () => {
+                        // Check userType and navigate accordingly
+                        if (data.user.userType === 'admin') {
+                            navigate(`/admin/${data.user.id}`, { state: { userData: data.user } });
+                        } else if (data.user.userType === 'customer') {
+                            navigate(`/customer/${data.user.id}`, { state: { userData: data.user } });
+                        }
+                    }
                 });
             } else {
                 // Show error message from the response

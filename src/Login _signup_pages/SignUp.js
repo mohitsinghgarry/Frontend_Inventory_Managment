@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Updated import
-import image1 from './images/image2.png';
-import './App.css'; // Import the external CSS file
+import image1 from '../images/image2.png';
+import '../App.css'; // Import the external CSS file
 
 const SignUp = () => {
   const navigate = useNavigate(); // Updated to useNavigate
@@ -9,6 +9,7 @@ const SignUp = () => {
     name: '',
     email: '',
     password: '',
+    userType: 'customer', // Default value set to 'customer'
   });
 
   const [error, setError] = useState(null);
@@ -39,7 +40,7 @@ const SignUp = () => {
 
       if (!response.ok) {
         throw new Error(data.message || 'Network response was not ok');
-      };
+      }
       setSuccess(true);
       setError(null);
 
@@ -103,6 +104,21 @@ const SignUp = () => {
                 style={{ marginLeft: '10px' }} // Optional styling
               />
               <label htmlFor="showPassword">Show Password</label>
+            </div>
+            {/* User Type Selection */}
+            <div className="inputGroup">
+              <label htmlFor="userType">Select User Type:</label>
+              <select
+                name="userType"
+                value={formData.userType}
+                onChange={handleChange}
+                className="input"
+                required
+              >
+                <option value= "" disabled selected>--select--</option>
+                <option value="customer">Customer</option>
+                <option value="admin">Admin</option>
+              </select>
             </div>
             {/* Password Instructions */}
             <div className="passwordInstructionsContainer">

@@ -97,7 +97,7 @@
   padding: 2rem 0; /* Use rem for consistency */
 }
 
-.card {
+.card_new {
   width: 300px; /* Fixed width for cards */
   height: auto; /* Allow height to adjust based on content */
   padding: 1rem; /* Use rem for better responsiveness */

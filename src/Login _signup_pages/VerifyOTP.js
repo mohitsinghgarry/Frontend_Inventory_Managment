@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import { toast } from 'react-toastify'; // Import toast
-import './VerifyOTP.css';
+import '../Login_signup_css/VerifyOTP.css'
  // Importing the CSS for toast notifications
 
 const VerifyOTP = () => {

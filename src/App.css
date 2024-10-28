@@ -1,8 +1,8 @@
 /* Container for the login page */
 .container {
-  border: 2px solid red;
+  /* border: 2px solid red; */
   justify-content: space-between;
-  overflow: auto; /* Allow scrolling if content overflows */
+  /* overflow: auto; Allow scrolling if content overflows */
   height: 100vh; /* Set height to full viewport */
   padding: 0 40px; /* Increased horizontal padding for more scroll space */
   max-width: 90%; /* Reduced max width for the container */
