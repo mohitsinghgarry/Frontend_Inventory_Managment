@@ -4,6 +4,7 @@ import '../App.css'; // Linking to App.css for styles
 import image1 from '../images/image2.png'; // Importing the image
 import { ToastContainer, toast } from 'react-toastify'; // Importing ToastContainer and toast
 import 'react-toastify/dist/ReactToastify.css'; // Importing the CSS for toast notifications
+import { useUser } from './UserContext';
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -11,7 +12,7 @@ function Login() {
     const [errorMessage, setErrorMessage] = useState('');
     const [showPassword, setShowPassword] = useState(false); // State for showing password
     const navigate = useNavigate(); // Initialize useNavigate
-
+    const { setUserData } = useUser(); // Get setUserData from context
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -34,19 +35,21 @@ function Login() {
 
             const data = await response.json(); // Parse JSON response
             if (response.ok) {
-                // Show success toast before navigating
                 toast.success(`Login successful: ${data.message}`, {
                     autoClose: 1000,
                     onClose: () => {
-                        // Check userType and navigate accordingly
+                        // Set user data in context
+                        setUserData(data.user); // Set user data in context
+                        // Navigate based on userType
                         if (data.user.userType === 'admin') {
-                            navigate(`/admin/${data.user.id}`, { state: { userData: data.user } });
+                            navigate(`/admin/${data.user.id}/dashboard`); // Navigate to home route after login
                         } else if (data.user.userType === 'customer') {
-                            navigate(`/customer/${data.user.id}`, { state: { userData: data.user } });
+                            navigate(`/customer/${data.user.id}`); // Navigate to customer route
                         }
                     }
                 });
-            } else {
+            }
+             else {
                 // Show error message from the response
                 setErrorMessage(data.message || 'Login failed. Please try again.');
                 toast.error(data.message || 'Login failed. Please try again.'); // Show error toast
