@@ -14,43 +14,43 @@ function Admin() {
     return (
         <div className="admin-portal">
             <aside className="sidebar">
-                <h2 style={{ color: "white"}}>ADMIN PORTAL</h2>
+                <h2 style={{ color: "white" }}>ADMIN PORTAL</h2>
                 <ul className="sidebar-menu">
                     <li>
-                        <NavLink 
-                            to="dashboard" 
+                        <NavLink
+                            to="dashboard"
                             className={({ isActive }) => (isActive ? 'active' : '')} // Apply 'active' class if the route is active
                         >
                             DASHBOARD
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink 
-                            to="product" 
+                        <NavLink
+                            to="product"
                             className={({ isActive }) => (isActive ? 'active' : '')}
                         >
                             PRODUCT
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink 
-                            to="order" 
+                        <NavLink
+                            to="order"
                             className={({ isActive }) => (isActive ? 'active' : '')}
                         >
                             ORDER
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink 
-                            to="stock" 
+                        <NavLink
+                            to="stock"
                             className={({ isActive }) => (isActive ? 'active' : '')}
                         >
                             STOCK
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink 
-                            to="sales" 
+                        <NavLink
+                            to="sales"
                             className={({ isActive }) => (isActive ? 'active' : '')}
                         >
                             SALES

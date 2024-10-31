@@ -1,0 +1,22 @@
+.main-content .product-add{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.product-add form {
+    margin-top: 2rem;
+    border-radius: 1rem;
+    /* background-color: brown; */
+}
+.product-add form input {
+    border: 1px solid black;
+    border-radius: 2rem;
+    width: 25rem;
+}
+.product-add form button{
+    background-color: goldenrod;
+    border-radius: 20px;
+    width: 10rem;
+}

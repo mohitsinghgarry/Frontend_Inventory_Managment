@@ -44,12 +44,12 @@ function Login() {
                         if (data.user.userType === 'admin') {
                             navigate(`/admin/${data.user.id}/dashboard`); // Navigate to home route after login
                         } else if (data.user.userType === 'customer') {
-                            navigate(`/customer/${data.user.id}`); // Navigate to customer route
+                            navigate(`/customer/${data.user.id}/home`); // Navigate to customer route
                         }
                     }
                 });
             }
-             else {
+            else {
                 // Show error message from the response
                 setErrorMessage(data.message || 'Login failed. Please try again.');
                 toast.error(data.message || 'Login failed. Please try again.'); // Show error toast

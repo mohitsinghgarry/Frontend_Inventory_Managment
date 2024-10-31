@@ -32,7 +32,7 @@ function Stock() {
           </tr>
         </thead>
         <tbody>
-          {data.map((product) => (
+          {/* {data.map((product) => (
             <tr key={product._id}>
               <td>{product._id}</td>
               <td>{product.date}</td>
@@ -42,7 +42,7 @@ function Stock() {
               <td>{product.items}</td>
               <td>{product.status}</td>
             </tr>
-          ))}
+          ))} */}
         </tbody>
       </table>
         </div>
@@ -51,3 +51,4 @@ function Stock() {
 }
 
 export default Stock;
+
