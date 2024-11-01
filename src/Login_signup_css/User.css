@@ -61,14 +61,14 @@
     gap: 5px;
     align-items: center;
     justify-content: space-around;
-    background-color: #f2b7b5; 
+    background-color: #0b0b43;
     border-radius: 12px;
     padding: 10px;
     cursor: pointer;
-    width: 250px; 
+    width: 250px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease; 
+    transition: transform 0.3s ease;
   }
   
   .card:hover {
@@ -78,7 +78,7 @@
   
   .card i {
     font-size: 2.5rem;
-    color: #8b3b3b; 
+    color: rgb(35, 192, 35); 
     margin-bottom: 10px;
   }
   
@@ -86,23 +86,23 @@
     font-size: 1.2rem;
     font-weight: 600;
     margin-bottom: 10px;
-    color: #3b3b3b; 
+    color: white; 
   }
   
   .card .number {
     font-size: 2rem;
     font-weight: bold;
-    color: green;
+    color: rgb(217, 64, 64);
   }
   
   .card .description {
     font-size: 0.9rem;
-    color: #555;
+    color: white;
   }
   
   
   .dashboard-btn {
-    background-color: #8b3b3b;
+    background-color: rgb(23, 181, 120);
     color: white;
     border: none;
     padding: 10px 20px;
@@ -191,6 +191,9 @@
 
 .home_header {
     text-align: center;
+}
+.home_header h1 {
+  text-align: center;
 }
 
 .home_main_two {

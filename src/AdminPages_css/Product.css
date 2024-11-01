@@ -1,0 +1,44 @@
+/* Add this to your CSS file or in a style tag */
+table {
+    font-weight: bold;
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    text-transform: capitalize;
+  }
+  
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  td{
+    text-transform: uppercase;
+  }
+  td button{
+    margin: .5rem;
+  }
+  
+  th {
+    background-color: darkblue;
+    color: white; 
+  }
+  
+  img {
+    border-radius: 4px; 
+  }
+/* 
+  .dashboard-btn-remove{
+    background-color: rgb(242, 19, 19);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    font-size: 1.3rem;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 200px;
+    margin-left: 1rem;
+    border-radius: 1rem;
+  } */
+  

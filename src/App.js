@@ -19,6 +19,7 @@ import Cart from './CustomerPages/Cart';
 import Account from './CustomerPages/Account';
 import AddProduct from './AdminPages/AddProduct';
 import { CustomerProvider } from './ContextApi/CustomerContext';
+import UpdateProduct from './AdminPages/UpdateProduct';
 const App = () => {
   return (
     <CustomerProvider>
@@ -42,6 +43,7 @@ const App = () => {
           <Route path="stock" element={<Stock />} />
           <Route path="sales" element={<Sales />} />
           <Route path="addproduct" element={<AddProduct/>}/> 
+          <Route path="updateproduct/:productId" element={<UpdateProduct />} /> {/* New route for updating products */}
         </Route>
         
         {/*customer routes */}

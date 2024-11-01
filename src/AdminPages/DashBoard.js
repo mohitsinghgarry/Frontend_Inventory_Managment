@@ -1,7 +1,6 @@
 import React from 'react';
 import { useUser } from '../Login _signup_pages/UserContext'; // Adjust the import based on your file structure
 import homeImage from "../images/homeimage.png";
-import { useNavigate } from 'react-router-dom'; 
 const cardData = [
     { icon: "fas fa-shopping-cart", title: "Total Order", number: 144 },
     { icon: "fas fa-boxes", title: "Overall Stock", number: 2345 },
@@ -13,14 +12,9 @@ const cardData = [
 
 const DashBoard = () => {
     const { userData } = useUser(); // Get user data from context
-    const navigate = useNavigate();
     if (!userData) {
         return <p>No user data available.</p>;
     }
-
-        const clickhandler = ()=>{
-            navigate(`/admin/${userData.id}/addproduct`);
-        }
     return (
         <div>
             <header className="home_header">
@@ -46,7 +40,6 @@ const DashBoard = () => {
                             {card.description && <p className="description">{card.description}</p>}
                         </div>
                     ))}
-                    <button className='dashboard-btn' onClick={clickhandler}>Add Product</button>
                 </section>
             </main>
             {/* <p>Welcome, {userData.name}!</p>

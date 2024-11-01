@@ -113,13 +113,16 @@ const AddProduct = () => {
         </div>
 
         <div>
-          <input
-            id="file-input"
-            type="file"
-            onChange={(e) => setImage(e.target.files[0])}
-            accept="image/*"
-            required
-          />
+        <div className="file-input-wrapper" onClick={() => document.getElementById("file-input").click()}>
+    <input
+        id="file-input"
+        type="file"
+        onChange={(e) => setImage(e.target.files[0])}
+        accept="image/*"
+        required
+    />
+</div>
+
         </div>
 
         <button type="submit">Add Product</button>
