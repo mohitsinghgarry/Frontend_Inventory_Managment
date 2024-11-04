@@ -1,7 +1,15 @@
+import { useNavigate } from 'react-router-dom'
+import { useUser } from '../Login _signup_pages/UserContext';
 export const Product = (item) => {
-  const { id, name, imageUrl, price, category } = item;
+  const {name, imageUrl, price, category } = item;
+//  console.log(item);
+  const navigate = useNavigate();
+  const { userData } = useUser();
+  function navigatehandler() {
+    navigate(`/customer/${userData.id}/singleproduct/${item._id}`);
+  }
   return (
-    <div className="item" style={{ cursor: 'pointer' }} data-aos="zoom-in" data-aos-duration="5000">
+    <div className="item" onClick={navigatehandler}  style={{ cursor: 'pointer' }} data-aos="zoom-in" data-aos-duration="5000">
       <figure className="small-container">
         <figcaption className='caption'>
           <div>{category}</div></figcaption>

@@ -12,7 +12,7 @@
 }
 .product-add form input {
     border: 1px solid black;
-    border-radius: 2rem;
+    border-radius: 1rem;
     width: 25rem;
 }
 .product-add form button{
@@ -41,7 +41,7 @@ input::placeholder {
     font-size: 16px;
     color: black;
     border: 1px solid black;
-    border-radius: 2rem;
+    border-radius: 1rem;
     background-color: #fff;
     cursor: pointer;
     text-align: center;
@@ -53,5 +53,20 @@ input::placeholder {
     content: '📷 Choose an image';
     font-size: 16px;
     color: black;
+}
+
+.textarea-new textarea{
+    padding: .5rem;
+    font-size: 1rem;
+    border-radius: 1rem;
+    border: 1px solid black;
+    margin-bottom: .7rem;
+    resize: none;
+}
+textarea::placeholder {
+    font-size: 1rem;
+    color: black; 
+    opacity: 1; 
+
 }
 

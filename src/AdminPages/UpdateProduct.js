@@ -3,32 +3,31 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useUser } from '../Login _signup_pages/UserContext';
-import '../AdminPages_css/UpdateProduct.css'
+import '../AdminPages_css/UpdateProduct.css';
+
 const UpdateProduct = () => {
-    const { productId } = useParams(); // Get productId from the URL
-    const { userData } = useUser(); 
+    const { productId } = useParams();
+    const { userData } = useUser();
     const navigate = useNavigate();
-    
+
     const [product, setProduct] = useState({
         name: '',
         productId: '',
         price: '',
         category: '',
         quantity: '',
+        description: '',
         imageUrl: ''
     });
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
-    const [imageFile, setImageFile] = useState(null); // New state for storing the selected file
+    const [imageFile, setImageFile] = useState(null);
 
-    // Fetch product details when the component mounts
     useEffect(() => {
         const fetchProduct = async () => {
             try {
                 const response = await fetch(`http://localhost:3000/product/${productId}`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch product');
-                }
+                if (!response.ok) throw new Error('Failed to fetch product');
                 const data = await response.json();
                 setProduct(data);
             } catch (err) {
@@ -37,11 +36,9 @@ const UpdateProduct = () => {
                 setLoading(false);
             }
         };
-
         fetchProduct();
     }, [productId]);
 
-    // Handle form input changes
     const handleChange = (e) => {
         const { name, value } = e.target;
         setProduct((prevProduct) => ({
@@ -50,25 +47,14 @@ const UpdateProduct = () => {
         }));
     };
 
-    // Handle file input changes
     const handleFileChange = (e) => {
         setImageFile(e.target.files[0]);
     };
 
-    // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        // Validation check for all fields and image file
-        if (!product.name || !product.productId || !product.price || !product.category || !product.quantity || (!imageFile && !product.imageUrl)) {
-            toast.error('All fields, including the image, are mandatory', {
-                position: 'top-right',
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-            });
+        if (!product.name || !product.productId || !product.price || !product.description || !product.category || !product.quantity || (!imageFile && !product.imageUrl)) {
+            toast.error('All fields, including the image, are mandatory', { position: 'top-right', autoClose: 3000 });
             return;
         }
 
@@ -79,114 +65,58 @@ const UpdateProduct = () => {
             formData.append('price', product.price);
             formData.append('category', product.category);
             formData.append('quantity', product.quantity);
+            formData.append('description', product.description);
+            if (imageFile) formData.append('image', imageFile);
+            else formData.append('imageUrl', product.imageUrl);
 
-            // If a new image file is selected, append it to form data
-            if (imageFile) {
-                formData.append('image', imageFile);
-            } else {
-                formData.append('imageUrl', product.imageUrl); // Send existing URL if no new file is selected
-            }
+            const response = await fetch(`http://localhost:3000/products/${productId}`, { method: 'PUT', body: formData });
+            if (!response.ok) throw new Error('Failed to update product');
 
-            const response = await fetch(`http://localhost:3000/products/${productId}`, {
-                method: 'PUT',
-                body: formData
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to update product');
-            }
-
-            // Show success toast
-            toast.success('Product updated successfully!', {
-                position: 'top-right',
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-            });
-
-            navigate(`/admin/${userData.id}/product`); // Redirect after update
+            toast.success('Product updated successfully!', { position: 'top-right', autoClose: 3000 });
+            navigate(`/admin/${userData.id}/product`);
         } catch (err) {
             setError(err.message);
         }
     };
 
-    // Render loading and error states
     if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
 
     return (
-        <div className='form-content'>
-            <h1>Update Product</h1>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Name:</label>
-                    <input
-                        type="text"
-                        name="name"
-                        value={product.name}
-                        onChange={handleChange}
-                        required
-                    />
+        <div className='update-form'>
+            <h1 className='update-title'>Update Product</h1>
+            <form className='update-form__form' onSubmit={handleSubmit}>
+                <div className='update-field'>
+                    <label className='update-label'>Name:</label>
+                    <input type="text" className='update-input' name="name" value={product.name} onChange={handleChange} required />
                 </div>
-                <div>
-                    <label>Product ID:</label>
-                    <input
-                        type="text"
-                        name="productId"
-                        value={product.productId}
-                        onChange={handleChange}
-                        required
-                    />
+                <div className='update-field'>
+                    <label className='update-label'>Product ID:</label>
+                    <input type="text" className='update-input' name="productId" value={product.productId} onChange={handleChange} required />
                 </div>
-                <div>
-                    <label>Price:</label>
-                    <input
-                        type="number"
-                        name="price"
-                        value={product.price}
-                        onChange={handleChange}
-                        required
-                    />
+                <div className='update-field'>
+                    <label className='update-label'>Price:</label>
+                    <input type="number" className='update-input' name="price" value={product.price} onChange={handleChange} required />
                 </div>
-                <div>
-                    <label>Category:</label>
-                    <input
-                        type="text"
-                        name="category"
-                        value={product.category}
-                        onChange={handleChange}
-                        required
-                    />
+                <div className='update-field'>
+                    <label className='update-label'>Category:</label>
+                    <input type="text" className='update-input' name="category" value={product.category} onChange={handleChange} required />
                 </div>
-                <div>
-                    <label>Quantity:</label>
-                    <input
-                        type="number"
-                        name="quantity"
-                        value={product.quantity}
-                        onChange={handleChange}
-                        required
-                    />
+                <div className='update-field update-field--textarea'>
+                    <label className='update-label'>Description:</label>
+                    <textarea className='update-textarea' name="description" rows="5" value={product.description} onChange={handleChange} required />
                 </div>
-                <div>
-                    <label>Image:</label>
-                    <input
-                        type="file"
-                        onChange={handleFileChange} // Set the file input handler
-                        required={!product.imageUrl} // Only required if no existing image is present
-                    />
-                    {product.imageUrl && (
-                        <div>
-                            <img src={product.imageUrl} alt={product.name} style={{ width: '50px', height: '50px' }} />
-                            <p>Current Image</p>
-                        </div>
-                    )}
+                <div className='update-field'>
+                    <label className='update-label'>Quantity:</label>
+                    <input type="number" className='update-input' name="quantity" value={product.quantity} onChange={handleChange} required />
                 </div>
-                <button type="submit">Update Product</button>
+                <div className='update-field'>
+                    <label className='update-label'>Image:</label>
+                    <input type="file" className='update-file' onChange={handleFileChange} required={!product.imageUrl} />
+                    {product.imageUrl && <div className='current-image'><img src={product.imageUrl} alt={product.name} className='image-preview' /><p>Current Image</p></div>}
+                </div>
+                <button className='update-button' type="submit">Update Product</button>
             </form>
-            {/* Toast Container to display notifications */}
             <ToastContainer />
         </div>
     );

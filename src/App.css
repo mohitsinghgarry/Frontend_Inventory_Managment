@@ -11,7 +11,7 @@
 
 /* Shared container styles */
 form {
-  display: flex;
+  /* display: flex; */
   width: 100%; /* Make form width 100% for better responsiveness */
   max-width: 30rem; /* Reduced max width */
   flex-direction: column;

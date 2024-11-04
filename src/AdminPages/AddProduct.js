@@ -9,8 +9,8 @@ const AddProduct = () => {
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
   const [quantity, setQuantity] = useState(""); // State for quantity
+  const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
-
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,7 +22,7 @@ const AddProduct = () => {
     formData.append("category", category);
     formData.append("image", image);
     formData.append("quantity", quantity); // Include quantity in formData
-
+    formData.append("description", description);
     try {
       const response = await fetch("http://localhost:3000/admin/add-product", {
         method: "POST",
@@ -40,6 +40,7 @@ const AddProduct = () => {
         setPrice("");
         setCategory("");
         setQuantity(""); // Reset quantity
+        setDescription("");
         setImage(null);
         document.getElementById("file-input").value = null;
       } else {
@@ -102,6 +103,18 @@ const AddProduct = () => {
           />
         </div>
 
+        <div className="textarea-new">
+          <textarea
+            type="text"
+            placeholder="Description..."
+            rows="5"
+            cols="42"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          />
+        </div>
+
         <div>
           <input
             type="number" // Use 'number' type for quantity
@@ -113,15 +126,15 @@ const AddProduct = () => {
         </div>
 
         <div>
-        <div className="file-input-wrapper" onClick={() => document.getElementById("file-input").click()}>
-    <input
-        id="file-input"
-        type="file"
-        onChange={(e) => setImage(e.target.files[0])}
-        accept="image/*"
-        required
-    />
-</div>
+          <div className="file-input-wrapper" onClick={() => document.getElementById("file-input").click()}>
+            <input
+              id="file-input"
+              type="file"
+              onChange={(e) => setImage(e.target.files[0])}
+              accept="image/*"
+              required
+            />
+          </div>
 
         </div>
 

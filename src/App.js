@@ -20,6 +20,7 @@ import Account from './CustomerPages/Account';
 import AddProduct from './AdminPages/AddProduct';
 import { CustomerProvider } from './ContextApi/CustomerContext';
 import UpdateProduct from './AdminPages/UpdateProduct';
+import SinglePageProduct from './CustomerPages/SinglePageProduct';
 const App = () => {
   return (
     <CustomerProvider>
@@ -52,6 +53,7 @@ const App = () => {
         <Route path="product" element={<ProductPage/>} />
         <Route path="account" element= {<Account/>} />
         <Route path="cart" element={<Cart/>} />
+        <Route path="singleproduct/:productId" element={<SinglePageProduct />} />
         </Route>
 
 
