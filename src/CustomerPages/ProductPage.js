@@ -3,6 +3,7 @@ import { CustomerContext } from '../ContextApi/CustomerContext';
 import ProductList from './ProductList';
 import FilterSection from './FilterSection';
 import '../CustomerPages_css/ProductPage.scss'
+import Loading from '../Login _signup_pages/Loading';
 const ProductPage = () => {
   const { products, loading, error } = useContext(CustomerContext);
   const [filteredProducts, setFilteredProducts] = useState(products); // Store filtered products
@@ -11,7 +12,7 @@ const ProductPage = () => {
     setFilteredProducts(filteredItems);
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading/>;
   if (error) return <div>Error: {error}</div>;
 
   return (

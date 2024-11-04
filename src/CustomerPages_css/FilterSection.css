@@ -23,7 +23,11 @@
     text-transform: uppercase;
     font-weight: 400;
 }
-
+.product-count{
+    margin-top: 1rem;
+    text-align: center;
+    /* font-weight: bold; */
+}
 .search-input {
     border: none;
     box-shadow: 2px 1px 13px gray;
