@@ -117,10 +117,10 @@ const SignUp = () => {
                   onChange={togglePasswordVisibility}
                   className="show-password-checkbox"
                 />
-                <label htmlFor="showPassword" className="show-password-label">Show Password</label>
+                {/* <label htmlFor="showPassword" className="show-password-label">Show Password</label> */}
               </div>
               <div className="input-group">
-                <label htmlFor="userType" className="user-type-label">Role</label>
+                {/* <label htmlFor="userType" className="user-type-label">Role</label> */}
                 <select
                   name="userType"
                   value={formData.userType}
