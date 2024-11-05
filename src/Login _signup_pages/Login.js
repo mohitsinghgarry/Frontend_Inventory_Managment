@@ -1,63 +1,60 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import '../App.css'; // Linking to App.css for styles
-import image1 from '../images/image2.png'; // Importing the image
-import { ToastContainer, toast } from 'react-toastify'; // Importing ToastContainer and toast
-import 'react-toastify/dist/ReactToastify.css'; // Importing the CSS for toast notifications
+import { useNavigate } from 'react-router-dom';
+import '../App.css';
+import image1 from '../images/image2.png';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useUser } from './UserContext';
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import eye icons
+import '../Login_signup_css/Login.scss';
 
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    const [showPassword, setShowPassword] = useState(false); // State for showing password
-    const navigate = useNavigate(); // Initialize useNavigate
-    const { setUserData } = useUser(); // Get setUserData from context
+    const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate();
+    const { setUserData } = useUser();
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        // Basic email and password validation
         if (!email || !password) {
             setErrorMessage('Please enter both email and password.');
-            toast.error('Please enter both email and password.'); // Show error toast
+            toast.error('Please enter both email and password.');
             return;
         }
 
         try {
-            // Sending a POST request to the backend API
             const response = await fetch('http://localhost:3000/user/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, password }), // Sending email and password as JSON
+                body: JSON.stringify({ email, password }),
             });
 
-            const data = await response.json(); // Parse JSON response
+            const data = await response.json();
             if (response.ok) {
                 toast.success(`Login successful: ${data.message}`, {
                     autoClose: 1000,
                     onClose: () => {
-                        // Set user data in context
-                        setUserData(data.user); // Set user data in context
-                        // Navigate based on userType
+                        setUserData(data.user);
                         if (data.user.userType === 'admin') {
-                            navigate(`/admin/${data.user.id}/dashboard`); // Navigate to home route after login
+                            navigate(`/admin/${data.user.id}/dashboard`);
                         } else if (data.user.userType === 'customer') {
-                            navigate(`/customer/${data.user.id}/home`); // Navigate to customer route
+                            navigate(`/customer/${data.user.id}/home`);
                         }
                     }
                 });
-            }
-            else {
-                // Show error message from the response
+            } else {
                 setErrorMessage(data.message || 'Login failed. Please try again.');
-                toast.error(data.message || 'Login failed. Please try again.'); // Show error toast
+                toast.error(data.message || 'Login failed. Please try again.');
             }
         } catch (error) {
             console.error('Error during login:', error);
             setErrorMessage('An error occurred. Please try again later.');
-            toast.error('An error occurred. Please try again later.'); // Show error toast
+            toast.error('An error occurred. Please try again later.');
         }
     };
 
@@ -66,8 +63,10 @@ function Login() {
     };
 
     return (
+        <div className='main-login-new'>
         <div className="login-page">
             <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
+            
             <div className="left-side">
                 <h1>Inventory Management System</h1>
                 <img src={image1} alt="Inventory" className="inventory-image" />
@@ -82,23 +81,22 @@ function Login() {
                         placeholder="Email Address"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                        className="email-input"
                     />
+                    
                     <div className="password-input-group">
                         <input
-                            type={showPassword ? 'text' : 'password'} // Toggle password visibility
+                            type={showPassword ? 'text' : 'password'}
                             placeholder="Password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            className="password-input"
                         />
-                        <input
-                            type="checkbox"
-                            id="showPassword"
-                            checked={showPassword}
-                            onChange={togglePasswordVisibility}
-                            style={{ marginLeft: '10px' }} // Optional styling
-                        />
-                        <label htmlFor="showPassword">Show Password</label>
+                        <span className="password-toggle-icon" onClick={togglePasswordVisibility}>
+                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                        </span>
                     </div>
+                    
                     <div className="forgot-password">
                         <a href="/forgot-password" className="forgot-password-link">Forgot Password?</a>
                     </div>
@@ -108,12 +106,13 @@ function Login() {
                     </button>
                 </form>
 
-                {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+                {errorMessage && <p className="error-message">{errorMessage}</p>}
 
                 <div className="footer">
                     <p>Don't have an account? <a href="/signup">Sign Up</a></p>
                 </div>
             </div>
+        </div>
         </div>
     );
 }

@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import { toast } from 'react-toastify'; // Import toast
-import '../Login_signup_css/VerifyOTP.css'
- // Importing the CSS for toast notifications
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import '../Login_signup_css/VerifyOTP.css';
 
 const VerifyOTP = () => {
-  const navigate = useNavigate(); // Initialize navigate
+  const navigate = useNavigate();
   const [otp, setOtp] = useState('');
   const [email, setEmail] = useState('');
   const [error, setError] = useState(null);
@@ -28,7 +27,7 @@ const VerifyOTP = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ otp, email }),  // Send OTP and email as JSON
+        body: JSON.stringify({ otp, email }),
       });
 
       const data = await response.json();
@@ -37,15 +36,13 @@ const VerifyOTP = () => {
         throw new Error(data.message || 'Network response was not ok');
       }
 
-      // console.log('OTP verified successfully:', data);
       setSuccess(true);
       setError(null);
-      
-      // Show success toast notification
-      toast.success(`Singup successful: ${data.message}`, {
-        autoClose: 1000, // Auto close after 1 second
-        onClose: () => navigate(`/`) // Navigate to /login after toast closes
-    });  
+
+      toast.success(`Signup successful: ${data.message}`, {
+        autoClose: 1000,
+        onClose: () => navigate(`/`),
+      });
 
     } catch (error) {
       console.error('Error verifying the OTP:', error.message);
@@ -55,11 +52,12 @@ const VerifyOTP = () => {
   };
 
   return (
-    <div className="container">
-      <h2>Verify Your OTP</h2>
-      <p>Please enter the OTP sent to your email address to verify your account.</p>
-      <form onSubmit={handleSubmit}>
-        <div className="inputGroup">
+    <div className='new-verify-container'>
+    <div className="verify-otp-container">
+      <h2 className="verify-otp-title">Verify Your OTP</h2>
+      <p className="verify-otp-description">Please enter the OTP sent to your email address to verify your account.</p>
+      <form onSubmit={handleSubmit} className="verify-otp-form">
+        <div className="verify-otp-input-group">
           <input
             type="email"
             name="email"
@@ -67,10 +65,10 @@ const VerifyOTP = () => {
             value={email}
             onChange={handleChange}
             required
-            className="input"
+            className="verify-otp-input"
           />
         </div>
-        <div className="inputGroup">
+        <div className="verify-otp-input-group">
           <input
             type="text"
             name="otp"
@@ -78,15 +76,18 @@ const VerifyOTP = () => {
             value={otp}
             onChange={handleChange}
             required
-            className="input"
+            className="verify-otp-input"
           />
         </div>
-        <button type="submit" className="submitButton">
+        <button type="submit" className="verify-otp-submit-button">
           Verify OTP
         </button>
       </form>
-      {error && <p className="errorMessage">{error}</p>}
-      {success && <p className="successMessage">OTP verified successfully!</p>}
+      {error && <p className="verify-otp-error-message">{error}</p>}
+      {success && <p className="verify-otp-success-message">OTP verified successfully!</p>}
+    </div>
+
+
     </div>
   );
 };

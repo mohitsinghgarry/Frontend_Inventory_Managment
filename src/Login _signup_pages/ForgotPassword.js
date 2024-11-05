@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
-
+import '../Login_signup_css/ForgotPassword.css'
 function ForgotPassword() {
     const [email, setEmail] = useState('');
     const navigate = useNavigate();
@@ -28,6 +28,7 @@ function ForgotPassword() {
 
             if (response.ok) {
                 toast.success('Password reset link sent to your email.');
+                setTimeout(() => navigate('/login'), 2000);  // Redirect after success
             } else {
                 toast.error(data.message || 'Failed to send reset link.');
             }
@@ -38,18 +39,24 @@ function ForgotPassword() {
     };
 
     return (
-        <div className="forgot-password-page">
+        <div className="forgot-password-container">
             <ToastContainer position="top-right" autoClose={5000} />
-            <h2>Forgot Password</h2>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="email"
-                    placeholder="Email Address"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <button type="submit">Send Reset Link</button>
-            </form>
+            <div className="forgot-password-content">
+                <h2 className="forgot-password-title">Forgot Password</h2>
+                <p className="forgot-password-description">
+                    Enter your email address below and we’ll send you a link to reset your password.
+                </p>
+                <form onSubmit={handleSubmit} className="forgot-password-form">
+                    <input
+                        type="email"
+                        placeholder="Email Address"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="forgot-password-input"
+                    />
+                    <button type="submit" className="forgot-password-button">Send Reset Link</button>
+                </form>
+            </div>
         </div>
     );
 }

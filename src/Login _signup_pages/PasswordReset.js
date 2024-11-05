@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from 'react-router-dom';
+import '../Login_signup_css/PasswordReset.css';
 
 function PasswordReset() {
-    const { token } = useParams(); // Get token from URL params
+    const { token } = useParams();
     const [newPassword, setNewPassword] = useState('');
-    const [showPassword, setShowPassword] = useState(false); // State for showing password
+    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
@@ -31,8 +31,8 @@ function PasswordReset() {
 
             if (response.ok) {
                 toast.success(`Password reset successful: ${data.message}`, {
-                    autoClose: 1000, // Auto close after 1 second
-                    onClose: () => navigate(`/login`) // Navigate to /login after toast closes
+                    autoClose: 1000,
+                    onClose: () => navigate(`/login`),
                 });
             } else {
                 toast.error(data.message || 'Failed to reset password.');
@@ -48,28 +48,33 @@ function PasswordReset() {
     };
 
     return (
-        <div className="reset-password-page">
+        <div className="reset-password-container">
             <ToastContainer position="top-right" autoClose={5000} />
-            <h2>Reset Password</h2>
-            <form onSubmit={handleSubmit}>
-                <div className="password-input-group">
-                    <input
-                        type={showPassword ? 'text' : 'password'} // Toggle password visibility
-                        placeholder="New Password"
-                        value={newPassword}
-                        onChange={(e) => setNewPassword(e.target.value)}
-                    />
-                    <input
-                        type="checkbox"
-                        id="showPassword"
-                        checked={showPassword}
-                        onChange={togglePasswordVisibility}
-                        style={{ marginLeft: '10px' }} // Optional styling
-                    />
-                    <label htmlFor="showPassword">Show Password</label>
-                </div>
-                <button type="submit">Reset Password</button>
-            </form>
+            <div className="reset-password-content">
+                <h2 className="reset-password-title">Reset Password</h2>
+                <form onSubmit={handleSubmit} className="reset-password-form">
+                    <div className="password-input-group">
+                        <input
+                            type={showPassword ? 'text' : 'password'}
+                            placeholder="New Password"
+                            value={newPassword}
+                            onChange={(e) => setNewPassword(e.target.value)}
+                            className="reset-password-input"
+                        />
+                        <div className="toggle-password">
+                            <input
+                                type="checkbox"
+                                id="showPassword"
+                                checked={showPassword}
+                                onChange={togglePasswordVisibility}
+                                className="show-password-checkbox"
+                            />
+                            <label htmlFor="showPassword" className="show-password-label">Show Password</label>
+                        </div>
+                    </div>
+                    <button type="submit" className="reset-password-button">Reset Password</button>
+                </form>
+            </div>
         </div>
     );
 }
