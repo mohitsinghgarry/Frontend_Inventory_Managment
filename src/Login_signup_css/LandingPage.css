@@ -3,82 +3,87 @@
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  overflow-x: hidden; /* Prevent horizontal scroll */
+  overflow-x: hidden; 
 }
 
-/* Reset Styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
-/* Navbar Section */
+
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem; /* Use rem for better responsiveness */
-  background-color: rgb(208, 191, 191);
+  padding: 1rem 2rem; 
+  background-color: white;
   color: black;
-  height: 90px;
+  height: 60px;
   width: 100%;
+  position: fixed;
+ 
 }
 
 .logo {
   display: flex;
   align-items: center;
-  margin-top: 40px; /* Bring the logo down */
+  margin-top: 40px; 
 }
 
 .logo-img {
-  width: 150px; /* Adjusted size */
-  height: auto; /* Maintain aspect ratio */
+  width: 60px; 
+  height: auto; 
+  margin-top:-15px;
+}
+.title{
+  padding-left: 10px;
+  margin-top:-10px;
 }
 
 .nav-links {
   list-style: none;
   display: flex;
+  margin-top: 30px;
 }
 
 .nav-links li {
-  margin: 0 1rem; /* Use rem for consistency */
+  margin: 0 1rem;
 }
 
 .nav-links a {
   color: black;
   text-decoration: none;
-  transition: color 0.3s ease; /* Smooth transition for hover effects */
+  transition: color 0.3s ease; 
+  
 }
 
 .nav-links a:hover {
-  color: #a24343; /* Change color on hover for better UX */
+  color:#6D31ED; 
 }
 
 .auth-buttons {
   display: flex;
-  margin-right: 2rem; /* Moved buttons left */
+  margin-right: 2rem;
 }
 
+
 .login-btn, .signup-btn {
+  margin-top:45px;
   margin-left: 1rem;
   padding: 0.5rem 1rem; /* Adjust padding to fit screen */
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  background-color: #a24343;
+  background-color:#6D31ED;
   color: white;
   transition: background-color 0.3s ease; /* Smooth transition for hover effects */
 }
 
 .login-btn:hover, .signup-btn:hover {
-  background-color: #8e3838; /* Darker shade on hover */
+  background-color: #6D31ED; 
 }
 
 /* Hero Section */
 .hero-section {
   text-align: center;
-  padding: 3rem 1rem; /* Use rem for better responsiveness */
+  padding: 3rem 1rem; 
 }
 
 .hero-img-placeholder {
@@ -86,92 +91,69 @@
   height: auto;
   border: 2px solid #ccc;
   border-radius: 10px;
+  margin-top: 30px;
 }
-
-/* Cards Section */
-.cards-section {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap; /* Allow wrapping for responsiveness */
-  margin: 0;
-  padding: 2rem 0; /* Use rem for consistency */
-}
-
-.card_new {
-  width: 300px; /* Fixed width for cards */
-  height: auto; /* Allow height to adjust based on content */
-  padding: 1rem; /* Use rem for better responsiveness */
-  margin: 1rem; /* Use rem for consistency */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: gives a slight shadow */
-  border-radius: 8px; /* Slight rounding of card corners */
-}
-
-.card-img-placeholder {
-  width: 100%;
-  height: 200px; /* Set fixed height for images */
+.gettologin{
+  
+  transition: background-color 0.3s ease;
+  background-color:#6D31ED;
+  color: white;
+  border:none;
+  width:max-content;
   border-radius: 5px;
+
+}
+.gettologin:hover{
+  background-color: #6D31ED;
+}
+.description{
+  height:10px;
+  width:800px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-style: italic;
+  text-align: center;
+  margin-left: 23%;
+  
 }
 
-/* Footer Section */
-.footer-content {
+
+.imagelanding1{
+  height:300px;
+  width:300px;
+  margin-left:20%;
+  border-radius: 8px;
+
+}
+.imagelanding2{
+  height:300px;
+  width:300px;
+  margin-left:20%;
+  border-radius: 8px;
+
+}
+.section {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 2rem; /* Use rem for better responsiveness */
-  background-color: #9c2e2e;
-  color: white;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-evenly;
+  
 }
 
-.footer-left-image {
-  width: 150px; /* Smaller image size */
-  height: auto; /* Maintain aspect ratio */
-  margin-right: 1rem; /* Use rem for consistency */
+
+
+.section-reverse{
+  flex-direction: row-reverse;
 }
 
-.social-media, .explore, .contact {
-  flex: 1;
+h2 {
+  font-size: 1.8em;
+  margin-bottom: 10px;
 }
 
-.social-media h3, .explore h3, .contact h3 {
-  margin-bottom: 1rem; /* Use rem for better responsiveness */
+p {
+  font-size: 1em;
+  color: #666;
 }
 
-.social-media p, .explore ul li, .contact p {
-  margin-bottom: 0.5rem; /* Use rem for consistency */
-}
 
-.footer-content p, .footer-content a, .footer-content h3 {
-  color: white;
-}
 
-.footer-content a {
-  text-decoration: none;
-  color: white;
-  transition: color 0.3s ease; /* Smooth transition for hover effects */
-}
-
-.footer-content a:hover {
-  text-decoration: underline;
-}
-
-.footer-content ul {
-  list-style: none;
-  padding: 0;
-}
-
-.footer-content ul li {
-  margin-bottom: 0.5rem; /* Use rem for consistency */
-}
-
-/* Adjustments for Image Shrinkage */
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-/* Remove Scrollbars */
-html, body {
-  overflow-x: hidden; /* Prevent horizontal scrollbars */
-  margin: 0;
-  padding: 0;
-}
