@@ -12,10 +12,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem; 
+  /* padding: 1rem 2rem; */
   background-color: white;
   color: black;
-  height: 60px;
+  /* height: 100px; */
   width: 100%;
   position: fixed;
  
@@ -83,7 +83,8 @@
 /* Hero Section */
 .hero-section {
   text-align: center;
-  padding: 3rem 1rem; 
+    /* padding: 3rem 1rem; */
+    margin-top: 5rem;
 }
 
 .hero-img-placeholder {
