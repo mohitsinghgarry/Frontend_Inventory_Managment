@@ -1,4 +1,3 @@
-// ProductPage.js
 import React, { useContext } from 'react';
 import { CustomerContext } from '../ContextApi/CustomerContext'; // Adjust the path as needed
 import '../AdminPages_css/Product.css';
@@ -52,8 +51,12 @@ const Product = () => {
               <td>₹{product.price}</td>
               <td>{product.quantity}</td>
               <td>
-                {product.imageUrl ? (
-                  <img src={product.imageUrl} alt={product.name} style={{ width: '50px', height: '50px' }} />
+                {product.imageUrls && product.imageUrls.length > 0 ? (
+                  <img
+                    src={product.imageUrls[0]} // Display the first image in the array
+                    alt={product.name}
+                    style={{ width: '50px', height: '50px' }}
+                  />
                 ) : (
                   'No Image'
                 )}
@@ -65,7 +68,7 @@ const Product = () => {
                 >
                   Update
                 </button>
-                <button style={{backgroundColor:"red"}}
+                <button style={{ backgroundColor: "red" }}
                   onClick={() => removeProduct(product._id)} // Call removeProduct with the product ID
                   className="remove-btn"
                 >

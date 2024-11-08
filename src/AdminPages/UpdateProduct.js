@@ -17,11 +17,12 @@ const UpdateProduct = () => {
         category: '',
         quantity: '',
         description: '',
-        imageUrl: ''
+        imageUrls: [] // Array to hold existing image URLs
     });
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
-    const [imageFile, setImageFile] = useState(null);
+    const [imageFiles, setImageFiles] = useState([]); // Array for selected image files
+    const [previewImages, setPreviewImages] = useState([]); // Array for previews of new images
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -48,13 +49,25 @@ const UpdateProduct = () => {
     };
 
     const handleFileChange = (e) => {
-        setImageFile(e.target.files[0]);
+        const files = Array.from(e.target.files);
+        
+        if (files.length + imageFiles.length > 4) {
+            toast.error('You can upload a maximum of 4 images', { position: 'top-right', autoClose: 3000 });
+            return;
+        }
+
+        const updatedImageFiles = [...imageFiles, ...files]; // Append new images
+        const previewUrls = updatedImageFiles.map((file) => URL.createObjectURL(file));
+
+        setImageFiles(updatedImageFiles);
+        setPreviewImages(previewUrls);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!product.name || !product.productId || !product.price || !product.description || !product.category || !product.quantity || (!imageFile && !product.imageUrl)) {
-            toast.error('All fields, including the image, are mandatory', { position: 'top-right', autoClose: 3000 });
+
+        if (!product.name || !product.productId || !product.price || !product.description || !product.category || !product.quantity || (imageFiles.length === 0 && product.imageUrls.length === 0)) {
+            toast.error('All fields, including at least one image, are mandatory', { position: 'top-right', autoClose: 3000 });
             return;
         }
 
@@ -66,10 +79,23 @@ const UpdateProduct = () => {
             formData.append('category', product.category);
             formData.append('quantity', product.quantity);
             formData.append('description', product.description);
-            if (imageFile) formData.append('image', imageFile);
-            else formData.append('imageUrl', product.imageUrl);
 
-            const response = await fetch(`http://localhost:3000/products/${productId}`, { method: 'PUT', body: formData });
+            // Append new image files if any
+            imageFiles.forEach((file) => {
+                formData.append('images', file);
+            });
+
+            // Append existing image URLs if no new images are selected
+            if (imageFiles.length === 0) {
+                product.imageUrls.forEach((url) => {
+                    formData.append('imageUrls', url);
+                });
+            }
+
+            const response = await fetch(`http://localhost:3000/products/${productId}`, {
+                method: 'PUT',
+                body: formData
+            });
             if (!response.ok) throw new Error('Failed to update product');
 
             toast.success('Product updated successfully!', { position: 'top-right', autoClose: 3000 });
@@ -111,9 +137,31 @@ const UpdateProduct = () => {
                     <input type="number" className='update-input' name="quantity" value={product.quantity} onChange={handleChange} required />
                 </div>
                 <div className='update-field'>
-                    <label className='update-label'>Image:</label>
-                    <input type="file" className='update-file' onChange={handleFileChange} required={!product.imageUrl} />
-                    {product.imageUrl && <div className='current-image'><img src={product.imageUrl} alt={product.name} className='image-preview' /><p>Current Image</p></div>}
+                    <label className='update-label'>Images (Max 4):</label>
+                    <input type="file" className='update-file' onChange={handleFileChange} multiple accept="image/*" />
+                    {/* Display current images if they exist */}
+                    {product.imageUrls.length > 0 && (
+                        <div className='current-images' style={{display:'flex', justifyContent:'space-around'}}>
+                            {product.imageUrls.map((url, index) => (
+                                <div key={index} className='current-image'  >
+                                    <img src={url} alt={`Current product image ${index + 1}`} className='image-preview' />
+                                    {/* <p>Current Image {index + 1}</p> */}
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
+                    {/* Display previews of new images */}
+                    {previewImages.length > 0 && (
+                        <div className='new-images' style={{display:'flex', justifyContent:'space-around'}}>
+                            {previewImages.map((previewUrl, index) => (
+                                <div key={index} className='new-image'>
+                                    <img src={previewUrl} alt={`New image ${index + 1}`} className='image-preview' />
+                                    {/* <p>New Image {index + 1}</p> */}
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
                 <button className='update-button' type="submit">Update Product</button>
             </form>

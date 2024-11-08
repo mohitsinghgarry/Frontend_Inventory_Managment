@@ -10,19 +10,42 @@ const AddProduct = () => {
   const [category, setCategory] = useState("");
   const [quantity, setQuantity] = useState("");
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState(null);
+  const [images, setImages] = useState([]);
+
+  const handleImageChange = (e) => {
+    const selectedFiles = Array.from(e.target.files);
+
+    // Check if there are already 4 images
+    if (images.length + selectedFiles.length > 4) {
+      toast.error("You can only upload 4 images.", { position: "top-right", autoClose: 3000 });
+      return;
+    }
+
+    setImages((prevImages) => [...prevImages, ...selectedFiles]);
+
+    document.getElementById("file-input").value = null; // Clear file input after each selection
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Ensure exactly 4 images are uploaded
+    if (images.length !== 4) {
+      toast.error("Please upload exactly 4 images.", { position: "top-right", autoClose: 3000 });
+      return;
+    }
 
     const formData = new FormData();
     formData.append("name", name);
     formData.append("productId", productId);
     formData.append("price", price);
     formData.append("category", category);
-    formData.append("image", image);
     formData.append("quantity", quantity);
     formData.append("description", description);
+
+    images.forEach((image) => {
+      formData.append("images", image); // Use the key "images" for each image file
+    });
 
     try {
       const response = await fetch("http://localhost:3000/admin/add-product", {
@@ -38,8 +61,7 @@ const AddProduct = () => {
         setCategory("");
         setQuantity("");
         setDescription("");
-        setImage(null);
-        document.getElementById("file-input").value = null;
+        setImages([]); // Clear the images after successful upload
       } else {
         const errorData = await response.json();
         toast.error("Error: " + errorData.message, { position: "top-right", autoClose: 3000 });
@@ -124,12 +146,21 @@ const AddProduct = () => {
           <input
             id="file-input"
             type="file"
-            onChange={(e) => setImage(e.target.files[0])}
+            onChange={handleImageChange}
             accept="image/*"
-            required
             className="add-product-form-file-input"
+            multiple
           />
-          <label htmlFor="file-input" className="add-product-form-file-label">Choose an Image</label>
+          <label htmlFor="file-input" className="add-product-form-file-label">Choose Images (Max 4)</label>
+        </div>
+
+        {/* Image Previews */}
+        <div className="image-preview-container">
+          {images.map((image, index) => (
+            <div key={index} className="image-preview">
+              <img src={URL.createObjectURL(image)} alt={`Preview ${index + 1}`} className="image-preview-img" />
+            </div>
+          ))}
         </div>
 
         <button type="submit" className="add-product-form-button">Add Product</button>

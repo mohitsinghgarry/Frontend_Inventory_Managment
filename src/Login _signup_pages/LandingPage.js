@@ -1,96 +1,124 @@
-import React from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
-import "../Login_signup_css/LandingPage.css";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import logo from "../images/image2.png";
 import top from "../images/Container 4.png";
 import rightimg from "../images/Image 84.png";
 import leftimg from "../images/Image 85.png";
 import footerimg from "../images/Container 6.png";
+import '../Login_signup_css/LandingPage.css';
+
 const LandingPage = () => {
-  const navigate = useNavigate(); // Initialize navigate
+  const navigate = useNavigate();
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // Track menu state
+  const [isHamburgerOpen, setIsHamburgerOpen] = useState(false); // Track hamburger state
 
   const handleSignUpClick = () => {
-    navigate("/signup"); // Navigate to the sign-up page
+    navigate("/signup");
   };
-  const handlelogin = () => {
+
+  const handleLogin = () => {
     navigate("/login");
   };
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen); // Toggle menu open state
+    setIsHamburgerOpen(!isHamburgerOpen); // Toggle hamburger icon state for animation
+  };
+
   return (
-    <div className="landing-page">
+    <div className="landing-page-container">
       {/* Navbar Section */}
-      <nav className="navbar">
-        <div className="logo">
-          <img src={logo} className="logo-img" alt="Logo" />
-          <h1 className="title">InventoryPro</h1>
+      <nav className="landing-navbar">
+        <div className="navbar-logo-container">
+          <img src={logo} className="navbar-logo-image" alt="Logo" />
+          <h1 className="navbar-title">InventoryPro</h1>
         </div>
-        <ul className="nav-links">
-          <li>
-            <a href="#features">Features</a>
-          </li>
-          <li>
-            <a href="#resources">Resources</a>
-          </li>
-          <li>
-            <a href="#about">About Us</a>
-          </li>
-          <li>
-            <a href="#contact">Contact Us</a>
-          </li>
+
+        {/* Desktop Navbar Links */}
+        <ul className={`navbar-links ${isMenuOpen ? "navbar-links-open" : ""}`}>
+          <li><a href="#features" onClick={toggleMenu}>Features</a></li>
+          <li><a href="#resources" onClick={toggleMenu}>Resources</a></li>
+          <li><a href="#about" onClick={toggleMenu}>About Us</a></li>
+          <li><a href="#contact" onClick={toggleMenu}>Contact Us</a></li>
         </ul>
-        <div className="auth-buttons">
-          <button className="login-btn" onClick={handlelogin}>
-            Login
-          </button>
-          <button className="signup-btn" onClick={handleSignUpClick}>
-            Sign Up
-          </button>{" "}
-          {/* Handle sign up click */}
+
+        {/* Auth Buttons */}
+        <div className="navbar-auth-buttons">
+          <button className="navbar-login-button" onClick={handleLogin}>Login</button>
+          <button className="navbar-signup-button" onClick={handleSignUpClick}>Sign Up</button>
+        </div>
+
+        {/* Hamburger Menu Icon for Mobile */}
+        <div
+          className={`hamburger-menu ${isHamburgerOpen ? "open" : ""}`} // Toggle 'open' class for animation
+          onClick={toggleMenu}
+        >
+          {/* Hamburger Icon Lines */}
+          <div className={`hamburger-line ${isHamburgerOpen ? "line1" : ""}`}></div>
+          <div className={`hamburger-line ${isHamburgerOpen ? "line2" : ""}`}></div>
+          <div className={`hamburger-line ${isHamburgerOpen ? "line3" : ""}`}></div>
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <header className="hero-section">
-        <div className="hero-image">
-          <img src={top} alt="Hero Image" className="hero-img-placeholder" />
-          <button className="gettologin" onClick={handleSignUpClick}>
-            Get Started
-          </button>
-          <div className="description">
-            <center>
-              <p>
-                "Welcome to our app, where we strive to enhance your
-                productivity and streamline your daily tasks. Discover features
-                tailored to meet your needs and help you achieve your goals
-                efficiently."
-              </p>
-            </center>
+      {/* Mobile Menu Overlay */}
+      {isMenuOpen && (
+        <div className="mobile-menu">
+          <span className="mobile-menu-close" onClick={toggleMenu}>
+            &times;
+          </span>
+          <ul className="navbar-links">
+            <li><a href="#features" onClick={toggleMenu}>Features</a></li>
+            <li><a href="#resources" onClick={toggleMenu}>Resources</a></li>
+            <li><a href="#about" onClick={toggleMenu}>About Us</a></li>
+            <li><a href="#contact" onClick={toggleMenu}>Contact Us</a></li>
+          </ul>
+          <div className="navbar-auth-buttons">
+            <button className="navbar-login-button" onClick={() => { handleLogin(); toggleMenu(); }}>Login</button>
+            <button className="navbar-signup-button" onClick={() => { handleSignUpClick(); toggleMenu(); }}>Sign Up</button>
           </div>
         </div>
-        <br />
-      </header>
-          <div className="section">
-            <div className="text-container1">
-              <h2>Real-Time Tracking</h2>
-              <p>Monitor your inventory levels in real-time, ensuring you never run out of stock.</p>
-            </div>
-            <div className="image-container">
-              <img src={rightimg} alt="Real-Time Tracking" className="imagelanding1" />
-            </div>
-          </div>
+      )}
 
-          <div className="section reverse">
-            <div className="image-container">
-              <img src={leftimg} alt="Automated Reports" className="imagelanding2" />
-            </div>
-            <div className="text-container2">
-              <h2>Automated Reports</h2>
-              <p>Generate automated reports to gain valuable insights into your inventory.</p>
-            </div>
+      {/* Hero Section */}
+      <header className="landing-hero-section">
+        <div className="hero-image-container">
+          <img src={top} alt="Hero Image" className="hero-image" />
+          <button className="hero-get-started-button" onClick={handleSignUpClick}>
+            Get Started
+          </button>
+          <div className="hero-description">
+            <p className="hero-description-text">
+              "Welcome to our app, where we strive to enhance your productivity and streamline your daily tasks. Discover features tailored to meet your needs and help you achieve your goals efficiently."
+            </p>
           </div>
-            
-       
-          
+        </div>
+      </header>
+
+      {/* Real-Time Tracking Section */}
+      <div className="landing-section tracking-section">
+        <div className="tracking-text-container">
+          <h2 className="tracking-title">Real-Time Tracking</h2>
+          <p className="tracking-description">
+            Monitor your inventory levels in real-time, ensuring you never run out of stock.
+          </p>
+        </div>
+        <div className="tracking-image-container">
+          <img src={rightimg} alt="Real-Time Tracking" className="tracking-image" />
+        </div>
+      </div>
+
+      {/* Automated Reports Section */}
+      <div className="landing-section reports-section reverse">
+        <div className="reports-image-container">
+          <img src={leftimg} alt="Automated Reports" className="reports-image" />
+        </div>
+        <div className="reports-text-container">
+          <h2 className="reports-title">Automated Reports</h2>
+          <p className="reports-description">
+            Generate automated reports to gain valuable insights into your inventory.
+          </p>
+        </div>
+      </div>
     </div>
   );
 };

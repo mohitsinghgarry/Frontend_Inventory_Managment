@@ -1,12 +1,11 @@
-// SinglePageProduct.js
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 const SinglePageProduct = () => {
     const { productId } = useParams(); // Get the productId from the URL
     const [product, setProduct] = useState(null); // State to store product data
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true); // Loading state to show while fetching product
+    const [error, setError] = useState(''); // Error state to handle failed requests
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -27,20 +26,30 @@ const SinglePageProduct = () => {
         fetchProduct();
     }, [productId]); // Only run this effect when productId changes
 
-    // const {
-    //     name,
-    //     price,
-    //     description,
-    //     category,
-    //     quantity,
-    //     imageUrl } = product;
-    console.log(product)
+    // Loading and Error handling
+    if (loading) return <p>Loading product...</p>;
+    if (error) return <p>{error}</p>;
+
     return (
         <div className="single-product">
             {product && (
                 <>
                     <h1>{product.name}</h1>
-                    <img src={product.imageUrl} alt={product.name} />
+
+                    {/* Display all images */}
+                    {product.imageUrls && product.imageUrls.length > 0 && (
+                        <div className="product-images">
+                            {product.imageUrls.map((url, index) => (
+                                <img
+                                    key={index}
+                                    src={url}
+                                    alt={`${product.name} image ${index + 1}`}
+                                    className="product-image"
+                                />
+                            ))}
+                        </div>
+                    )}
+
                     <p>Category: {product.category}</p>
                     <p>Price: ₹{product.price}</p>
                     <p>Description: {product.description}</p>

@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useUser } from '../Login _signup_pages/UserContext';
 export const Product = (item) => {
-  const {name, imageUrl, price, category } = item;
+  const {name, imageUrls, price, category } = item;
 //  console.log(item);
   const navigate = useNavigate();
   const { userData } = useUser();
@@ -13,7 +13,7 @@ export const Product = (item) => {
       <figure className="small-container">
         <figcaption className='caption'>
           <div>{category}</div></figcaption>
-        <img src={imageUrl} alt="img" />
+        <img src={imageUrls[0]} alt="img" />
       </figure>
       <div className="detail">
         <div className="company">{name}</div>
