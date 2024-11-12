@@ -23,10 +23,13 @@ import AddProduct from './AdminPages/AddProduct';
 import { CustomerProvider } from './ContextApi/CustomerContext';
 import UpdateProduct from './AdminPages/UpdateProduct';
 import SinglePageProduct from './CustomerPages/SinglePageProduct';
-
+import { CartProvider } from './ContextApi/CartContext'
+import SingleProductCart from './CustomerPages/SingleProudctCart';
 const App = () => {
   return (
+    
     <CustomerProvider>
+         <CartProvider>
       <UserProvider>
         <Router>
           <ToastContainer /> {/* Add ToastContainer here */}
@@ -56,11 +59,14 @@ const App = () => {
               <Route path="product" element={<ProductPage />} />
               <Route path="account" element={<Account />} />
               <Route path="cart" element={<Cart />} />
+              <Route path="singleproductcart" element={<SingleProductCart/>} />
               <Route path="singleproduct/:productId" element={<SinglePageProduct />} />
             </Route>
           </Routes>
         </Router>
       </UserProvider>
+      </CartProvider>
+
     </CustomerProvider>
   );
 };
