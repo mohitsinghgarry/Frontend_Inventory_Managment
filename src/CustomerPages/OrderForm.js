@@ -50,8 +50,8 @@ const OrderForm = () => {
                 <div className="order-form-container">
                     <div className="order-item">
                         <div className="order-item-image">
-                            {imageUrls && imageUrls.length > 0 && (
-                                <img src={imageUrls[0]} alt={name} className="order-item-img" />
+                            {imageUrls && imageUrls.length> 0 && (
+                                <img src={imageUrls[0]} alt={name} width="200px" height="200px"  className="order-item-img" />
                             )}
                         </div>
                         <div className="order-item-details">
