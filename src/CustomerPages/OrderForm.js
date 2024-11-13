@@ -4,7 +4,7 @@ import '../CustomerPages_css/Order.css';
 
 const OrderForm = () => {
     const location = useLocation();
-    const { name, price, orderQuantity, totalPrice, imageUrls } = location.state || {}; // Retrieve passed data
+    const { name, price, orderQuantity, totalPrice, imageUrls } = location.state || {};
 
     const [phoneNumber, setPhoneNumber] = useState('');
     const [address, setAddress] = useState({
@@ -14,7 +14,7 @@ const OrderForm = () => {
         postalCode: '',
         country: ''
     });
-    const [isSubmitted, setIsSubmitted] = useState(false);  // New state for form submission status
+    const [isSubmitted, setIsSubmitted] = useState(false);
 
     const handlePhoneNumberChange = (e) => setPhoneNumber(e.target.value);
     const handleAddressChange = (e) => setAddress({ ...address, [e.target.name]: e.target.value });
@@ -30,10 +30,8 @@ const OrderForm = () => {
             phoneNumber,
         };
 
-        // Handle the order submission (e.g., send to backend)
+        // Simulating order submission (e.g., send to backend)
         console.log('Order Submitted:', orderData);
-
-        // Set submission status to true
         setIsSubmitted(true);
     };
 
@@ -41,7 +39,7 @@ const OrderForm = () => {
         <div className="order-form">
             <h1 className="order-form-title">Order Form</h1>
 
-            {isSubmitted ? ( // Conditional rendering based on submission status
+            {isSubmitted ? (
                 <div className="order-success">
                     <h2>Order Submitted Successfully!</h2>
                     <p>Your order has been placed. We will contact you shortly.</p>
@@ -50,8 +48,8 @@ const OrderForm = () => {
                 <div className="order-form-container">
                     <div className="order-item">
                         <div className="order-item-image">
-                            {imageUrls && imageUrls.length> 0 && (
-                                <img src={imageUrls[0]} alt={name} width="200px" height="200px"  className="order-item-img" />
+                            {imageUrls && imageUrls.length > 0 && (
+                                <img src={imageUrls[0]} alt={name} className="order-item-img" />
                             )}
                         </div>
                         <div className="order-item-details">
@@ -65,7 +63,6 @@ const OrderForm = () => {
                     </div>
 
                     <form className="order-form-fields" onSubmit={handleSubmit}>
-                        {/* Shipping Address */}
                         <label htmlFor="street">Street Address:</label>
                         <input
                             type="text"
@@ -116,7 +113,6 @@ const OrderForm = () => {
                             required
                         />
 
-                        {/* Phone Number */}
                         <label htmlFor="phone">Phone Number:</label>
                         <input
                             type="tel"
@@ -127,7 +123,6 @@ const OrderForm = () => {
                             required
                         />
 
-                        {/* Payment Method */}
                         <label htmlFor="payment">Payment Method:</label>
                         <select id="payment" name="payment" required>
                             <option value="credit">Credit Card</option>
@@ -135,7 +130,6 @@ const OrderForm = () => {
                             <option value="paypal">PayPal</option>
                         </select>
 
-                        {/* Submit Button */}
                         <button type="submit" className="order-form-submit">Place Order</button>
                     </form>
                 </div>
