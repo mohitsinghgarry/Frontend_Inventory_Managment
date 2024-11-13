@@ -31,14 +31,14 @@ const Product = () => {
       <table>
         <thead>
           <tr>
-            <th>S.No</th> {/* Serial Number Column */}
+            <th>S.No</th>
             <th>Product Id</th>
             <th>Name</th>
             <th>Category</th>
             <th>Price</th>
             <th>Stock Quantity</th>
             <th>Image</th>
-            <th>Actions</th> {/* New Actions Column */}
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -57,19 +57,18 @@ const Product = () => {
                     alt={product.name}
                     style={{ width: '50px', height: '50px' }}
                   />
-                ) : (
-                  'No Image'
-                )}
+                ) : 'No Image'}
               </td>
               <td>
                 <button
-                  onClick={() => handleUpdate(product._id)} // Call handleUpdate with the product ID
+                  onClick={() => handleUpdate(product._id)}
                   className="update-btn"
                 >
                   Update
                 </button>
-                <button style={{ backgroundColor: "red" }}
-                  onClick={() => removeProduct(product._id)} // Call removeProduct with the product ID
+                <button
+                  style={{ backgroundColor: "red" }}
+                  onClick={() => removeProduct(product._id)}
                   className="remove-btn"
                 >
                   Remove

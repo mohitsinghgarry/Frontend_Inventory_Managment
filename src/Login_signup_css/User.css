@@ -1,210 +1,233 @@
-/* HOME PAGE CSS */
-.home_header {
-    display: flex;              
-    justify-content: center;     
-  }
-  .home_header h1{
-    margin-top: 20px;
-    font-size: 40px;
-  }
-  .home_main_one{
-    margin-top: 30px;
-  }
-  .home_main_one h3{
-    font-size: 30px;
-    font-weight: bolder;
-  }
-  .home_main_one h3 span{
-    font-size: 20px;
-    font-weight: 200;
-  }
-  .home_main_one h6{
-    font-size: 17px;
-    margin-top: 3px;
-    color: #7f7b74;
-    font-weight: 100;
-  }
-  
-  .home_main_two{
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin: 0px;
-    padding: 0px;
-    padding-left: 12px;
-  }
-  .home_main_two .part_two img{
-    display: inline-block;
-  }
-  .home_main_two .part_two{
-    padding-right: 70px;
-  }
-  .home_main_two .part_one h1{
-    font-weight: 100;
-  }
-  .home_main_two .part_one span{
-    font-size: 70px;
-    font-weight: 800;
-  }
-  
-  .dashboard-cards {
-    display: flex;
-    flex-wrap: wrap; 
-    justify-content: center; 
-    gap: 20px; 
-    max-width: 900px; 
-    margin: 20px auto; 
-  }
-  
-  .card {
-    display: flex;
-    gap: 5px;
-    align-items: center;
-    justify-content: space-around;
-    background-color: #0b0b43;
-    border-radius: 12px;
-    padding: 10px;
-    cursor: pointer;
-    width: 250px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
-  }
-  
-  .card:hover {
-    transform: scale(1.05); 
-  }
-  
-  
-  .card i {
-    font-size: 2.5rem;
-    color: rgb(35, 192, 35); 
-    margin-bottom: 10px;
-  }
-  
-  .card h3 {
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-bottom: 10px;
-    color: white; 
-  }
-  
-  .card .number {
-    font-size: 2rem;
-    font-weight: bold;
-    color: rgb(217, 64, 64);
-  }
-  
-  .card .description {
-    font-size: 0.9rem;
-    color: white;
-  }
-  
-  
-  .dashboard-btn {
-    background-color: rgb(23, 181, 120);
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    margin-top: 10px;
-    font-size: 1.3rem;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 200px;
-  }
-  
-  .dashboard-btn:hover {
-    background-color: #6f2b2b;
-  }
-
-  /* admin css */
-
-
-  .admin-portal {
-    display: flex;
+/* Main Admin Portal Layout */
+.admin-portal {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
 }
 
-.sidebar {
-  position: fixed;
-  width: 220px;
-  height: 100vh;
-  background-color: #1b1b3c;
+/* Sidebar Styles */
+.admin-sidebar {
+  width: 250px;
+  background-color: #2c3e50;
   color: white;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding-top: 20px;
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  transition: transform 0.3s ease;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  transform: translateX(0); /* Sidebar visible by default */
 }
 
-.sidebar h2 {
-    margin-bottom: 20px;
+.admin-sidebar.open {
+  transform: translateX(0); /* Sidebar visible when open */
 }
 
-.sidebar-menu {
-    list-style: none;
-    padding: 0;
-    width: 100%;
+.admin-sidebar-title {
+  font-size: 1.5rem;
+  color: #ecf0f1;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-.sidebar-menu li {
-    width: 100%;
-    text-align: center;
-    margin: 10px 0;
+.admin-sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
 }
 
-.sidebar-menu a {
-    color: white;
-    text-decoration: none;
-    display: block;
-    padding: 10px 0;
+.admin-menu-item {
+  margin: 15px 0;
+  width: 100%;
 }
 
-.sidebar-menu a:hover {
-    background-color: #34495e;
-}
-.sidebar-menu a.active {
-  background-color: #4CAF50; /* Active link color */
-  color: white; /* Active link text color */
-}
-
-.logout-btn {
-  margin-top: 1.5rem;
-    padding: 15px 25px;
-    background-color: #4CAF50;
-    border-radius: 5px;
-    color: white;
-    border: none;
-    cursor: pointer;
-    transition: .5s ease;
-}
-
-.logout-btn:hover {
-    background-color: #c0392b;
-}
-
-.main-content {
-  width: 100vw;
-  height: 100vh;
-  margin-left: 14rem;
-  margin-right: .5rem;
-}
-
-.home_header {
-    text-align: center;
-}
-.home_header h1 {
+.admin-link,
+.admin-active-link {
+  color: #bdc3c7;
+  text-decoration: none;
+  font-size: 1.1em;
+  padding: 10px 15px;
+  display: block;
+  transition: color 0.3s, background-color 0.3s;
+  border-radius: 8px;
   text-align: center;
 }
 
-.home_main_two {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.admin-link:hover,
+.admin-active-link {
+  color: #ecf0f1;
+  background-color: #34495e;
 }
 
-.dashboard-main{
+.admin-logout-btn {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1em;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: auto;
+  width: 100%;
+}
+
+.admin-logout-btn:hover {
+  background-color: #c0392b;
+}
+
+/* Navbar for Small Screens */
+.admin-navbar {
+  background-color: #2c3e50;
+  color: white;
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.admin-navbar.open {
+  display: flex; /* Show navbar when the sidebar is open */
+}
+
+.navbar-toggle-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: white;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  gap: 4px;
 }
+
+.hamburger-icon {
+  width: 30px;
+  height: 3px;
+  background-color: white;
+  border-radius: 3px;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+/* When Sidebar is Open - Hamburger Icon Transforms */
+.admin-navbar.open .hamburger-icon::before,
+.admin-navbar.open .hamburger-icon::after {
+  content: "";
+  position: absolute;
+  width: 30px;
+  height: 3px;
+  background-color: white;
+  border-radius: 3px;
+  transition: transform 0.3s ease;
+}
+
+.admin-navbar.open .hamburger-icon::before {
+  transform: translateY(10px) rotate(45deg);
+}
+
+.admin-navbar.open .hamburger-icon::after {
+  transform: translateY(-10px) rotate(-45deg);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .admin-sidebar {
+    width: 250px;
+    transform: translateX(-100%); /* Sidebar is hidden by default */
+  }
+
+  .admin-navbar {
+    display: flex; /* Show navbar on small screens */
+  }
+
+  .admin-navbar.open {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+
+  .admin-main-content {
+    margin-top: 60px; /* Offset for navbar */
+    flex-grow: 1;
+  }
+
+  .admin-sidebar.open {
+    transform: translateX(0); /* Sidebar becomes visible on toggle */
+  }
+}
+
+@media (max-width: 576px) {
+  .admin-portal {
+    flex-direction: column;
+  }
+
+  .admin-sidebar {
+    width: 100%;
+    height: auto;
+    position: fixed;
+    bottom: 0;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px;
+  }
+
+  .admin-sidebar-title {
+    display: none;
+  }
+
+  .admin-menu-item {
+    margin: 0;
+    flex: 1;
+  }
+
+  .admin-link,
+  .admin-active-link {
+    padding: 10px;
+    font-size: 0.9em;
+  }
+
+  .admin-main-content {
+    margin-bottom: 60px; /* Offset for fixed sidebar */
+  }
+
+  .admin-logout-btn {
+    display: none;
+  }
+}
+
+/* Main Content Area */
+.admin-main-content {
+  flex-grow: 1;
+  margin-left: 250px; /* Offset for the sidebar width */
+  padding: 20px;
+  transition: margin-left 0.3s ease;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .admin-main-content {
+    margin-left: 0; /* Remove offset for small screens */
+    margin-top: 60px; /* Account for navbar height */
+  }
+}
+
+/* For very small screens */
+@media (max-width: 576px) {
+  .admin-main-content {
+    margin-bottom: 60px; /* Offset for fixed bottom sidebar */
+  }
+}
+
