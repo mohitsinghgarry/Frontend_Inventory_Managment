@@ -1,0 +1,104 @@
+.order-form-container {
+    max-width: 600px;
+    margin: 40px auto; /* Centers the form horizontally */
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    text-align: left;
+    font-family: Arial, sans-serif;
+  }
+  
+  .order-form-container h2 {
+    text-align: center;
+    color: #333;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+  
+  .order-item {
+    margin-bottom: 16px;
+    font-size: 1rem;
+    color: #444;
+  }
+  
+  .order-item p {
+    margin: 8px 0;
+  }
+  
+  .form-group {
+    margin-bottom: 24px; /* Increased space between form groups for a more spacious layout */
+  }
+  
+  .form-group label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+    font-size: 1.1rem;
+  }
+  
+  input[type="text"],
+  input[type="tel"] {
+    width: 100%;
+    padding: 15px; /* Increased padding for larger input fields */
+    font-size: 1.1rem; /* Bigger font size for a more substantial appearance */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+  }
+  
+  input[type="text"]:focus,
+  input[type="tel"]:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .phone-input,
+  .street-input,
+  .city-input,
+  .state-input,
+  .postal-input,
+  .country-input {
+    margin-top: 10px;
+  }
+  
+  .address-fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px; /* Space between smaller inputs */
+  }
+  
+  .street-input {
+    width: 100%;
+  }
+  
+  .city-input,
+  .state-input,
+  .postal-input {
+    width: calc(33.33% - 8px); /* Evenly distributed smaller fields */
+  }
+  
+  .country-input {
+    width: 100%;
+  }
+  
+  .submit-button {
+    width: 100%;
+    padding: 16px; /* Larger button */
+    font-size: 1.2rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  
+  .submit-button:hover {
+    background-color: #0056b3;
+  }
+  

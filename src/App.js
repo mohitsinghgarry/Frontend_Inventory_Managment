@@ -18,6 +18,7 @@ import Sales from './AdminPages/Sales';
 import ProductPage from './CustomerPages/ProductPage';
 import HomePage from './CustomerPages/HomePage';
 import Cart from './CustomerPages/Cart';
+import OrderForm from './CustomerPages/OrderForm';
 import Account from './CustomerPages/Account';
 import AddProduct from './AdminPages/AddProduct';
 import { CustomerProvider } from './ContextApi/CustomerContext';
@@ -25,6 +26,7 @@ import UpdateProduct from './AdminPages/UpdateProduct';
 import SinglePageProduct from './CustomerPages/SinglePageProduct';
 import { CartProvider } from './ContextApi/CartContext'
 import SingleProductCart from './CustomerPages/SingleProudctCart';
+
 const App = () => {
   return (
     
@@ -54,6 +56,7 @@ const App = () => {
             </Route>
 
             {/* customer routes */}
+            <Route path="orderform" element={<OrderForm />} />
             <Route path="/customer/:userId/*" element={<Customer />}>
               <Route path="home" element={<HomePage />} />
               <Route path="product" element={<ProductPage />} />

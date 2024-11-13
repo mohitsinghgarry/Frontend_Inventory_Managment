@@ -1,40 +1,45 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../CustomerPages_css/SingleProductCart.scss';
+
 
 const SingleProductCart = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const { name = '', price = 0, orderQuantity = 1, imageUrls = [] } = location.state || {}; // Destructure and provide defaults
-    console.log(location.state);
-    // Handle missing product data
-    if (!name || !price) {
-        return <p className="no-data-message">No product data available.</p>;
-    }
 
-    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const { name = '', price = 0, orderQuantity = 1, imageUrls = [] } = location.state || {}; // Extract values safely
+
     const totalPrice = price * orderQuantity;
 
     // Image carousel logic
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
     useEffect(() => {
         if (imageUrls.length > 0) {
             const interval = setInterval(() => {
                 setCurrentImageIndex((prevIndex) => (prevIndex + 1) % imageUrls.length);
             }, 3000);
-            return () => clearInterval(interval); // Clean up interval on unmount
+            return () => clearInterval(interval); // Cleanup on component unmount
         }
     }, [imageUrls]);
 
+    // Navigate to the OrderForm page on checkout
     const handleCheckout = () => {
-        alert(`Proceeding to checkout for ${name}. Total: ₹${totalPrice}`);
-        // Additional checkout logic here
+        navigate('/orderform', {
+            state: {
+                name,
+                price,
+                orderQuantity,
+                totalPrice,
+                imageUrls
+            }
+        });
     };
 
     return (
         <div className="cart-page">
             <h1 className="cart-title">Product Details</h1>
             <div className="cart-container">
-                {/* Image Carousel */}
                 {imageUrls.length > 0 && (
                     <div className="cart-image-carousel">
                         <img
