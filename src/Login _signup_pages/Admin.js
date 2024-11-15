@@ -75,7 +75,7 @@ function Admin() {
             </nav>
 
             {/* Main Content */}
-            <div className="admin-main-content">
+            <div className={`admin-main-content ${isSidebarOpen ? 'content-blur' : ''}`}>
                 <Outlet />
             </div>
         </div>

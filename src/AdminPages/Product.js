@@ -52,7 +52,7 @@ const Product = () => {
               <td>{product.quantity}</td>
               <td>
                 {product.imageUrls && product.imageUrls.length > 0 ? (
-                  <img
+                  <img className='img-pro'
                     src={product.imageUrls[0]} // Display the first image in the array
                     alt={product.name}
                     style={{ width: '50px', height: '50px' }}

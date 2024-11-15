@@ -16,14 +16,13 @@
     justify-content: center;
     align-items: center;
     gap: 2rem;
-    // background: linear-gradient(145deg, #f3f4f6, #e8eaf0);
-    // box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 .feature-pro h2 {
     letter-spacing: 2px;
     font-size: 2rem;
     color: #333;
+    text-align: center; /* Center-align heading for better responsiveness */
 }
 
 .feature-pro .intro-item {
@@ -31,6 +30,7 @@
     font-size: 1.1rem;
     font-weight: 300;
     color: #666;
+    text-align: center; /* Center-align text for better responsiveness */
 }
 
 .feature-pro .items {
@@ -51,6 +51,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
 }
 
 .item:hover {
@@ -70,10 +71,10 @@
 .small-container img {
     width: 100%;
     height: 180px;
-    object-fit: contain; /* Ensures the whole image is visible without cropping */
+    object-fit: contain;
     border-radius: 1rem;
     transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-    background-color: #f5f5f5; /* Light background to fill gaps if the image has different aspect ratios */
+    background-color: #f5f5f5;
 }
 
 .item:hover .small-container img {
@@ -130,30 +131,87 @@
     max-width: 70%; /* Prevents overflow */
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; /* Adds ellipsis for long text */
+    text-overflow: ellipsis;
 }
 
 /* Responsive Styling */
+
+/* For Medium Devices (Tablets and Smaller Laptops) */
 @media (max-width: 768px) {
     .feature-pro .items {
         gap: 1rem;
     }
-}
 
-@media (max-width: 392px) {
-    .feature-pro {
-        padding: 1rem;
-    }
-    
-    .items {
-        width: 100%;
-    }
-    
     .item {
-        width: 90%;
+        width: 16rem; /* Adjust item size */
     }
 
     .small-container img {
-        height: 150px;
+        height: 160px; /* Reduce image height */
+    }
+}
+
+/* For Small Devices (Large Phones) */
+@media (max-width: 576px) {
+    .feature-pro {
+        padding: 1rem;
+    }
+
+    .feature-pro h2 {
+        font-size: 1.8rem;
+    }
+
+    .item {
+        width: 90%;
+        padding: 1rem;
+    }
+
+    .small-container img {
+        height: 140px;
+    }
+
+    .detail {
+        flex-direction: column; /* Stack details vertically */
+        height: auto;
+        gap: 0.5rem;
+        text-align: center;
+    }
+
+    .detail .company,
+    .detail .price {
+        max-width: 100%;
+    }
+}
+
+/* For Very Small Devices (<=375px) */
+@media (max-width: 375px) {
+    .feature-pro {
+        gap: 1rem;
+    }
+
+    .feature-pro h2 {
+        font-size: 1.5rem;
+    }
+
+    .feature-pro .intro-item {
+        font-size: 1rem;
+    }
+
+    .item {
+        width: 100%;
+    }
+
+    .small-container img {
+        height: 120px;
+    }
+
+    .caption {
+        font-size: 0.8rem;
+        padding: 0.2rem 0.5rem;
+    }
+
+    .detail {
+        padding: 0.5rem;
+        font-size: 0.9rem;
     }
 }
