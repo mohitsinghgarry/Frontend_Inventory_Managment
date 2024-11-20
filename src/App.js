@@ -18,7 +18,6 @@ import Sales from "./AdminPages/Sales";
 import ProductPage from "./CustomerPages/ProductPage";
 import HomePage from "./CustomerPages/HomePage";
 import Cart from "./CustomerPages/Cart";
-import OrdersPage from "./CustomerPages/OrdersPage";
 import OrderForm from "./CustomerPages/OrderForm";
 import Account from "./CustomerPages/Account";
 import AddProduct from "./AdminPages/AddProduct";
@@ -65,7 +64,7 @@ const App = () => {
                 </Route>
 
                 {/* customer routes */}
-                <Route path="/orders" element={<OrdersPage />} />
+               
                 <Route path="orderform" element={<OrderForm />} />
                 <Route path="/customer/:userId/*" element={<Customer />}>
                   <Route path="home" element={<HomePage />} />

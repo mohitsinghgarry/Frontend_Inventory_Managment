@@ -1,78 +1,136 @@
-/* Account.css */
-.account-page {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-}
-
-.order-summary {
-    margin-top: 20px;
-}
-
-.order-item {
+/* Updated Progress Bar Styles */
+.progress-bar-wrapper {
+    margin: 20px 0;
     display: flex;
-    margin-bottom: 20px;
-}
-
-.order-item-image img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-}
-
-.order-item-details {
-    margin-left: 20px;
-}
-
-.order-address {
-    margin-top: 20px;
-}
-
-.progress-bar-container {
-    margin-top: 30px;
-    background-color: #f0f0f0;
-    border-radius: 10px;
-    height: 10px;
-    width: 100%;
+    justify-content: center;
+    align-items: center;
 }
 
 .progress-bar {
-    height: 100%;
-    background-color: #4caf50; /* Green for active progress */
-    border-radius: 10px;
-    transition: width 0.5s ease-in-out;
-}
-
-.status-steps {
     display: flex;
-    justify-content: space-between;
-    margin-top: 15px;
-}
-
-.status-step {
+    align-items: center;
+    width: 80%;
     position: relative;
-    text-align: center;
-    font-size: 12px;
-    color: #bbb;
 }
 
-.status-step.active {
-    color: #4caf50; /* Green for active step */
-    font-weight: bold;
+.progress-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    position: relative;
 }
 
-.status-step::before {
-    content: '';
+.progress-step::before {
+    content: "";
     position: absolute;
-    top: -10px;
-    left: 50%;
-    width: 10px;
-    height: 10px;
+    top: 50%;
+    left: -50%;
+    width: 100%;
+    height: 4px;
+    background-color: #ccc;
+    z-index: -1;
+    transform: translateY(-50%);
+}
+
+.progress-step:first-child::before {
+    display: none;
+}
+
+.progress-step.completed .progress-circle {
+    background-color: #0a74da; /* Completed steps: Blue */
+}
+
+.progress-step.current .progress-circle {
+    background-color: #ffa500; /* Current step: Orange */
+}
+
+.progress-step.upcoming .progress-circle {
+    background-color: #ccc; /* Upcoming steps: Gray */
+}
+
+.progress-circle {
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
-    background-color: #bbb;
-    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 8px;
 }
 
-.status-step.active::before {
-    background-color: #4caf50;
+.progress-label {
+    font-size: 12px;
+    text-align: center;
+    margin-top: 8px;
+    color: #333;
 }
 
+.account-page {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .user-info-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-content p {
+    font-size: 16px;
+    margin: 10px 0;
+  }
+  
+  .input-group {
+    margin: 10px 0;
+  }
+  
+  .input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .input-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .update-button, .save-button {
+    padding: 10px 15px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .update-button:hover, .save-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .order-status-button {
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #28a745;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .order-status-button:hover {
+    background-color: #218838;
+  }
+  
