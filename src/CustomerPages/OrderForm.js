@@ -1,29 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useOrder } from '../ContextApi/OrderContext';  // Import the context
-import '../CustomerPages_css/Order.css';
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useOrder } from "../ContextApi/OrderContext"; // Import the context
+import "../CustomerPages_css/Order.css";
 
 const OrderForm = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const { storeOrder } = useOrder();  // Destructure storeOrder from context
+    const { storeOrder } = useOrder(); // Destructure storeOrder from context
 
     const { name, price, orderQuantity, totalPrice, imageUrls } = location.state || {};
 
-    const [phoneNumber, setPhoneNumber] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState("");
     const [address, setAddress] = useState({
-        street: '',
-        city: '',
-        state: '',
-        postalCode: '',
-        country: ''
+        street: "",
+        city: "",
+        state: "",
+        postalCode: "",
+        country: "",
     });
     const [isSubmitted, setIsSubmitted] = useState(false);
-    const [error, setError] = useState('');
+    const [error, setError] = useState("");
 
     useEffect(() => {
         if (!location.state) {
-            setError('No order data available. Please go back and select a product.');
+            setError("No order data available. Please go back and select a product.");
         }
     }, [location.state]);
 
@@ -34,7 +34,7 @@ const OrderForm = () => {
         e.preventDefault();
 
         if (!name || !price || !orderQuantity || !totalPrice) {
-            setError('Missing order details.');
+            setError("Missing order details.");
             return;
         }
 
@@ -49,32 +49,37 @@ const OrderForm = () => {
         };
 
         try {
-            const response = await fetch('http://localhost:3000/orders', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+            const response = await fetch("http://localhost:3000/orders", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(orderData),
             });
 
             if (response.ok) {
                 setIsSubmitted(true);
                 storeOrder(orderData); // Store the order data in the context after successful submission
-                // Optionally, navigate to a confirmation page
             } else {
-                setError('Failed to submit order. Please try again.');
+                setError("Failed to submit order. Please try again.");
             }
         } catch (error) {
-            setError('An error occurred. Please try again.');
+            setError("An error occurred. Please try again.");
         }
+    };
+
+    const handleBackToProducts = () => {
+        navigate(-4); // Navigate to the ProductsPage
     };
 
     return (
         <div className="order-form">
             <h1 className="order-form-title">Order Form</h1>
-            
+
             {isSubmitted ? (
                 <div className="order-success">
                     <h2>Order successfully placed!</h2>
-                    <p>Redirecting to your account...</p>
+                    <button onClick={handleBackToProducts} className="back-to-products-button">
+                        Back to Products
+                    </button>
                 </div>
             ) : (
                 <div className="order-form-container">
