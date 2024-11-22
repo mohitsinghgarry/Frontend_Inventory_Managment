@@ -1,0 +1,47 @@
+.order-status-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.order-status-table th,
+.order-status-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.order-status-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.status-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.progress-bar {
+    display: flex;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.progress-step {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ddd;
+}
+
+
+
+.progress-step.current {
+    background-color: orange;
+    color: white;
+}
+

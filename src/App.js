@@ -27,6 +27,7 @@ import SinglePageProduct from "./CustomerPages/SinglePageProduct";
 import { CartProvider } from "./ContextApi/CartContext";
 import SingleProductCart from "./CustomerPages/SingleProudctCart";
 import { OrderProvider } from "./ContextApi/OrderContext";
+import { CountsProvider } from "./ContextApi/CountsContext";
 
 const App = () => {
   return (
@@ -34,54 +35,56 @@ const App = () => {
       <CartProvider>
         <UserProvider>
           <OrderProvider>
-            <Router>
-              <ToastContainer /> {/* Add ToastContainer here */}
-              <Routes>
-                {/* normal login routes */}
-                <Route path="/" element={<LandingPage />} />
-                <Route path="/verify-otp" element={<VerifyOTP />} />
-                <Route path="/signup" element={<SignUp />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/forgot-password" element={<ForgotPassword />} />
-                <Route
-                  path="/reset-password/:token"
-                  element={<ResetPassword />}
-                />
-
-                {/* admin routes */}
-                <Route path="/admin/:userId/*" element={<Admin />}>
-                  <Route path="dashboard" element={<DashBoard />} />
-                  <Route path="product" element={<Product />} />
-                  <Route path="order" element={<Order />} />
-                  <Route path="stock" element={<Stock />} />
-                  <Route path="sales" element={<Sales />} />
-                  <Route path="addproduct" element={<AddProduct />} />
+            <CountsProvider>
+              <Router>
+                <ToastContainer /> {/* Add ToastContainer here */}
+                <Routes>
+                  {/* normal login routes */}
+                  <Route path="/" element={<LandingPage />} />
+                  <Route path="/verify-otp" element={<VerifyOTP />} />
+                  <Route path="/signup" element={<SignUp />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/forgot-password" element={<ForgotPassword />} />
                   <Route
-                    path="updateproduct/:productId"
-                    element={<UpdateProduct />}
-                  />{" "}
-                  {/* New route for updating products */}
-                </Route>
-
-                {/* customer routes */}
-               
-                <Route path="orderform" element={<OrderForm />} />
-                <Route path="/customer/:userId/*" element={<Customer />}>
-                  <Route path="home" element={<HomePage />} />
-                  <Route path="product" element={<ProductPage />} />
-                  <Route path="account" element={<Account />} />
-                  <Route path="cart" element={<Cart />} />
-                  <Route
-                    path="singleproductcart"
-                    element={<SingleProductCart />}
+                    path="/reset-password/:token"
+                    element={<ResetPassword />}
                   />
-                  <Route
-                    path="singleproduct/:productId"
-                    element={<SinglePageProduct />}
-                  />
-                </Route>
-              </Routes>
-            </Router>
+
+                  {/* admin routes */}
+                  <Route path="/admin/:userId/*" element={<Admin />}>
+                    <Route path="dashboard" element={<DashBoard />} />
+                    <Route path="product" element={<Product />} />
+                    <Route path="order" element={<Order />} />
+                    <Route path="stock" element={<Stock />} />
+                    <Route path="sales" element={<Sales />} />
+                    <Route path="addproduct" element={<AddProduct />} />
+                    <Route
+                      path="updateproduct/:productId"
+                      element={<UpdateProduct />}
+                    />{" "}
+                    {/* New route for updating products */}
+                  </Route>
+
+                  {/* customer routes */}
+
+                  <Route path="orderform" element={<OrderForm />} />
+                  <Route path="/customer/:userId/*" element={<Customer />}>
+                    <Route path="home" element={<HomePage />} />
+                    <Route path="product" element={<ProductPage />} />
+                    <Route path="account" element={<Account />} />
+                    <Route path="cart" element={<Cart />} />
+                    <Route
+                      path="singleproductcart"
+                      element={<SingleProductCart />}
+                    />
+                    <Route
+                      path="singleproduct/:productId"
+                      element={<SinglePageProduct />}
+                    />
+                  </Route>
+                </Routes>
+              </Router>
+            </CountsProvider>
           </OrderProvider>
         </UserProvider>
       </CartProvider>

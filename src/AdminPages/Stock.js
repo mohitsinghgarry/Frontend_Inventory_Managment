@@ -1,54 +1,68 @@
-import React, { useEffect, useState } from 'react';
-// import { fetchProducts } from '../api';
-import '../AdminPages_css/Stock.css'
+import React, { useContext, useState } from 'react';
+import { CustomerContext } from '../ContextApi/CustomerContext';
+import { useNavigate } from 'react-router-dom';
+import FilterSection from '../CustomerPages/FilterSection';
+import '../AdminPages_css/Stock.css';
+import { useUser } from '../Login _signup_pages/UserContext';
 
-function Stock() {
-  const [data, setData] = useState([]);
+const Stock = () => {
+  const { userData } = useUser();
+  const { products, loading, error } = useContext(CustomerContext);
+  const [filteredProducts, setFilteredProducts] = useState(products);
+  const navigate = useNavigate();
 
-//   useEffect(() => {
-//     fetchProducts()
-//       .then((res) => {
-//         // Filter to only include products with 'uncompleted' status
-//         const uncompletedProducts = res.data.filter((product) => product.status === 'uncompleted');
-//         setData(uncompletedProducts);
-//       })
-//       .catch((err) => console.error(err));
-//   }, []);
+  const handleRestock = (productId) => {
+    navigate(`/admin/${userData.id}/restock/${productId}`);
+  };
+
+  const handleFilter = (filteredItems) => {
+    setFilteredProducts(filteredItems);
+  };
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
 
   return (
-    <div className="container-main">
-        <div className='newcontainer'>
-        <h1 className="h1">Stocks</h1>
+    <div className="stock-container">
+      <h1>STOCK</h1>
+      <FilterSection items={products} onFilter={handleFilter} />
+
       <table className="stock-table">
         <thead>
           <tr>
-            <th>Product ID</th>
-            <th>Date</th>
-            <th>Customer</th>
-            <th>Product Name</th>
+            <th>S.No</th>
+            <th>Name</th>
+            <th>Category</th>
             <th>Price</th>
-            <th>Items</th>
-            <th>Status</th>
+            <th>Stock Quantity</th>
+            <th>Product Id</th>
+            <th>Restock</th>
           </tr>
         </thead>
         <tbody>
-          {/* {data.map((product) => (
+          {filteredProducts.map((product, index) => (
             <tr key={product._id}>
-              <td>{product._id}</td>
-              <td>{product.date}</td>
-              <td>{product.customer}</td>
-              <td>{product.productName}</td>
-              <td>{product.price}</td>
-              <td>{product.items}</td>
-              <td>{product.status}</td>
+              <td>{index + 1}</td>
+              <td>{product.name}</td>
+              <td>{product.category}</td>
+              <td>₹{product.price}</td>
+              <td>{product.quantity}</td>
+              <td>{product.productId}</td>
+              <td>
+                {product.quantity < 10 ? (
+                  <button className="restock-btn" onClick={() => handleRestock(product._id)}>
+                    Restock
+                  </button>
+                ) : (
+                  <span>MINIMUM STOCK AVAILABLE</span>
+                )}
+              </td>
             </tr>
-          ))} */}
+          ))}
         </tbody>
       </table>
-        </div>
     </div>
   );
-}
+};
 
 export default Stock;
-

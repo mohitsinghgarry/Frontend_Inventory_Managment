@@ -13,6 +13,7 @@ const Account = () => {
     const [updatedProfile, setUpdatedProfile] = useState({
         name: userData?.name || "", // Populate with current user data if available
         email: userData?.email || "",
+        profilePhoto: userData?.profilePhoto || null,
     });
 
     const handleOrderStatusClick = () => {
@@ -30,6 +31,19 @@ const Account = () => {
         "Delivered",
     ];
     const getStatusIndex = (status) => statusStages.indexOf(status);
+
+    const handlePhotoChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                setUpdatedProfile((prev) => ({ ...prev, profilePhoto: reader.result }));
+                setUserData((prev) => ({ ...prev, profilePhoto: reader.result }));
+                localStorage.setItem("userData", JSON.stringify({ ...userData, profilePhoto: reader.result }));
+            };
+            reader.readAsDataURL(file);
+        }
+    };
 
     const handleEditProfile = () => {
         setUpdatedProfile({
@@ -52,13 +66,27 @@ const Account = () => {
 
             {/* Profile Section */}
             <div className="profile-section">
-                <h2>Profile</h2>
-                {/* Display user data or show "Loading..." if not available */}
-                <div className="profile-card">
-                    <p><strong>Name:</strong> {userData?.name || "Loading..."}</p>
-                    <p><strong>Email:</strong> {userData?.email || "Loading..."}</p>
-                    <button onClick={handleEditProfile}>Update Profile</button>
+                <div className="profile-photo-container">
+                    <label htmlFor="profilePhotoInput">
+                        <div className="profile-photo">
+                            {updatedProfile.profilePhoto ? (
+                                <img src={updatedProfile.profilePhoto} alt="Profile" />
+                            ) : (
+                                <span className="placeholder">+</span>
+                            )}
+                        </div>
+                        <input
+                            id="profilePhotoInput"
+                            type="file"
+                            accept="image/*"
+                            onChange={handlePhotoChange}
+                            style={{ display: "none" }}
+                        />
+                    </label>
                 </div>
+                <p className="profile-name">{userData?.name || "Loading..."}</p>
+                <p className="profile-email">{userData?.email || "Loading..."}</p>
+                <button onClick={handleEditProfile}>Update Profile</button>
             </div>
 
             {/* Update Profile Modal */}
@@ -156,3 +184,4 @@ const Account = () => {
 };
 
 export default Account;
+        
