@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Outlet, NavLink } from 'react-router-dom';
+import { Outlet, NavLink, Navigate } from 'react-router-dom';
 import '../Login_signup_css/User.css';
 import { useUser } from './UserContext';
 
@@ -15,7 +15,9 @@ function Admin() {
     const toggleSidebar = () => {
         setSidebarOpen(!isSidebarOpen);
     };
-
+    const handleLogout = () =>{
+        Navigate(-1);
+    };
     return (
         <div className="admin-portal">
             {/* Sidebar */}
@@ -63,7 +65,7 @@ function Admin() {
                         </NavLink>
                     </li>
                 </ul>
-                <button className="admin-logout-btn">Logout</button>
+                <button className="admin-logout-btn" onClick={handleLogout}>Logout</button>
             </aside>
 
             {/* Top Navbar for Small Screens */}

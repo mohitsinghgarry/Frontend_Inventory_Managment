@@ -37,6 +37,7 @@ button {
     width: 100%;
     border-collapse: collapse;
     border: 2px solid black;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
   
   .stock-table th,
@@ -47,6 +48,7 @@ button {
   }
   
   .stock-table th {
-    background-color: #d5b5b5;
+    background-color: #34495e;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
   

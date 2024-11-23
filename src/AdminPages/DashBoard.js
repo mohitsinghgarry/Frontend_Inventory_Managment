@@ -92,7 +92,7 @@ const Dashboard = () => {
           <p className="card-number">{dashboardData.lowStock}</p>
         </div>
 
-        <div className="dashboard-card">
+        {/*<div className="dashboard-card">
           <i className="fas fa-clock card-icon"></i>
           <h3 className="card-title">Recent Orders</h3>
           <p className="card-number">{dashboardData.recentOrders}</p>
@@ -102,7 +102,7 @@ const Dashboard = () => {
           <i className="fas fa-medal card-icon"></i>
           <h3 className="card-title">Top Selling</h3>
           <p className="card-number">{dashboardData.topSelling}</p>
-        </div>
+        </div>*/}
       </section>
     </div>
   );
