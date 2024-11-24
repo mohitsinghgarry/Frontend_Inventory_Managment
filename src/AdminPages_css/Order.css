@@ -1,51 +1,52 @@
-/* Table Styling */
-.order-status-table {
+.order-page {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .order-table {
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
-    font-family: Arial, sans-serif;
-}
-
-.order-status-table th,
-.order-status-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .order-table th, .order-table td {
+    padding: 12px 15px;
     text-align: left;
-}
-
-.order-status-table th {
+    border: 1px solid #ddd;
+  }
+  
+  .order-table th {
     background-color: #f4f4f4;
-    font-weight: bold;
-}
-
-/* Progress Bar Single Stage Styling */
-.progress-bar-single {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 40px;
-    background-color: #f5f5f5;
-    border-radius: 5px;
-    padding: 5px;
-}
-
-.progress-current {
-    background-color: #2196f3; /* Active stage color */
-    color: #fff;
-    padding: 5px 10px;
-    border-radius: 3px;
+    color: #333;
+    font-size: 16px;
+  }
+  
+  .order-table td {
     font-size: 14px;
-    font-weight: bold;
-    text-align: center;
-}
-
-.progress-text {
-    margin: 0;
-    font-family: Arial, sans-serif;
-}
-
-/* Fallback Message Styling */
-.order-status-table td span {
-    font-size: 14px;
-    color: #888;
-}
+  }
+  
+  .order-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .order-table tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+  }
+  
+  .order-table td, .order-table th {
+    word-wrap: break-word;
+  }
+  
+  @media (max-width: 768px) {
+    .order-table {
+      font-size: 12px;
+    }
+  }
+  
