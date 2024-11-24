@@ -17,7 +17,7 @@ export const Product = (item) => {
       </figure>
       <div className="detail">
         <div className="company">{name}</div>
-        <div className="price">₹{price}</div>
+        <div className="price">INR{price}</div>
       </div>
     </div>
   )

@@ -6,36 +6,45 @@ export const CartProvider = ({ children }) => {
     const [cartItems, setCartItems] = useState([]);
     const [totalBill, setTotalBill] = useState(0);
     const [error, setError] = useState('');
+    const [products, setProducts] = useState([]); // To manage the product list
 
-    // Load cart data from localStorage when the component mounts
+    // Load cart data and product data from localStorage or backend
     useEffect(() => {
         const savedCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
         const savedTotalBill = JSON.parse(localStorage.getItem('totalBill')) || 0;
+        const savedProducts = JSON.parse(localStorage.getItem('products')) || [];
         setCartItems(savedCartItems);
         setTotalBill(savedTotalBill);
+        setProducts(savedProducts); // Load products
     }, []);
 
-    // Save cart data to localStorage whenever it changes
+    // Save cart data and product data to localStorage whenever they change
     useEffect(() => {
         localStorage.setItem('cartItems', JSON.stringify(cartItems));
         localStorage.setItem('totalBill', JSON.stringify(totalBill));
-    }, [cartItems, totalBill]);
+        localStorage.setItem('products', JSON.stringify(products));
+    }, [cartItems, totalBill, products]);
+
+    // Sync cart items with available products
+    useEffect(() => {
+        const filteredCartItems = cartItems.filter(cartItem =>
+            products.some(product => product.name === cartItem.name)
+        );
+        setCartItems(filteredCartItems);
+    }, [products]);
 
     const addItemToCart = (newItem) => {
         setError(''); // Clear previous error
         const existingItem = cartItems.find(item => item.name === newItem.name);
 
-        // If item already exists in cart
         if (existingItem) {
             const updatedQuantity = existingItem.orderQuantity + newItem.orderQuantity;
 
-            // Check if the updated quantity exceeds the available stock
             if (updatedQuantity > newItem.availableQuantity) {
                 setError(`Only ${newItem.availableQuantity} of ${newItem.name} are available.`);
                 return;
             }
 
-            // Update the existing item's quantity
             const updatedItems = cartItems.map(item =>
                 item.name === newItem.name
                     ? { ...item, orderQuantity: updatedQuantity }
@@ -44,13 +53,11 @@ export const CartProvider = ({ children }) => {
             setCartItems(updatedItems);
             setTotalBill(prevTotal => prevTotal + newItem.price * newItem.orderQuantity);
         } else {
-            // New item, check if it exceeds available stock
             if (newItem.orderQuantity > newItem.availableQuantity) {
                 setError(`Only ${newItem.availableQuantity} of ${newItem.name} are available.`);
                 return;
             }
 
-            // Add the new item to the cart
             setCartItems(prevItems => [...prevItems, newItem]);
             setTotalBill(prevTotal => prevTotal + newItem.price * newItem.orderQuantity);
         }
@@ -67,13 +74,19 @@ export const CartProvider = ({ children }) => {
         });
     };
 
+    const updateProductList = (updatedProducts) => {
+        setProducts(updatedProducts);
+    };
+
     return (
         <CartContext.Provider value={{
             cartItems,
             addItemToCart,
             removeItemFromCart,
             totalBill,
-            error
+            error,
+            products,
+            updateProductList,
         }}>
             {children}
         </CartContext.Provider>

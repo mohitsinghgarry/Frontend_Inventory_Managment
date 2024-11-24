@@ -54,16 +54,16 @@ const SingleProductCart = () => {
                     <div className="cart-item-details">
                         <h3>{name}</h3>
                         <p>Quantity: {orderQuantity}</p>
-                        <p>Price per item: ₹{price}</p>
+                        <p>Price per item: INR{price}</p>
                         <p className="cart-item-total">
-                            Total Price: <strong>₹{totalPrice}</strong>
+                            Total Price: <strong>INR{totalPrice}</strong>
                         </p>
                     </div>
                 </div>
                 <div className="cart-summary">
                     <div className="summary-row">
                         <span>Subtotal</span>
-                        <span>₹{totalPrice}</span>
+                        <span>INR{totalPrice}</span>
                     </div>
                     <div className="summary-row">
                         <span>Shipping</span>
@@ -71,7 +71,7 @@ const SingleProductCart = () => {
                     </div>
                     <div className="summary-row total-row">
                         <span>Total</span>
-                        <span>₹{totalPrice}</span>
+                        <span>INR{totalPrice}</span>
                     </div>
                 </div>
                 <button className="checkout-button" onClick={handleCheckout}>

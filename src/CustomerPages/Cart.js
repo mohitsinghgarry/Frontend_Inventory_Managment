@@ -20,8 +20,8 @@ const CartItem = ({ item, onRemove, onNavigate }) => {
                 <div className="cart-item-cell-name">{name}</div>
             </div>
             <div className="cart-item-cell-quantity">{orderQuantity}</div>
-            <div className="cart-item-cell-price">₹{price}</div>
-            <div className="cart-item-cell-total">₹{totalPrice}</div>
+            <div className="cart-item-cell-price">INR{price}</div>
+            <div className="cart-item-cell-total">INR{totalPrice}</div>
             <div className="cart-item-cell-action">
                 <button
                     className="remove-button"
@@ -89,7 +89,7 @@ const Cart = () => {
                 />
             ))}
             <div className="total-bill-section">
-                Total Bill: <strong>₹{totalBill}</strong>
+                Total Bill: <strong>INR{totalBill}</strong>
             </div>
             <button
                 onClick={() => navigate(`/customer/${userData.id}/product`)}

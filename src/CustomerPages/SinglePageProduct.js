@@ -72,10 +72,10 @@ const SinglePageProduct = () => {
                     <div className="product-data">
                         <h2 style={{ textTransform: 'uppercase' }}>{product.name}</h2>
                         <p className="product-data-price">
-                            MRP: <del>₹{product.price + 250000}</del>
+                            MRP: <del>INR{product.price + 250000}</del>
                         </p>
                         <p className="product-data-real-price">
-                            Deal of the Day: <span>₹{product.price}</span>
+                            Deal of the Day: <span>INR{product.price}</span>
                         </p>
                         <p>{product.description}</p>
 
