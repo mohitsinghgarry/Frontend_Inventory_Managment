@@ -1,33 +1,46 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-// Create a context to hold user data
 const UserContext = createContext(null);
 
-// Custom hook to access the UserContext
 const useUser = () => {
     return useContext(UserContext);
 };
 
-// UserProvider component to wrap your application
 const UserProvider = ({ children }) => {
     const [userData, setUserData] = useState(() => {
-        // Retrieve user data from local storage on initial load
         const savedData = localStorage.getItem('userData');
         return savedData ? JSON.parse(savedData) : null;
     });
 
     const saveUserData = (data) => {
         setUserData(data);
-        localStorage.setItem('userData', JSON.stringify(data)); // Save user data to local storage
+        localStorage.setItem('userData', JSON.stringify(data));
     };
 
     const clearUserData = () => {
         setUserData(null);
-        localStorage.removeItem('userData'); // Remove user data from local storage
+        localStorage.removeItem('userData');
     };
 
+    const logout = () => {
+        console.log('Logout triggered');
+        clearUserData();
+        toast.success('You have successfully logged out!', {
+            position: 'top-right',
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+    };
+    
+
     return (
-        <UserContext.Provider value={{ userData, setUserData: saveUserData, clearUserData }}>
+        <UserContext.Provider value={{ userData, setUserData: saveUserData, clearUserData, logout }}>
             {children}
         </UserContext.Provider>
     );
