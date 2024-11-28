@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import CartContext from '../ContextApi/CartContext';
 import { MdRemoveShoppingCart } from 'react-icons/md';
 import '../CustomerPages_css/Cart.scss';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useUser } from '../Login _signup_pages/UserContext';
 
 const CartItem = ({ item, onRemove, onNavigate }) => {
@@ -12,9 +12,9 @@ const CartItem = ({ item, onRemove, onNavigate }) => {
 
     return (
         <div
-            className="cart-item-card"
-            onClick={() => onNavigate(item)}
-            style={{ cursor: 'pointer' }}
+            className={`cart-item-card ${isOutOfStock ? 'out-of-stock' : ''}`}
+            onClick={() => !isOutOfStock && onNavigate(item)}
+            style={{ cursor: isOutOfStock ? 'not-allowed' : 'pointer' }}
         >
             <div className="combined-data">
                 <img src={imageUrls[0]} alt={name} className="cart-item-image" />
@@ -44,46 +44,44 @@ const Cart = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const { userData } = useUser();
+
     useEffect(() => {
         if (location.state) {
             addItemToCart(location.state);
         }
     }, [location.state]);
+
     useEffect(() => {
         const checkStockStatus = async () => {
             try {
                 const updatedCartItems = await Promise.all(
                     cartItems.map(async (item) => {
                         try {
-                            // Fetch the product data to check stock status
                             const response = await fetch(`http://localhost:3000/newproduct/${item.productId}`);
-                            
+
                             if (response.ok) {
                                 const productDetails = await response.json();
-                                console.log(productDetails)
-                                // Check stock availability
                                 const isOutOfStock = productDetails.isOutOfStock <= 0;
-                                
+
                                 return {
                                     ...item,
-                                    isOutOfStock : productDetails.isOutOfStock,
+                                    isOutOfStock: productDetails.isOutOfStock,
                                 };
                             } else {
                                 console.warn(`Failed to fetch data for product ID ${item.productId}`);
-                                return { ...item, isOutOfStock: true }; // Default to out of stock
+                                return { ...item, isOutOfStock: true };
                             }
                         } catch (error) {
                             console.error(`Error fetching stock for item ${item.name}:`, error);
-                            return { ...item, isOutOfStock: true }; // Default to out of stock on exception
+                            return { ...item, isOutOfStock: true };
                         }
                     })
                 );
-    
-                // Update cart items only if changes are detected
+
                 const hasChanges = updatedCartItems.some(
                     (item, index) => item.isOutOfStock !== cartItems[index].isOutOfStock
                 );
-    
+
                 if (hasChanges) {
                     updatedCartItems.forEach((item) => updateCartItem(item));
                 }
@@ -91,18 +89,20 @@ const Cart = () => {
                 console.error('Error during stock status update:', error);
             }
         };
-    
+
         if (cartItems.length > 0) {
             checkStockStatus();
         }
     }, [cartItems]);
-    
-    
-    
 
     const handleProductNavigation = (item) => {
+        if (item.isOutOfStock) {
+            alert("This product is out of stock and cannot be viewed.");
+            return;
+        }
+
         navigate(`/customer/${userData.id}/singleproductcart`, {
-            state: { ...item }
+            state: { ...item },
         });
     };
 
