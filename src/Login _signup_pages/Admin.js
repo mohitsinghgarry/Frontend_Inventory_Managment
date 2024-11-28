@@ -54,14 +54,14 @@ function Admin() {
                             STOCK
                         </NavLink>
                     </li>
-                    <li className="admin-menu-item">
+                    {/* <li className="admin-menu-item">
                         <NavLink
                             to="sales"
                             className={({ isActive }) => (isActive ? 'admin-active-link' : 'admin-link')}
                         >
                             SALES
                         </NavLink>
-                    </li>
+                    </li> */}
                 </ul>
                 <button className="admin-logout-btn">Logout</button>
             </aside>
