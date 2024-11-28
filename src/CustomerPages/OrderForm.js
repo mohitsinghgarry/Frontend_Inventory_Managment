@@ -156,47 +156,49 @@ const OrderForm = () => {
                             onChange={handleAddressChange}
                             required
                         />
-                        <label htmlFor="phone">Phone Number:</label>
+                        <label htmlFor="phoneNumber">Phone Number:</label>
                         <input
-                            type="tel"
-                            id="phone"
-                            name="phone"
+                            type="text"
+                            id="phoneNumber"
                             value={phoneNumber}
                             onChange={handlePhoneNumberChange}
                             required
                         />
-                        <label htmlFor="paymentMethod">Payment Method:</label>
-                        <select
-                            id="paymentMethod"
-                            value={paymentMethod}
-                            onChange={(e) => setPaymentMethod(e.target.value)}
-                        >
-                            <option value="Razorpay">Razorpay</option>
-                            <option value="COD">Cash on Delivery</option>
-                        </select>
-
+                        <div className="payment-method">
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="paymentMethod"
+                                    value="Razorpay"
+                                    checked={paymentMethod === 'Razorpay'}
+                                    onChange={() => setPaymentMethod('Razorpay')}
+                                />
+                                Razorpay
+                            </label>
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="paymentMethod"
+                                    value="COD"
+                                    checked={paymentMethod === 'COD'}
+                                    onChange={() => setPaymentMethod('COD')}
+                                />
+                                Cash on Delivery (COD)
+                            </label>
+                        </div>
                         {paymentMethod === 'COD' && (
-                            <div className="captcha-container">
-                                <label htmlFor="captcha">CAPTCHA:</label>
-                                <p className="captcha-text">{captcha}</p>
+                            <>
+                                <label htmlFor="captchaInput">Enter CAPTCHA: {captcha}</label>
                                 <input
                                     type="text"
-                                    id="captcha"
+                                    id="captchaInput"
                                     value={captchaInput}
                                     onChange={handleCaptchaChange}
                                     required
                                 />
-                                <button type="button" onClick={() => setCaptcha(generateCaptcha())}>
-                                    Refresh CAPTCHA
-                                </button>
-                            </div>
+                            </>
                         )}
-
-                        <button
-                            type="button"
-                            className="order-form-submit"
-                            onClick={handlePayment}
-                        >
+                        <button type="button" onClick={handlePayment} className="order-form-button">
                             Place Order
                         </button>
                     </form>

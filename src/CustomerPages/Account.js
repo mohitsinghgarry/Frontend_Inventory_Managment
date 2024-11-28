@@ -9,6 +9,7 @@ const Account = () => {
         fetchOrders();
     }, [fetchOrders]);
 
+    // Get appropriate status class based on the order's status
     const getOrderStatusClass = (status) => {
         switch (status) {
             case 'Dispatched':
@@ -21,8 +22,11 @@ const Account = () => {
                 return 'status-canceled';
             case 'Cancellation Requested':
                 return 'status-cancellation-requested';
+            case 'Order Placed':
+            case 'Order Placed (COD)': // Handle both "Order Placed" and "Order Placed (COD)"
+                return 'status-placed';
             default:
-                return ''; // Exclude 'Order Placed' or others not handled explicitly
+                return ''; // Exclude unhandled statuses
         }
     };
 
@@ -80,7 +84,7 @@ const Account = () => {
                                 {order.status !== 'Delivered' &&
                                     order.status !== 'Canceled' &&
                                     order.status !== 'Cancellation Requested' &&
-                                    order.status !== 'Order Placed' && ( // Exclude 'Order Placed'
+                                    order.status !== 'Order Placed' && (
                                         <button
                                             className="account-cancel-button"
                                             onClick={() => handleCancelOrderRequest(order._id)}
