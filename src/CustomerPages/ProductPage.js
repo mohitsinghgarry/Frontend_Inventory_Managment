@@ -1,18 +1,19 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useCallback } from 'react';
 import { CustomerContext } from '../ContextApi/CustomerContext';
 import ProductList from './ProductList';
 import FilterSection from './FilterSection';
-import '../CustomerPages_css/ProductPage.scss'
+import '../CustomerPages_css/ProductPage.scss';
 import Loading from '../Login _signup_pages/Loading';
+
 const ProductPage = () => {
   const { products, loading, error } = useContext(CustomerContext);
-  const [filteredProducts, setFilteredProducts] = useState(products); // Store filtered products
+  const [filteredProducts, setFilteredProducts] = useState(products);
 
-  const handleFilter = (filteredItems) => {
+  const handleFilter = useCallback((filteredItems) => {
     setFilteredProducts(filteredItems);
-  };
+  }, []); // Memoize this function
 
-  if (loading) return <Loading/>;
+  if (loading) return <Loading />;
   if (error) return <div>Error: {error}</div>;
 
   return (
@@ -27,6 +28,6 @@ const ProductPage = () => {
       </section>
     </div>
   );
-}
+};
 
 export default ProductPage;

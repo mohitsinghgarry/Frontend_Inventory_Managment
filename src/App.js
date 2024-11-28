@@ -26,11 +26,11 @@ import UpdateProduct from './AdminPages/UpdateProduct';
 import SinglePageProduct from './CustomerPages/SinglePageProduct';
 import { CartProvider } from './ContextApi/CartContext'
 import SingleProductCart from './CustomerPages/SingleProudctCart';
-
+import { OrdersProvider } from './ContextApi/OrderContext';
 const App = () => {
   return (
-    
     <CustomerProvider>
+      <OrdersProvider>
          <CartProvider>
       <UserProvider>
         <Router>
@@ -56,7 +56,6 @@ const App = () => {
             </Route>
 
             {/* customer routes */}
-            <Route path="orderform" element={<OrderForm />} />
             <Route path="/customer/:userId/*" element={<Customer />}>
               <Route path="home" element={<HomePage />} />
               <Route path="product" element={<ProductPage />} />
@@ -64,12 +63,13 @@ const App = () => {
               <Route path="cart" element={<Cart />} />
               <Route path="singleproductcart" element={<SingleProductCart/>} />
               <Route path="singleproduct/:productId" element={<SinglePageProduct />} />
+            <Route path="orderform" element={<OrderForm />} />
             </Route>
           </Routes>
         </Router>
       </UserProvider>
       </CartProvider>
-
+      </OrdersProvider>
     </CustomerProvider>
   );
 };

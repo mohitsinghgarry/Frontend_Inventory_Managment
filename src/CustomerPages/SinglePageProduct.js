@@ -16,7 +16,6 @@ const SinglePageProduct = () => {
     const [error, setError] = useState('');
     const { userData } = useUser();
     const [orderQuantity, setOrderQuantity] = useState(1);
-
     useEffect(() => {
         const fetchProduct = async () => {
             try {

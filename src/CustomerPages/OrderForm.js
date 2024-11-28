@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import '../CustomerPages_css/Order.css';
+import OrdersContext from '../ContextApi/OrderContext';
+import { loadRazorpay } from '../utils/razorpayUtils'; // Utility for Razorpay integration
 
 const OrderForm = () => {
     const location = useLocation();
-    const { name, price, orderQuantity, totalPrice, imageUrls } = location.state || {};
+    const { addOrder } = useContext(OrdersContext); // Use the context's addOrder function
+
+    const { name, price, orderQuantity, totalPrice, imageUrls = [] } = location.state || {};
 
     const [phoneNumber, setPhoneNumber] = useState('');
     const [address, setAddress] = useState({
@@ -12,15 +16,41 @@ const OrderForm = () => {
         city: '',
         state: '',
         postalCode: '',
-        country: ''
+        country: '',
     });
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [error, setError] = useState(null);
+    const [paymentMethod, setPaymentMethod] = useState('Razorpay'); // Default payment method
+    const [captchaInput, setCaptchaInput] = useState('');
+    const [captcha, setCaptcha] = useState(generateCaptcha());
 
     const handlePhoneNumberChange = (e) => setPhoneNumber(e.target.value);
     const handleAddressChange = (e) => setAddress({ ...address, [e.target.name]: e.target.value });
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleCaptchaChange = (e) => setCaptchaInput(e.target.value);
+
+    function generateCaptcha() {
+        return Math.random().toString(36).substring(2, 7).toUpperCase();
+    }
+
+    const validateCaptcha = () => captchaInput.toUpperCase() === captcha;
+
+    const handlePayment = async () => {
+        if (paymentMethod === 'Razorpay') {
+            const razorpaySuccess = await loadRazorpay(totalPrice); // Razorpay integration
+            if (!razorpaySuccess) {
+                setError('Payment failed. Please try again.');
+                return;
+            }
+        } else if (paymentMethod === 'COD' && !validateCaptcha()) {
+            setError('Invalid CAPTCHA. Please try again.');
+            return;
+        }
+
+        submitOrder();
+    };
+
+    const submitOrder = async () => {
         const orderData = {
             name,
             price,
@@ -28,17 +58,37 @@ const OrderForm = () => {
             totalPrice,
             address,
             phoneNumber,
+            imageUrls,
+            date: new Date().toLocaleString(),
+            status: paymentMethod === 'COD' ? 'Order Placed (COD)' : 'Order Placed',
         };
 
-        // Simulating order submission (e.g., send to backend)
-        console.log('Order Submitted:', orderData);
-        setIsSubmitted(true);
+        try {
+            const response = await fetch('http://localhost:3000/api/order', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(orderData),
+            });
+
+            if (!response.ok) {
+                throw new Error(`Failed to submit order: ${response.statusText}`);
+            }
+
+            const savedOrder = await response.json();
+
+            addOrder(savedOrder); // Add the new order to the global orders list
+            setIsSubmitted(true);
+        } catch (err) {
+            console.error('Error placing order:', err);
+            setError('Failed to place the order. Please try again later.');
+        }
     };
 
     return (
         <div className="order-form">
             <h1 className="order-form-title">Order Form</h1>
-
             {isSubmitted ? (
                 <div className="order-success">
                     <h2>Order Submitted Successfully!</h2>
@@ -46,12 +96,11 @@ const OrderForm = () => {
                 </div>
             ) : (
                 <div className="order-form-container">
+                    {error && <p className="order-form-error">{error}</p>}
                     <div className="order-item">
-                        <div className="order-item-image">
-                            {imageUrls && imageUrls.length > 0 && (
-                                <img src={imageUrls[0]} alt={name} className="order-item-img" />
-                            )}
-                        </div>
+                        {imageUrls.length > 0 && (
+                            <img src={imageUrls[0]} alt={name} className="order-item-img" />
+                        )}
                         <div className="order-item-details">
                             <h3>{name}</h3>
                             <p>Quantity: {orderQuantity}</p>
@@ -61,8 +110,7 @@ const OrderForm = () => {
                             </p>
                         </div>
                     </div>
-
-                    <form className="order-form-fields" onSubmit={handleSubmit}>
+                    <form className="order-form-fields" onSubmit={(e) => e.preventDefault()}>
                         <label htmlFor="street">Street Address:</label>
                         <input
                             type="text"
@@ -72,7 +120,6 @@ const OrderForm = () => {
                             onChange={handleAddressChange}
                             required
                         />
-
                         <label htmlFor="city">City:</label>
                         <input
                             type="text"
@@ -82,7 +129,6 @@ const OrderForm = () => {
                             onChange={handleAddressChange}
                             required
                         />
-
                         <label htmlFor="state">State:</label>
                         <input
                             type="text"
@@ -92,7 +138,6 @@ const OrderForm = () => {
                             onChange={handleAddressChange}
                             required
                         />
-
                         <label htmlFor="postalCode">Postal Code:</label>
                         <input
                             type="text"
@@ -102,7 +147,6 @@ const OrderForm = () => {
                             onChange={handleAddressChange}
                             required
                         />
-
                         <label htmlFor="country">Country:</label>
                         <input
                             type="text"
@@ -112,7 +156,6 @@ const OrderForm = () => {
                             onChange={handleAddressChange}
                             required
                         />
-
                         <label htmlFor="phone">Phone Number:</label>
                         <input
                             type="tel"
@@ -122,15 +165,40 @@ const OrderForm = () => {
                             onChange={handlePhoneNumberChange}
                             required
                         />
-
-                        <label htmlFor="payment">Payment Method:</label>
-                        <select id="payment" name="payment" required>
-                            <option value="credit">Credit Card</option>
-                            <option value="debit">Debit Card</option>
-                            <option value="paypal">PayPal</option>
+                        <label htmlFor="paymentMethod">Payment Method:</label>
+                        <select
+                            id="paymentMethod"
+                            value={paymentMethod}
+                            onChange={(e) => setPaymentMethod(e.target.value)}
+                        >
+                            <option value="Razorpay">Razorpay</option>
+                            <option value="COD">Cash on Delivery</option>
                         </select>
 
-                        <button type="submit" className="order-form-submit">Place Order</button>
+                        {paymentMethod === 'COD' && (
+                            <div className="captcha-container">
+                                <label htmlFor="captcha">CAPTCHA:</label>
+                                <p className="captcha-text">{captcha}</p>
+                                <input
+                                    type="text"
+                                    id="captcha"
+                                    value={captchaInput}
+                                    onChange={handleCaptchaChange}
+                                    required
+                                />
+                                <button type="button" onClick={() => setCaptcha(generateCaptcha())}>
+                                    Refresh CAPTCHA
+                                </button>
+                            </div>
+                        )}
+
+                        <button
+                            type="button"
+                            className="order-form-submit"
+                            onClick={handlePayment}
+                        >
+                            Place Order
+                        </button>
                     </form>
                 </div>
             )}
