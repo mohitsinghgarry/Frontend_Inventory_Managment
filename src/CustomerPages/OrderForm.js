@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import '../CustomerPages_css/Order.css';
 import OrdersContext from '../ContextApi/OrderContext';
-import { loadRazorpay } from '../utils/razorpayUtils'; // Utility for Razorpay integration
+import { loadRazorpayScript } from '../utils/rzpUtil';
 
 const OrderForm = () => {
     const location = useLocation();
@@ -36,19 +36,94 @@ const OrderForm = () => {
     const validateCaptcha = () => captchaInput.toUpperCase() === captcha;
 
     const handlePayment = async () => {
-        if (paymentMethod === 'Razorpay') {
-            const razorpaySuccess = await loadRazorpay(totalPrice); // Razorpay integration
-            if (!razorpaySuccess) {
-                setError('Payment failed. Please try again.');
-                return;
+            const isScriptLoaded = await loadRazorpayScript();
+            if (!isScriptLoaded) {
+              console.error({ type: 'error', message: 'Failed to load Razorpay SDK. Please check your connection.' });
+              return;
             }
-        } else if (paymentMethod === 'COD' && !validateCaptcha()) {
-            setError('Invalid CAPTCHA. Please try again.');
-            return;
-        }
 
-        submitOrder();
-    };
+        if (paymentMethod === 'Razorpay') {
+          try {
+            // create the Razorpay order on the server
+            const response = await fetch('http://localhost:3000/api/payment/create-order', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                amount: totalPrice,
+                currency: 'INR',
+                receipt: `order_${new Date().getTime()}`,
+              }),
+            });
+      
+            if (!response.ok) {
+              throw new Error('Failed to create Razorpay order.');
+            }
+      
+            const { order } = await response.json();
+      
+            // Now that we have the order, initiate Razorpay payment
+            const razorpayOptions = {
+              key: process.env.RZP_KEY_ID,
+              amount: totalPrice * 100,
+              currency: 'INR',
+              name: 'InventryPro',
+              description: 'Order Payment',
+              order_id: order.id,
+              handler: function (response) {
+                // You should verify the payment signature in your backend
+                fetch('http://localhost:3000/api/payment/verify-payment', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    razorpay_order_id: response.razorpay_order_id,
+                    razorpay_payment_id: response.razorpay_payment_id,
+                    razorpay_signature: response.razorpay_signature,
+                  }),
+                })
+                  .then((res) => res.json())
+                  .then((data) => {
+                    if (data.success) {
+                        // Payment is successful, submit the order to the backend
+                        submitOrder();
+                        alert('Payment Successful! Order has been placed.');
+                    } else {
+                      alert('Payment verification failed.');
+                    }
+                  })
+                  .catch((err) => {
+                    alert('Error verifying payment: ' + err.message);
+                  });
+              },
+              prefill: {
+                name: name || 'Guest',
+                email: 'customer@example.com',
+                contact: phoneNumber,
+              },
+              theme: {
+                color: '#F37254',
+              },
+            };
+      
+            const razorpayInstance = new window.Razorpay(razorpayOptions);
+            razorpayInstance.open();
+          } catch (err) {
+            console.error('Error initiating Razorpay payment:', err);
+            setError('Payment failed. Please try again.');
+          }
+        } else if (paymentMethod === 'COD') {
+            // For COD, directly submit the order without Razorpay
+            if (!validateCaptcha()) {
+              setError('Invalid CAPTCHA. Please try again.');
+              return;
+            }
+            submitOrder();
+          }
+        };
+      
 
     const submitOrder = async () => {
         const orderData = {
