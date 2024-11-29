@@ -10,7 +10,37 @@ const Order = () => {
     }, [fetchOrders]);
 
     const handleStatusChange = async (orderId, newStatus) => {
-        await updateOrderStatus(orderId, newStatus); // Handles regular status updates
+        // If the new status is "Delivered", update stock quantity
+        if (newStatus === 'Delivered') {
+            const order = orders.find((o) => o._id === orderId);
+            if (order) {
+                console.log(order);
+                await updateStockQuantity(order.productId, order.orderQuantity);
+            }
+        }
+
+        // Update the order status in the backend
+        await updateOrderStatus(orderId, newStatus);
+    };
+
+    const updateStockQuantity = async (productId, quantity) => {
+        try {
+            const response = await fetch(`http://localhost:3000/products/${productId}/update-stock`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ quantity, productId }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to update stock. Please try again.');
+            }
+
+            console.log('Stock updated successfully.');
+        } catch (error) {
+            console.error('Error updating stock:', error);
+        }
     };
 
     const handleCancellationAction = async (orderId, action) => {

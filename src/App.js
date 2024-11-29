@@ -19,7 +19,7 @@ import ProductPage from './CustomerPages/ProductPage';
 import HomePage from './CustomerPages/HomePage';
 import Cart from './CustomerPages/Cart';
 import OrderForm from './CustomerPages/OrderForm';
-import Account from './CustomerPages/Account';
+import Orders from './CustomerPages/Orders';
 import AddProduct from './AdminPages/AddProduct';
 import { CustomerProvider } from './ContextApi/CustomerContext';
 import UpdateProduct from './AdminPages/UpdateProduct';
@@ -28,6 +28,7 @@ import { CartProvider } from './ContextApi/CartContext';
 import SingleProductCart from './CustomerPages/SingleProudctCart';
 import { OrdersProvider } from './ContextApi/OrderContext';
 import ProtectedRoute from './ProtectedRoute'; // Import the ProtectedRoute component
+import Account from './CustomerPages/Account';
 
 const App = () => {
     return (
@@ -75,6 +76,7 @@ const App = () => {
                                 >
                                     <Route path="home" element={<HomePage />} />
                                     <Route path="product" element={<ProductPage />} />
+                                    <Route path="orders" element={<Orders />} />
                                     <Route path="account" element={<Account />} />
                                     <Route path="cart" element={<Cart />} />
                                     <Route path="singleproductcart" element={<SingleProductCart />} />

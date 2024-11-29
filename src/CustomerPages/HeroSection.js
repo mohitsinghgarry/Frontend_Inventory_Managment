@@ -15,7 +15,7 @@ const HeroSection = () => {
       <h1 className='heading-new' >INVENTORY MANAGEMENT</h1>
       <p className='main-content-new'>Experience refined elegance with our minimalist brand. We embody sophistication in every aspect of your shopping, be it groceries or any other necessity. Elevate your style and shopping experience with timeless minimalism.</p>
        <div >
-       <button className='button' onClick={clickHandler}>shop Now</button>
+       <button className='button' onClick={clickHandler}>Shop Now</button>
         </div>
     </div>
     <div className="right-container-new" data-aos="zoom-in-up" data-aos-duration="1000">

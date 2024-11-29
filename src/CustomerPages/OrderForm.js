@@ -8,8 +8,7 @@ const OrderForm = () => {
     const location = useLocation();
     const { addOrder } = useContext(OrdersContext); // Use the context's addOrder function
 
-    const { name, price, orderQuantity, totalPrice, imageUrls = [] } = location.state || {};
-
+    const { name, price, orderQuantity, totalPrice, imageUrls = [],productId } = location.state || {};
     const [phoneNumber, setPhoneNumber] = useState('');
     const [address, setAddress] = useState({
         street: '',
@@ -133,6 +132,7 @@ const OrderForm = () => {
             totalPrice,
             address,
             phoneNumber,
+            productId,
             imageUrls,
             date: new Date().toLocaleString(),
             status: paymentMethod === 'COD' ? 'Order Placed (COD)' : 'Order Placed',

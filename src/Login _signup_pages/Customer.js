@@ -51,6 +51,11 @@ function Customer() {
                         </NavLink>
                     </li>
                     <li className="menu-item">
+                        <NavLink to="orders" className={({ isActive }) => (isActive ? 'active' : 'link')}>
+                            <FaUser className="icon" /> ORDERS
+                        </NavLink>
+                    </li>
+                    <li className="menu-item">
                         <NavLink to="account" className={({ isActive }) => (isActive ? 'active' : 'link')}>
                             <FaUser className="icon" /> ACCOUNT INFO
                         </NavLink>

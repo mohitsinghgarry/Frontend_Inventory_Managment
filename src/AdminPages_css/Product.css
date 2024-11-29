@@ -95,6 +95,22 @@ tr:hover {
   object-fit: cover;
 }
 
+.approve-btn{
+  width: 7rem;
+  height: 2rem;
+  border: none;
+  border-radius: 1rem;
+  background-color: #27ae60;
+}
+.reject-btn{
+ 
+    width: 7rem;
+    height: 2rem;
+    border: none;
+    border-radius: 1rem;
+    margin: .4rem;
+    background-color: red;
+}
 /* Responsive Adjustments */
 @media (max-width: 1024px) {
   /* Font size and padding adjustments for tablets */

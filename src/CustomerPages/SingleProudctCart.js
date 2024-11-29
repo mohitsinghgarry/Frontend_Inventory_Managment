@@ -7,8 +7,7 @@ const SingleProductCart = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const { userData } = useUser(); 
-    const { name = '', price = 0, orderQuantity = 1, imageUrls = [] } = location.state || {}; // Extract values safely
-
+    const { name = '', price = 0, orderQuantity = 1, imageUrls = [], productId } = location.state || {}; // Extract values safely
     const totalPrice = price * orderQuantity;
 
     // Image carousel logic
@@ -30,6 +29,7 @@ const SingleProductCart = () => {
                 name,
                 price,
                 orderQuantity,
+                productId,
                 totalPrice,
                 imageUrls
             }

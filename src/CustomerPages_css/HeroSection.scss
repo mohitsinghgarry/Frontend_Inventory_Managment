@@ -3,66 +3,90 @@
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 2rem;
 
-    /* Left Container */
-    .left-container-new {
-        margin-top: 5rem;
-        display: flex;
-        flex-direction: column;
-        margin-left: 1rem;
-        align-items: flex-start;
+    animation: fadeInUp 1s ease-out; /* Animation for the container */
+}
 
-        .intro-data-new {
-            font-size: 2rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 1.4px;
-        }
+/* Keyframes for animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-        .heading-new {
-            margin-top: 1rem;
-            margin-bottom: 1rem;
-            color: rgb(97, 97, 255);
-            font-weight: bold;
-            letter-spacing: 1.4px;
-        }
+/* Left Container */
+.left-container-new {
+    margin-top: 5rem;
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem;
+    align-items: flex-start;
 
-        .main-content-new {
-            font-weight: 300;
-            font-size: large;
-            letter-spacing: 1.4px;
-            line-height: 2;
-            margin-bottom: 3rem;
-        }
+    animation: fadeInUp 1.5s ease-out;
+    animation-delay: 0.3s; /* Delayed start for staggered effect */
+    opacity: 0; /* Initial state for animation */
+    animation-fill-mode: forwards;
 
-        div button {
-            width: 10rem;
-            height: 3rem;
-            background-color: rgb(7, 204, 7);
-            transition: 0.4s ease-out;
-
-            &:hover {
-                background-color: green;
-            }
-        }
+    .intro-data-new {
+        font-size: 2rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1.4px;
     }
 
-    /* Right Container */
-    .right-container-new {
-        margin-top: 5rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    .heading-new {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        color: rgb(97, 97, 255);
+        font-weight: bold;
+        letter-spacing: 1.4px;
+    }
 
-        img {
-            max-width: 100%; /* Ensures the image scales proportionally */
-            height: auto; /* Maintain aspect ratio */
-            object-fit: contain; /* Ensures the full image is visible */
-            border-radius: 1rem; /* Optional: Adds rounded corners */
-            transition: all 0.3s ease-in-out;
+    .main-content-new {
+        font-weight: 300;
+        font-size: large;
+        letter-spacing: 1.4px;
+        line-height: 2;
+        margin-bottom: 3rem;
+    }
 
-            &:hover {
-                transform: translateY(-10px);
-            }
+    div button {
+        width: 10rem;
+        height: 3rem;
+        background-color: rgb(7, 204, 7);
+        transition: 0.4s ease-out;
+
+        &:hover {
+            background-color: green;
+        }
+    }
+}
+
+/* Right Container */
+.right-container-new {
+    margin-top: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    animation: fadeInUp 1.5s ease-out;
+    animation-delay: 0.6s; /* Longer delay for staggered effect */
+    opacity: 0; /* Initial state for animation */
+    animation-fill-mode: forwards;
+
+    img {
+        max-width: 100%; /* Ensures the image scales proportionally */
+        height: auto; /* Maintain aspect ratio */
+        object-fit: contain; /* Ensures the full image is visible */
+        border-radius: 1rem; /* Optional: Adds rounded corners */
+        transition: all 0.3s ease-in-out;
+
+        &:hover {
+            transform: translateY(-10px);
         }
     }
 }
