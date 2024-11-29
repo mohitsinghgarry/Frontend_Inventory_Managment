@@ -3,18 +3,25 @@ import { Outlet, NavLink } from 'react-router-dom';
 import '../Login_signup_css/User.css';
 import { useUser } from './UserContext';
 
+import { useNavigate } from 'react-router-dom';
+
 function Admin() {
-    const { userData } = useUser();
-    const [isSidebarOpen, setSidebarOpen] = useState(false); // Track the sidebar state
+    const { userData, logout } = useUser();
+    const [isSidebarOpen, setSidebarOpen] = useState(false);
+    const navigate = useNavigate(); // For navigation
+
+    const toggleSidebar = () => {
+        setSidebarOpen(!isSidebarOpen);
+    };
+
+    const handleLogout = () => {
+        logout(); // Clear user data and trigger toast
+        navigate('/login'); // Redirect to login page
+    };
 
     if (!userData) {
         return <p>No user data available.</p>;
     }
-
-    // Toggle the sidebar visibility
-    const toggleSidebar = () => {
-        setSidebarOpen(!isSidebarOpen);
-    };
 
     return (
         <div className="admin-portal">
@@ -54,19 +61,13 @@ function Admin() {
                             STOCK
                         </NavLink>
                     </li>
-                    {/* <li className="admin-menu-item">
-                        <NavLink
-                            to="sales"
-                            className={({ isActive }) => (isActive ? 'admin-active-link' : 'admin-link')}
-                        >
-                            SALES
-                        </NavLink>
-                    </li> */}
                 </ul>
-                <button className="admin-logout-btn">Logout</button>
+                <button className="admin-logout-btn" onClick={handleLogout}>
+                    Logout
+                </button>
             </aside>
 
-            {/* Top Navbar for Small Screens */}
+            {/* Navbar for Small Screens */}
             <nav className={`admin-navbar ${isSidebarOpen ? 'open' : ''}`}>
                 <button className="navbar-toggle-btn" onClick={toggleSidebar}>
                     <span className="hamburger-icon"></span>
