@@ -19,7 +19,7 @@ const HeroSection = () => {
         </div>
     </div>
     <div className="right-container-new" data-aos="zoom-in-up" data-aos-duration="1000">
-      <img src="/undraw_website_5bo8.svg" alt="shopping" />
+      <img src="/newlogo.svg" alt="shopping" />
     </div>
   </div>
   )
