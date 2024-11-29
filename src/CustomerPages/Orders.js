@@ -4,6 +4,7 @@ import '../CustomerPages_css/Account.css';
 
 const orders = () => {
     const { orders, fetchOrders, updateOrderStatus } = useContext(OrdersContext);
+    // console.log(orders)
 
     // Fetch orders when the component loads
     useEffect(() => {
