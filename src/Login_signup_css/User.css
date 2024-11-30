@@ -99,6 +99,19 @@
   display: flex; /* Show navbar when the sidebar is open */
 }
 
+.admin-navbar .admin-logout-btn {
+  background-color: #e74c3c;
+  color: white;
+  font-size: 0.9em;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-left: auto;
+}
+
+.admin-navbar .admin-logout-btn:hover {
+  background-color: #c0392b;
+}
+
 .navbar-toggle-btn {
   background-color: transparent;
   border: none;
@@ -204,7 +217,14 @@
   }
 
   .admin-logout-btn {
-    display: none;
+    display: block; /* Ensure visibility of Logout button in the responsive sidebar */
+    width: auto;
+    margin: 10px;
+    font-size: 0.9em;
+  }
+
+  .admin-navbar .admin-logout-btn {
+    display: block; /* Show Logout button in the navbar */
   }
 }
 

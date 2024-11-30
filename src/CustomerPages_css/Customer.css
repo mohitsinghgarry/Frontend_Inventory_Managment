@@ -122,24 +122,17 @@
   transition: transform 0.3s ease;
 }
 
-/* When Sidebar is Open - Hamburger Icon Transforms */
-.navbar.open .hamburger-icon::before,
-.navbar.open .hamburger-icon::after {
-  content: "";
-  position: absolute;
-  width: 30px;
-  height: 3px;
-  background-color: white;
-  border-radius: 3px;
-  transition: transform 0.3s ease;
+.navbar .logout-btn {
+  background-color: #e74c3c;
+  color: white;
+  font-size: 0.9em;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-left: auto;
 }
 
-.navbar.open .hamburger-icon::before {
-  transform: translateY(10px) rotate(45deg);
-}
-
-.navbar.open .hamburger-icon::after {
-  transform: translateY(-10px) rotate(-45deg);
+.navbar .logout-btn:hover {
+  background-color: #c0392b;
 }
 
 /* Responsive Styles */
@@ -181,7 +174,14 @@
   }
 
   .logout-btn {
-    display: none;
+    display: block; /* Ensure visibility of Logout button */
+    width: auto;
+    margin: 10px;
+    font-size: 0.9em;
+  }
+
+  .navbar .logout-btn {
+    display: block; /* Show logout button in navbar */
   }
 }
 
