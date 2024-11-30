@@ -16,7 +16,7 @@ function ForgotPassword() {
         }
 
         try {
-            const response = await fetch('http://localhost:3000/user/request-password-reset', {
+            const response = await fetch('https://backend-inventory-management-1.onrender.com/user/request-password-reset', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

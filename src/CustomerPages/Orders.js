@@ -35,7 +35,7 @@ const orders = () => {
     // Handle cancellation request
     const handleCancelOrderRequest = async (orderId) => {
         try {
-            const response = await fetch(`http://localhost:3000/api/orders/${orderId}/request-cancel`, {
+            const response = await fetch(`https://backend-inventory-management-1.onrender.com/api/orders/${orderId}/request-cancel`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

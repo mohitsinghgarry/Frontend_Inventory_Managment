@@ -11,7 +11,7 @@ export const CustomerProvider = ({ children }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('http://localhost:3000/products');
+        const response = await fetch('https://backend-inventory-management-1.onrender.com/products');
         if (!response.ok) {
           throw new Error('Failed to fetch products');
         }
@@ -30,7 +30,7 @@ export const CustomerProvider = ({ children }) => {
   // Function to remove a product
   const removeProduct = async (productId) => {
     try {
-      const response = await fetch(`http://localhost:3000/remove`, { // Assuming your endpoint is set to handle removal via POST
+      const response = await fetch(`https://backend-inventory-management-1.onrender.com/remove`, { // Assuming your endpoint is set to handle removal via POST
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -53,7 +53,7 @@ export const CustomerProvider = ({ children }) => {
   const updateProduct = async (productId, updatedProduct) => {
     console.log(productId);
     try {
-      const response = await fetch(`http://localhost:3000/products/${productId}`, {
+      const response = await fetch(`https://backend-inventory-management-1.onrender.com/products/${productId}`, {
         method: 'PUT', // Use PUT method for updating a product
         headers: {
           'Content-Type': 'application/json',

@@ -25,7 +25,7 @@ const Order = () => {
 
     const updateStockQuantity = async (productId, quantity) => {
         try {
-            const response = await fetch(`http://localhost:3000/products/${productId}/update-stock`, {
+            const response = await fetch(`https://backend-inventory-management-1.onrender.com/products/${productId}/update-stock`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',

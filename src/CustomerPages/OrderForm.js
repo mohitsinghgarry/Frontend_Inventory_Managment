@@ -44,7 +44,7 @@ const OrderForm = () => {
         if (paymentMethod === 'Razorpay') {
           try {
             // create the Razorpay order on the server
-            const response = await fetch('http://localhost:3000/api/payment/create-order', {
+            const response = await fetch('https://backend-inventory-management-1.onrender.com/api/payment/create-order', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ const OrderForm = () => {
               order_id: order.id,
               handler: function (response) {
                 // You should verify the payment signature in your backend
-                fetch('http://localhost:3000/api/payment/verify-payment', {
+                fetch('https://backend-inventory-management-1.onrender.com/api/payment/verify-payment', {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json',
@@ -139,7 +139,7 @@ const OrderForm = () => {
         };
 
         try {
-            const response = await fetch('http://localhost:3000/api/order', {
+            const response = await fetch('https://backend-inventory-management-1.onrender.com/api/order', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

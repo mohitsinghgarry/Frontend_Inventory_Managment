@@ -27,7 +27,7 @@ const UpdateProduct = () => {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/product/${productId}`);
+                const response = await fetch(`https://backend-inventory-management-1.onrender.com/product/${productId}`);
                 if (!response.ok) throw new Error('Failed to fetch product');
                 const data = await response.json();
                 setProduct(data);
@@ -92,7 +92,7 @@ const UpdateProduct = () => {
                 });
             }
 
-            const response = await fetch(`http://localhost:3000/products/${productId}`, {
+            const response = await fetch(`https://backend-inventory-management-1.onrender.com/products/${productId}`, {
                 method: 'PUT',
                 body: formData
             });

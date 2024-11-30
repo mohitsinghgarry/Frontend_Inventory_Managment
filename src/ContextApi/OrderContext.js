@@ -8,7 +8,7 @@ export const OrdersProvider = ({ children }) => {
     // Fetch orders from the backend
     const fetchOrders = async () => {
         try {
-            const response = await fetch('http://localhost:3000/api/getorders');
+            const response = await fetch('https://backend-inventory-management-1.onrender.com/api/getorders');
             if (!response.ok) throw new Error('Failed to fetch orders');
             const data = await response.json();
             setOrders(data);
@@ -25,7 +25,7 @@ export const OrdersProvider = ({ children }) => {
     // Update order status
     const updateOrderStatus = async (orderId, newStatus) => {
         try {
-            const response = await fetch(`http://localhost:3000/api/order/${orderId}`, {
+            const response = await fetch(`https://backend-inventory-management-1.onrender.com/api/order/${orderId}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ export const OrdersProvider = ({ children }) => {
     // Delete an order
     const deleteOrder = async (orderId) => {
         try {
-            const response = await fetch(`http://localhost:3000/api/${orderId}`, {
+            const response = await fetch(`https://backend-inventory-management-1.onrender.com/api/${orderId}`, {
                 method: 'DELETE',
             });
 

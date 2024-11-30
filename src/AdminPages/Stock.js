@@ -12,7 +12,7 @@ function Stock() {
     // Function to fetch data from the API
     const fetchProducts = async () => {
       try {
-        const res = await fetch('http://localhost:3000/products'); // Your API URL
+        const res = await fetch('https://backend-inventory-management-1.onrender.com/products'); // Your API URL
         const result = await res.json();
 
         // Filter the products based on a 'status' if it exists in the response (if relevant for your case)
