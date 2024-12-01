@@ -4,11 +4,11 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const UserContext = createContext(null);
 
-const useUser = () => {
+export const useUser = () => {
     return useContext(UserContext);
 };
 
-const UserProvider = ({ children }) => {
+export const UserProvider = ({ children }) => {
     const [userData, setUserData] = useState(() => {
         const savedData = localStorage.getItem('userData');
         return savedData ? JSON.parse(savedData) : null;
@@ -22,6 +22,7 @@ const UserProvider = ({ children }) => {
     const clearUserData = () => {
         setUserData(null);
         localStorage.removeItem('userData');
+        localStorage.removeItem('authToken'); // Ensure token is cleared
     };
 
     const logout = () => {
@@ -37,7 +38,6 @@ const UserProvider = ({ children }) => {
             progress: undefined,
         });
     };
-    
 
     return (
         <UserContext.Provider value={{ userData, setUserData: saveUserData, clearUserData, logout }}>
@@ -45,5 +45,3 @@ const UserProvider = ({ children }) => {
         </UserContext.Provider>
     );
 };
-
-export { UserProvider, useUser };

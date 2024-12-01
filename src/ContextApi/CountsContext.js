@@ -35,7 +35,7 @@ export const CountsProvider = ({ children }) => {
         const customersData = await customersRes.json();
         const lowStockData = await lowStockRes.json(); // Get low stock count
         const recentOrdersData = await recentOrdersRes.json(); // Get recent orders count
-
+        // console.log(recentOrdersData)
         // Setting the fetched counts into state
         setCounts({
           totalProducts: productsData.count,

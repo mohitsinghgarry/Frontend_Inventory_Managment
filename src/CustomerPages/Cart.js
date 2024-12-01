@@ -12,29 +12,27 @@ const CartItem = ({ item, onRemove, onNavigate }) => {
 
     return (
         <div
-            className={`cart-item-card ${isOutOfStock ? 'out-of-stock' : ''}`}
+            className={`cart-item-card custom-modern-card-layout ${isOutOfStock ? 'custom-out-of-stock' : ''}`}
             onClick={() => !isOutOfStock && onNavigate(item)}
             style={{ cursor: isOutOfStock ? 'not-allowed' : 'pointer' }}
         >
-            <div className="combined-data">
-                <img src={imageUrls[0]} alt={name} className="cart-item-image" />
-                <div className="cart-item-cell-name">{name}</div>
+            <img src={imageUrls[0]} alt={name} className="custom-cart-item-image" />
+            <div className="custom-cart-item-details">
+                <div className="custom-cart-item-name">{name}</div>
+                <div className="custom-cart-item-price">Price: ₹{price}</div>
+                <div className="custom-cart-item-quantity">Quantity: {orderQuantity}</div>
+                <div className="custom-cart-item-total">Total: ₹{totalPrice}</div>
+                <div className={`custom-cart-item-stock ${isOutOfStock ? 'custom-out-of-stock-text' : ''}`}>{stockStatus}</div>
             </div>
-            <div className="cart-item-cell-quantity">{orderQuantity}</div>
-            <div className="cart-item-cell-price">₹{price}</div>
-            <div className="cart-item-cell-total">₹{totalPrice}</div>
-            <div className="cart-item-cell-stock">{stockStatus}</div>
-            <div className="cart-item-cell-action">
-                <button
-                    className="remove-button"
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        onRemove(name);
-                    }}
-                >
-                    Remove
-                </button>
-            </div>
+            <button
+                className="custom-remove-button custom-modern-remove-button"
+                onClick={(e) => {
+                    e.stopPropagation();
+                    onRemove(name);
+                }}
+            >
+                Remove
+            </button>
         </div>
     );
 };
@@ -108,12 +106,12 @@ const Cart = () => {
 
     if (cartItems.length === 0) {
         return (
-            <div className="empty-cart-container">
-                <div className="empty-cart-text">No Items in Cart</div>
+            <div className="custom-empty-cart-container">
+                <div className="custom-empty-cart-text">No Items in Cart</div>
                 <MdRemoveShoppingCart size={70} />
                 <button
                     onClick={() => navigate(`/customer/${userData.id}/product`)}
-                    className="back-button"
+                    className="custom-back-button"
                 >
                     Go Back to Product
                 </button>
@@ -122,30 +120,24 @@ const Cart = () => {
     }
 
     return (
-        <div className="cart-container">
-            {error && <div className="error-message">{error}</div>}
-            <div className="cart-header">
-                <div className="cart-header-cell">Product Name</div>
-                <div className="cart-header-cell">Quantity</div>
-                <div className="cart-header-cell">Price per Item</div>
-                <div className="cart-header-cell">Total Price</div>
-                <div className="cart-header-cell">Available Stocks</div>
-                <div className="cart-header-cell">Actions</div>
+        <div className="custom-cart-container custom-modern-card-container">
+            {error && <div className="custom-error-message">{error}</div>}
+            <div className="custom-cart-items-grid">
+                {cartItems.map((item, index) => (
+                    <CartItem
+                        key={index}
+                        item={item}
+                        onRemove={removeItemFromCart}
+                        onNavigate={handleProductNavigation}
+                    />
+                ))}
             </div>
-            {cartItems.map((item, index) => (
-                <CartItem
-                    key={index}
-                    item={item}
-                    onRemove={removeItemFromCart}
-                    onNavigate={handleProductNavigation}
-                />
-            ))}
-            <div className="total-bill-section">
+            <div className="custom-total-bill-section">
                 Total Bill: <strong>₹{totalBill}</strong>
             </div>
             <button
                 onClick={() => navigate(`/customer/${userData.id}/product`)}
-                className="back-to-product-button"
+                className="custom-back-to-product-button"
             >
                 Go Back to Product
             </button>

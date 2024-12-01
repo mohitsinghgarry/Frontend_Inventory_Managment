@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useUser } from '../Login _signup_pages/UserContext'; // Adjust path
+import { useUser } from '../Login _signup_pages/UserContext'; // Adjust path as needed
 import '../CustomerPages_css/newAccount.css';
 
 function Account() {
@@ -14,7 +14,6 @@ function Account() {
   const [formError, setFormError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  // Define a list of motivational quotes
   const motivationalQuotes = [
     "Believe in yourself and all that you are.",
     "The only way to do great work is to love what you do.",
@@ -30,38 +29,36 @@ function Account() {
     "The best time to plant a tree was 20 years ago. The second best time is now.",
     "Your limitation—it’s only your imagination.",
     "Push yourself, because no one else is going to do it for you.",
-    "Great things never come from comfort zones."
+    "Great things never come from comfort zones.",
   ];
 
-  const [currentQuote, setCurrentQuote] = useState(''); // State to hold the current quote
+  const [currentQuote, setCurrentQuote] = useState('');
 
-  // Load profile from localStorage if available
+  // Load user profile when userData changes
   useEffect(() => {
-    const storedProfile = JSON.parse(localStorage.getItem('userProfile'));
-    if (storedProfile) {
-      setProfile(storedProfile);
-      setImagePreview(storedProfile.profilePhoto || '');
-    } else if (userData) {
+    if (userData) {
       setProfile({
         name: userData.name || '',
         email: userData.email || '',
         profilePhoto: userData.profilePhoto || '',
       });
       setImagePreview(userData.profilePhoto || '');
+    } else {
+      setProfile({ name: '', email: '', profilePhoto: '' });
+      setImagePreview('');
     }
+  }, [userData]);
 
-    // Change the quote every 10 seconds
+  // Change quote every 10 seconds
+  useEffect(() => {
     const quoteInterval = setInterval(() => {
       const randomIndex = Math.floor(Math.random() * motivationalQuotes.length);
-      setCurrentQuote(motivationalQuotes[randomIndex]); // Set a random quote
-    }, 10000); // Change quote every 10 seconds
+      setCurrentQuote(motivationalQuotes[randomIndex]);
+    }, 10000);
 
-    // Clean up the interval when the component unmounts
     return () => clearInterval(quoteInterval);
+  }, []);
 
-  }, [userData]); // Re-run when userData changes
-
-  // Handle file input change (for uploading profile image)
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -74,7 +71,6 @@ function Account() {
     }
   };
 
-  // Handle profile form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -85,13 +81,13 @@ function Account() {
       setIsLoading(false);
       return;
     }
-
+    const token = localStorage.getItem('authToken');
     try {
       const response = await fetch('https://backend-inventory-management-1.onrender.com/user/update-profile', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${userData.token}`, // Include token if authentication is needed
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(profile),
       });
@@ -102,10 +98,6 @@ function Account() {
 
       const updatedUser = await response.json();
       setUserData(updatedUser.user);
-      
-      // Save updated profile to localStorage
-      localStorage.setItem('userProfile', JSON.stringify(updatedUser.user));
-
       alert('Profile updated successfully!');
       setIsEditing(false);
     } catch (error) {
@@ -131,11 +123,8 @@ function Account() {
               onChange={handleFileChange}
               className="account-photo-input"
             />
-            {imagePreview && (
-              <img src={imagePreview} alt="Profile Preview" className="account-photo-preview" />
-            )}
+            {imagePreview && <img src={imagePreview} alt="Profile Preview" className="account-photo-preview" />}
           </div>
-
           <div className="account-input-group">
             <label htmlFor="name" className="account-label">Name:</label>
             <input
@@ -147,7 +136,6 @@ function Account() {
               required
             />
           </div>
-
           <div className="account-input-group">
             <label htmlFor="email" className="account-label">Email:</label>
             <input
@@ -159,7 +147,6 @@ function Account() {
               required
             />
           </div>
-
           <button type="submit" className="account-submit-btn" disabled={isLoading}>
             {isLoading ? 'Updating...' : 'Save Changes'}
           </button>
@@ -178,11 +165,9 @@ function Account() {
             <p className="account-detail"><strong>Email:</strong> {profile.email}</p>
           </div>
           <button onClick={() => setIsEditing(true)} className="account-edit-btn">Edit Profile</button>
-
-            {/* Display the motivational quote */}
-      <div className="motivational-quote">
-        <p>{currentQuote || "Stay positive and keep going!"}</p>
-      </div>
+          <div className="motivational-quote">
+            <p>{currentQuote || 'Stay positive and keep going!'}</p>
+          </div>
         </div>
       )}
     </div>

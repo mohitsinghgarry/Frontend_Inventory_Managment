@@ -34,10 +34,10 @@ import { CountsProvider } from "./ContextApi/CountsContext";
 const App = () => {
   return (
     <CustomerProvider>
+          <UserProvider>
       <ToastContainer /> {/* Toast container for notifications */}
       <OrdersProvider>
         <CartProvider>
-          <UserProvider>
             <CountsProvider>
               <Router>
                 <Routes>
@@ -100,9 +100,9 @@ const App = () => {
                 </Routes>
               </Router>
             </CountsProvider>
-          </UserProvider>
         </CartProvider>
       </OrdersProvider>
+          </UserProvider>
     </CustomerProvider>
   );
 };

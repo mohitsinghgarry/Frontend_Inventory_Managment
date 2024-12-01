@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useUser } from '../Login _signup_pages/UserContext';
 import '../AdminPages_css/UpdateProduct.css';
-
+import Loading from '../Login _signup_pages/Loading';
 const UpdateProduct = () => {
     const { productId } = useParams();
     const { userData } = useUser();
@@ -105,7 +105,7 @@ const UpdateProduct = () => {
         }
     };
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <Loading/>;
     if (error) return <p>{error}</p>;
 
     return (

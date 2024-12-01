@@ -1,25 +1,23 @@
 import React, { useContext, useEffect } from 'react';
 import OrdersContext from '../ContextApi/OrderContext';
 import '../AdminPages_css/Order.css';
+import Loading from '../Login _signup_pages/Loading';
 
 const Order = () => {
     const { orders, fetchOrders, updateOrderStatus, deleteOrder } = useContext(OrdersContext);
 
+    // Fetch orders when the component mounts
     useEffect(() => {
         fetchOrders();
-    }, [fetchOrders]);
+    }, []); // Empty dependency array ensures it runs only once
 
     const handleStatusChange = async (orderId, newStatus) => {
-        // If the new status is "Delivered", update stock quantity
         if (newStatus === 'Delivered') {
             const order = orders.find((o) => o._id === orderId);
             if (order) {
-                console.log(order);
                 await updateStockQuantity(order.productId, order.orderQuantity);
             }
         }
-
-        // Update the order status in the backend
         await updateOrderStatus(orderId, newStatus);
     };
 
@@ -36,7 +34,6 @@ const Order = () => {
             if (!response.ok) {
                 throw new Error('Failed to update stock. Please try again.');
             }
-
             console.log('Stock updated successfully.');
         } catch (error) {
             console.error('Error updating stock:', error);
@@ -44,19 +41,18 @@ const Order = () => {
     };
 
     const handleCancellationAction = async (orderId, action) => {
-        const newStatus = action === 'approve' ? 'Canceled' : 'Order Placed'; // Revert to "Order Placed" if rejected
-        await updateOrderStatus(orderId, newStatus); // Update the order status in the backend
+        const newStatus = action === 'approve' ? 'Canceled' : 'Order Placed';
+        await updateOrderStatus(orderId, newStatus);
     };
 
     const handleRemoveOrder = async (orderId) => {
         if (window.confirm('Are you sure you want to delete this order?')) {
-            await deleteOrder(orderId); // Call the context method to delete the order
-            fetchOrders(); // Refresh the list after deletion
+            await deleteOrder(orderId);
         }
     };
 
-    if (orders.length === 0) {
-        return <p>No orders available.</p>;
+    if (!orders || orders.length === 0) {
+        return <Loading />;
     }
 
     return (

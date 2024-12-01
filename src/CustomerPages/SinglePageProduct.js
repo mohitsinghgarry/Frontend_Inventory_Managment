@@ -1,4 +1,3 @@
-// SinglePageProduct.js
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { TbReplace } from "react-icons/tb";
@@ -16,6 +15,7 @@ const SinglePageProduct = () => {
     const [error, setError] = useState('');
     const { userData } = useUser();
     const [orderQuantity, setOrderQuantity] = useState(1);
+
     useEffect(() => {
         const fetchProduct = async () => {
             try {
@@ -32,12 +32,15 @@ const SinglePageProduct = () => {
         fetchProduct();
     }, [productId]);
 
-    const handleQuantityChange = (event) => {
-        const value = parseInt(event.target.value, 10);
-        if (value > 0 && value <= product.quantity) {
-            setOrderQuantity(value);
-        } else {
-            setOrderQuantity(1);
+    const handleIncreaseQuantity = () => {
+        if (orderQuantity < product.quantity) {
+            setOrderQuantity(orderQuantity + 1);
+        }
+    };
+
+    const handleDecreaseQuantity = () => {
+        if (orderQuantity > 1) {
+            setOrderQuantity(orderQuantity - 1);
         }
     };
 
@@ -106,16 +109,12 @@ const SinglePageProduct = () => {
 
                         {product.quantity > 0 && (
                             <div className="quantity-selector">
-                                <label htmlFor="quantity">Quantity:</label>
-                                <input
-                                    type="number"
-                                    id="quantity"
-                                    value={orderQuantity}
-                                    min="1"
-                                    max={product.quantity}
-                                    onChange={handleQuantityChange}
-                                    className="quantity-input"
-                                />
+                                <label>Quantity:</label>
+                                <div className="quantity-controls">
+                                    <button onClick={handleDecreaseQuantity} className="quantity-button">−</button>
+                                    <span className="quantity-display">{orderQuantity}</span>
+                                    <button onClick={handleIncreaseQuantity} className="quantity-button">+</button>
+                                </div>
                             </div>
                         )}
 

@@ -8,7 +8,7 @@ const OrderForm = () => {
     const location = useLocation();
     const { addOrder } = useContext(OrdersContext); // Use the context's addOrder function
 
-    const { name, price, orderQuantity, totalPrice, imageUrls = [],productId } = location.state || {};
+    const { name, price, orderQuantity, totalPrice, imageUrls = [], productId } = location.state || {};
     const [phoneNumber, setPhoneNumber] = useState('');
     const [address, setAddress] = useState({
         street: '',
@@ -35,94 +35,97 @@ const OrderForm = () => {
     const validateCaptcha = () => captchaInput.toUpperCase() === captcha;
 
     const handlePayment = async () => {
-            const isScriptLoaded = await loadRazorpayScript();
-            if (!isScriptLoaded) {
-              console.error({ type: 'error', message: 'Failed to load Razorpay SDK. Please check your connection.' });
-              return;
-            }
+        const token = localStorage.getItem('authToken'); // Retrieve the token from localStorage
+
+        const isScriptLoaded = await loadRazorpayScript();
+        if (!isScriptLoaded) {
+            console.error({ type: 'error', message: 'Failed to load Razorpay SDK. Please check your connection.' });
+            return;
+        }
 
         if (paymentMethod === 'Razorpay') {
-          try {
-            // create the Razorpay order on the server
-            const response = await fetch('https://backend-inventory-management-1.onrender.com/api/payment/create-order', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                amount: totalPrice,
-                currency: 'INR',
-                receipt: `order_${new Date().getTime()}`,
-              }),
-            });
-      
-            if (!response.ok) {
-              throw new Error('Failed to create Razorpay order.');
+            try {
+                // Create the Razorpay order on the server
+                const response = await fetch('https://backend-inventory-management-1.onrender.com/api/payment/create-order', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`, // Add the token to the headers
+                    },
+                    body: JSON.stringify({
+                        amount: totalPrice,
+                        currency: 'INR',
+                        receipt: `order_${new Date().getTime()}`,
+                    }),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to create Razorpay order.');
+                }
+
+                const { order } = await response.json();
+
+                // Now that we have the order, initiate Razorpay payment
+                const razorpayOptions = {
+                    key: process.env.RZP_KEY_ID,
+                    amount: totalPrice * 100,
+                    currency: 'INR',
+                    name: 'InventryPro',
+                    description: 'Order Payment',
+                    order_id: order.id,
+                    handler: function (response) {
+                        // You should verify the payment signature in your backend
+                        fetch('https://backend-inventory-management-1.onrender.com/api/payment/verify-payment', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${token}`, // Add the token to the headers
+                            },
+                            body: JSON.stringify({
+                                razorpay_order_id: response.razorpay_order_id,
+                                razorpay_payment_id: response.razorpay_payment_id,
+                                razorpay_signature: response.razorpay_signature,
+                            }),
+                        })
+                            .then((res) => res.json())
+                            .then((data) => {
+                                if (data.success) {
+                                    // Payment is successful, submit the order to the backend
+                                    submitOrder();
+                                    alert('Payment Successful! Order has been placed.');
+                                } else {
+                                    alert('Payment verification failed.');
+                                }
+                            })
+                            .catch((err) => {
+                                alert('Error verifying payment: ' + err.message);
+                            });
+                    },
+                    prefill: {
+                        name: name || 'Guest',
+                        email: 'customer@example.com',
+                        contact: phoneNumber,
+                    },
+                    theme: {
+                        color: '#F37254',
+                    },
+                };
+
+                const razorpayInstance = new window.Razorpay(razorpayOptions);
+                razorpayInstance.open();
+            } catch (err) {
+                console.error('Error initiating Razorpay payment:', err);
+                setError('Payment failed. Please try again.');
             }
-      
-            const { order } = await response.json();
-      
-            // Now that we have the order, initiate Razorpay payment
-            const razorpayOptions = {
-              key: process.env.RZP_KEY_ID,
-              amount: totalPrice * 100,
-              currency: 'INR',
-              name: 'InventryPro',
-              description: 'Order Payment',
-              order_id: order.id,
-              handler: function (response) {
-                // You should verify the payment signature in your backend
-                fetch('https://backend-inventory-management-1.onrender.com/api/payment/verify-payment', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({
-                    razorpay_order_id: response.razorpay_order_id,
-                    razorpay_payment_id: response.razorpay_payment_id,
-                    razorpay_signature: response.razorpay_signature,
-                  }),
-                })
-                  .then((res) => res.json())
-                  .then((data) => {
-                    if (data.success) {
-                        // Payment is successful, submit the order to the backend
-                        submitOrder();
-                        alert('Payment Successful! Order has been placed.');
-                    } else {
-                      alert('Payment verification failed.');
-                    }
-                  })
-                  .catch((err) => {
-                    alert('Error verifying payment: ' + err.message);
-                  });
-              },
-              prefill: {
-                name: name || 'Guest',
-                email: 'customer@example.com',
-                contact: phoneNumber,
-              },
-              theme: {
-                color: '#F37254',
-              },
-            };
-      
-            const razorpayInstance = new window.Razorpay(razorpayOptions);
-            razorpayInstance.open();
-          } catch (err) {
-            console.error('Error initiating Razorpay payment:', err);
-            setError('Payment failed. Please try again.');
-          }
         } else if (paymentMethod === 'COD') {
             // For COD, directly submit the order without Razorpay
             if (!validateCaptcha()) {
-              setError('Invalid CAPTCHA. Please try again.');
-              return;
+                setError('Invalid CAPTCHA. Please try again.');
+                return;
             }
             submitOrder();
-          }
-        };
-      
+        }
+    };
 
     const submitOrder = async () => {
         const orderData = {
@@ -138,11 +141,14 @@ const OrderForm = () => {
             status: paymentMethod === 'COD' ? 'Order Placed (COD)' : 'Order Placed',
         };
 
+        const token = localStorage.getItem('authToken'); // Retrieve the token from localStorage
+
         try {
             const response = await fetch('https://backend-inventory-management-1.onrender.com/api/order', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`, // Add the token to the headers
                 },
                 body: JSON.stringify(orderData),
             });
@@ -152,7 +158,6 @@ const OrderForm = () => {
             }
 
             const savedOrder = await response.json();
-
             addOrder(savedOrder); // Add the new order to the global orders list
             setIsSubmitted(true);
         } catch (err) {
@@ -273,9 +278,7 @@ const OrderForm = () => {
                                 />
                             </>
                         )}
-                        <button type="button" onClick={handlePayment} className="order-form-button">
-                            Place Order
-                        </button>
+                        <button className='btn-new' onClick={handlePayment}>Proceed to Payment</button>
                     </form>
                 </div>
             )}

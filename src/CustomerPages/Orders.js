@@ -1,14 +1,18 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import OrdersContext from '../ContextApi/OrderContext';
 import '../CustomerPages_css/Account.css';
-
-const orders = () => {
+import Loading from '../Login _signup_pages/Loading';
+const Orders = () => {
     const { orders, fetchOrders, updateOrderStatus } = useContext(OrdersContext);
-    // console.log(orders)
+    const [loading, setLoading] = useState(true);
 
     // Fetch orders when the component loads
     useEffect(() => {
-        fetchOrders();
+        const loadOrders = async () => {
+            await fetchOrders();
+            setLoading(false); // Set loading to false once the orders are fetched
+        };
+        loadOrders();
     }, [fetchOrders]);
 
     // Get appropriate CSS class for the order status
@@ -35,10 +39,13 @@ const orders = () => {
     // Handle cancellation request
     const handleCancelOrderRequest = async (orderId) => {
         try {
+            const token = localStorage.getItem('authToken'); // Assuming `getToken` function retrieves the JWT from localStorage or another store
+            console.log(token)
             const response = await fetch(`https://backend-inventory-management-1.onrender.com/api/orders/${orderId}/request-cancel`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`, // Add Authorization header
                 },
             });
 
@@ -54,6 +61,10 @@ const orders = () => {
             alert('Unable to request cancellation at this time.');
         }
     };
+
+    if (loading) {
+        return <Loading/>; // Show loading state until orders are fetched
+    }
 
     return (
         <div className="account-page">
@@ -75,9 +86,16 @@ const orders = () => {
                                 <h3 className="account-order-name">{order.name}</h3>
                                 <p className="account-order-quantity">Quantity: {order.orderQuantity}</p>
                                 <p className="account-order-price">Total Price: ₹{order.totalPrice}</p>
-                                <p className="account-order-address">
-                                    Address: {order.address.street}, {order.address.city}, {order.address.state}
-                                </p>
+
+                                {/* Check if address is available */}
+                                {order.address ? (
+                                    <p className="account-order-address">
+                                        Address: {order.address.street}, {order.address.city}, {order.address.state}
+                                    </p>
+                                ) : (
+                                    <p className="account-order-address">Address: Not available</p>
+                                )}
+                                
                                 <p className="account-order-phone">Phone: {order.phoneNumber}</p>
                                 <p className="account-order-date">Date: {order.date}</p>
                                 <div className={`account-order-status-bubble ${getOrderStatusClass(order.status)}`}>
@@ -104,4 +122,4 @@ const orders = () => {
     );
 };
 
-export default orders;
+export default Orders;

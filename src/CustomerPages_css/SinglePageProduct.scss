@@ -87,6 +87,10 @@
     justify-content: space-between;
     border-top: 2px solid #eee;
     padding-top: 1.5rem;
+    .warranty-icon{
+        color: rgb(90, 90, 90);
+        font-size: 3rem;
+    }
 }
 
 .product-warranty-data {
@@ -132,33 +136,50 @@
 }
 
 /* Quantity Selector and Button */
-.single-product-data {
-    .quantity-selector {
+.quantity-selector {
+    margin: 20px 0;
+
+    .quantity-controls {
         display: flex;
         align-items: center;
-        margin-top: 1rem;
-        font-size: 1rem;
-    }
+        gap: 10px;
 
-    .quantity-selector label {
-        font-weight: bold;
-        margin-right: 0.5rem;
-    }
+        .quantity-button {
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            background-color: #f0f0f0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
 
-    .quantity-input {
-        width: 60px;
-        padding: 0.4rem;
-        font-size: 1rem;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        text-align: center;
-        outline: none;
-        transition: border-color 0.3s ease;
-    }
+            &:hover {
+                background-color: #d1d1d1;
+            }
 
-    .quantity-input:focus {
-        border-color: #007BFF;
+            &:disabled {
+                background-color: #e0e0e0;
+                cursor: not-allowed;
+            }
+        }
+
+        .quantity-display {
+            font-size: 16px;
+            font-weight: bold;
+            width: 40px;
+            text-align: center;
+        }
     }
+}
+
+
+
+.single-product-data {
 
     .navigate-cart-button {
         margin-top: 1rem;

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Loading from '../Login _signup_pages/Loading';
 // Ensure the API is correctly imported, or use the fetch directly
 // import { fetchProducts } from '../api'; 
 // import '../AdminPages_css/Stock.css';
@@ -34,7 +35,7 @@ function Stock() {
       <div className="newcontainer">
         <h1 className="h1">Stocks</h1>
         {loading ? (
-          <p>Loading stocks...</p>
+          <Loading />
         ) : error ? (
           <p className="error-message">{error}</p>
         ) : (

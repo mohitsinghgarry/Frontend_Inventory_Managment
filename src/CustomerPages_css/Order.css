@@ -176,6 +176,18 @@
   background-color: #00408a;
   transform: translateY(0);
 }
+.btn-new{
+  margin-top: 1rem;
+  border: none;
+  background-color: #2081ea;
+  height: 3rem;
+  color: white;
+  border-radius: 2rem;
+  transition: .3s ease-in;
+}
+.btn-new:hover{
+  transform: scale(1.05);
+}
 
 /* Keyframe Animations */
 @keyframes fadeIn {

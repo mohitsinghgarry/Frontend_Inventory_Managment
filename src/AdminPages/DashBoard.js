@@ -3,7 +3,7 @@ import { useUser } from "../Login _signup_pages/UserContext";
 import { CountsContext } from "../ContextApi/CountsContext";
 import homeImage from "../images/homeimage.png";
 import "../AdminPages_css/DashBoard.css";
-
+import Loading from '../Login _signup_pages/Loading';
 const Dashboard = () => {
   const { userData } = useUser();
   const { counts, loading, error } = useContext(CountsContext);
@@ -33,7 +33,7 @@ const Dashboard = () => {
   }
 
   if (loading) {
-    return <div>Loading counts...</div>;
+    return <Loading />;
   }
 
   if (error) {
