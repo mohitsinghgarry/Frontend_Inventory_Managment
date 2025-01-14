@@ -30,6 +30,7 @@ import { OrdersProvider } from "./ContextApi/OrderContext";
 import ProtectedRoute from "./ProtectedRoute"; // Import the ProtectedRoute component
 import Account from "./CustomerPages/Account";
 import { CountsProvider } from "./ContextApi/CountsContext";
+import { Footer } from "./Login _signup_pages/Footer";
 
 const App = () => {
   return (

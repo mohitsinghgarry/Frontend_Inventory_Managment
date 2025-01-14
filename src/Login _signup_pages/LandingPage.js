@@ -6,7 +6,7 @@ import rightimg from "../images/Image 84.png";
 import leftimg from "../images/Image 85.png";
 import footerimg from "../images/Container 6.png";
 import '../Login_signup_css/LandingPage.css';
-
+import { Footer } from "./Footer";
 const LandingPage = () => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -35,12 +35,12 @@ const LandingPage = () => {
         </div>
 
         {/* Desktop Navbar Links */}
-        <ul className={`navbar-links ${isMenuOpen ? "navbar-links-open" : ""}`}>
+        {/* <ul className={`navbar-links ${isMenuOpen ? "navbar-links-open" : ""}`}>
           <li><a href="#features" onClick={toggleMenu}>Features</a></li>
           <li><a href="#resources" onClick={toggleMenu}>Resources</a></li>
           <li><a href="#about" onClick={toggleMenu}>About Us</a></li>
           <li><a href="#contact" onClick={toggleMenu}>Contact Us</a></li>
-        </ul>
+        </ul> */}
 
         {/* Auth Buttons */}
         <div className="navbar-auth-buttons">
@@ -65,12 +65,12 @@ const LandingPage = () => {
           <span className="mobile-menu-close" onClick={toggleMenu}>
             &times;
           </span>
-          <ul className="navbar-links">
+          {/* <ul className="navbar-links">
             <li><a href="#features" onClick={toggleMenu}>Features</a></li>
             <li><a href="#resources" onClick={toggleMenu}>Resources</a></li>
             <li><a href="#about" onClick={toggleMenu}>About Us</a></li>
             <li><a href="#contact" onClick={toggleMenu}>Contact Us</a></li>
-          </ul>
+          </ul> */}
           <div className="navbar-auth-buttons">
             <button
               className="navbar-login-button"
@@ -143,6 +143,7 @@ const LandingPage = () => {
           </p>
         </div>
       </div>
+          <Footer/>
     </div>
   );
 };
