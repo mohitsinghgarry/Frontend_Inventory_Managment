@@ -9,7 +9,7 @@ const SignUp = () => {
     name: '',
     email: '',
     password: '',
-    userType: 'customer', // Default role set to 'customer'
+    userType: 'customer', // Default role is set to 'customer'
   });
 
   const [error, setError] = useState(null);
@@ -48,7 +48,7 @@ const SignUp = () => {
     }
 
     try {
-      const response = await fetch('https://backend-inventory-management-1.onrender.com/user/signup', {
+      const response = await fetch('http://localhost:3000/user/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -119,6 +119,19 @@ const SignUp = () => {
                 />
                 {/* <label htmlFor="showPassword" className="show-password-label">Show Password</label> */}
               </div>
+              <div className="input-group">
+                {/* <label htmlFor="userType" className="user-type-label">Role</label> */}
+                <select
+                  name="userType"
+                  value={formData.userType}
+                  onChange={handleChange}
+                  required
+                  className="signup-select"
+                >
+                  <option value="customer">Customer</option>
+                  <option value="admin">Admin</option>
+                </select>
+              </div>
               <div className="password-criteria">
                 <h4>Password Requirements:</h4>
                 <ul className="criteria-list">
@@ -126,7 +139,7 @@ const SignUp = () => {
                     At least 1 uppercase letter (A-Z)
                   </li>
                   <li className={passwordCriteria.hasLowercase ? 'criteria-met' : 'criteria-unmet'}>
-                    At least 1 lowercase letter (a-z)
+                   At least 1 lowercase letter (a-z)
                   </li>
                   <li className={passwordCriteria.hasDigit ? 'criteria-met' : 'criteria-unmet'}>
                     At least 1 number (0-9)
