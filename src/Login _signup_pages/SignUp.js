@@ -48,21 +48,20 @@ const SignUp = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/user/signup', {
+      const response = await fetch('https://backend-inventory-management-1.onrender.com/user/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
 
       const data = await response.json();
-      if (!response.ok) throw new Error(data.message || 'Network response was not ok');
-      
+      if (!response.ok) throw new Error(data?.message || 'Something went wrong during signup.');
+
       setSuccess(true);
       setError(null);
       navigate('/verify-otp');
-    } catch (error) {
-      console.error('Error submitting the form:', error.message);
-      setError(error.message || 'Error submitting the form. Please try again.');
+    } catch (err) {
+      setError(err.message || 'Error submitting the form. Please try again.');
       setSuccess(false);
     }
   };
@@ -110,17 +109,18 @@ const SignUp = () => {
                   required
                   className="signup-input"
                 />
-                <input
-                  type="checkbox"
-                  id="showPassword"
-                  checked={showPassword}
-                  onChange={togglePasswordVisibility}
-                  className="show-password-checkbox"
-                />
-                {/* <label htmlFor="showPassword" className="show-password-label">Show Password</label> */}
+                <label htmlFor="showPassword" className="show-password-label">
+                  <input
+                    type="checkbox"
+                    id="showPassword"
+                    checked={showPassword}
+                    onChange={togglePasswordVisibility}
+                    className="show-password-checkbox"
+                  />
+                  Show Password
+                </label>
               </div>
               <div className="input-group">
-                {/* <label htmlFor="userType" className="user-type-label">Role</label> */}
                 <select
                   name="userType"
                   value={formData.userType}
@@ -139,7 +139,7 @@ const SignUp = () => {
                     At least 1 uppercase letter (A-Z)
                   </li>
                   <li className={passwordCriteria.hasLowercase ? 'criteria-met' : 'criteria-unmet'}>
-                   At least 1 lowercase letter (a-z)
+                    At least 1 lowercase letter (a-z)
                   </li>
                   <li className={passwordCriteria.hasDigit ? 'criteria-met' : 'criteria-unmet'}>
                     At least 1 number (0-9)
@@ -157,6 +157,8 @@ const SignUp = () => {
             <div className="signup-footer">
               <p>Already have an account? <a href="/login" className="login-link">Log In</a></p>
             </div>
+            {error && <p className="signup-error-message">{error}</p>}
+            {success && <p className="signup-success-message">Sign up successful! Check your email for the OTP.</p>}
           </div>
         </div>
         <div className="signup-right-container">
@@ -165,8 +167,6 @@ const SignUp = () => {
             <img src={image1} alt="Inventory" className="signup-image" />
           </div>
         </div>
-        {error && <p className="signup-error-message">{error}</p>}
-        {success && <p className="signup-success-message">Sign up successful! Check your email for the OTP.</p>}
       </div>
     </div>
   );
