@@ -67,10 +67,10 @@ export const Footer = () => {
         <div className="social-media">
           <div className="brand">Follow Us</div>
           <div className="social-icons">
-            <a href='https://www.linkedin.com/in/mohit-singh-95a883225/' className="social-icon">
+            <a href='https://www.linkedin.com/in/krishnasingh20/' className="social-icon">
               <FaLinkedinIn size={28} color='#7a39fa' />
             </a>
-            <a href='https://x.com/Mohit_singh_2' className="social-icon">
+            <a href='https://x.com/Krishnasingh_99' className="social-icon">
               <BsTwitterX size={28} color='#7a39fa' />
             </a>
             <a href='#' className="social-icon">
