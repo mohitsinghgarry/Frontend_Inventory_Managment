@@ -80,7 +80,7 @@ export const Footer = () => {
         </div>
         <div className="contacting">
           <div className="brand">Call Us</div>
-          <div className="number">+91 8318244060</div>
+          <div className="number">+91 1234567890</div>
         </div>
       </footer>
       <div className="last">
