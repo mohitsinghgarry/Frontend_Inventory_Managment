@@ -83,7 +83,7 @@ function Account() {
     }
     const token = localStorage.getItem('authToken');
     try {
-      const response = await fetch('https://backend-inventory-management-1.onrender.com/user/update-profile', {
+      const response = await fetch('https://backend-inventory-management-1-fxba.onrender.com/user/update-profile', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

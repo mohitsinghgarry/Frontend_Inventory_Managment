@@ -46,7 +46,7 @@ const OrderForm = () => {
         if (paymentMethod === 'Razorpay') {
             try {
                 // Create the Razorpay order on the server
-                const response = await fetch('https://backend-inventory-management-1.onrender.com/api/payment/create-order', {
+                const response = await fetch('https://backend-inventory-management-1-fxba.onrender.com/api/payment/create-order', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ const OrderForm = () => {
                     order_id: order.id,
                     handler: function (response) {
                         // You should verify the payment signature in your backend
-                        fetch('https://backend-inventory-management-1.onrender.com/api/payment/verify-payment', {
+                        fetch('https://backend-inventory-management-1-fxba.onrender.com/api/payment/verify-payment', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -144,7 +144,7 @@ const OrderForm = () => {
         const token = localStorage.getItem('authToken'); // Retrieve the token from localStorage
 
         try {
-            const response = await fetch('https://backend-inventory-management-1.onrender.com/api/order', {
+            const response = await fetch('https://backend-inventory-management-1-fxba.onrender.com/api/order', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

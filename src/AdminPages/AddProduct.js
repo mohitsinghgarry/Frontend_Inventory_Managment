@@ -48,7 +48,7 @@ const AddProduct = () => {
     });
 
     try {
-      const response = await fetch("https://backend-inventory-management-1.onrender.com/admin/add-product", {
+      const response = await fetch("https://backend-inventory-management-1-fxba.onrender.com/admin/add-product", {
         method: "POST",
         body: formData,
       });

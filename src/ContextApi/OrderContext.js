@@ -19,8 +19,8 @@ export const OrdersProvider = ({ children }) => {
 
             const isAdmin = userData?.userType === 'admin'; // Assuming the user's role is in userData
             const url = isAdmin
-                ? 'https://backend-inventory-management-1.onrender.com/api/getorders/all' // Admin-specific API to fetch all orders
-                : 'https://backend-inventory-management-1.onrender.com/api/getorders'; // Regular API for user-specific orders
+                ? 'https://backend-inventory-management-1-fxba.onrender.com/api/getorders/all' // Admin-specific API to fetch all orders
+                : 'https://backend-inventory-management-1-fxba.onrender.com/api/getorders'; // Regular API for user-specific orders
 
             const response = await fetch(url, {
                 method: 'GET',
@@ -54,7 +54,7 @@ export const OrdersProvider = ({ children }) => {
                 return;
             }
 
-            const response = await fetch(`https://backend-inventory-management-1.onrender.com/api/order/${orderId}`, {
+            const response = await fetch(`https://backend-inventory-management-1-fxba.onrender.com/api/order/${orderId}`, {
                 method: 'PATCH',
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -80,7 +80,7 @@ export const OrdersProvider = ({ children }) => {
                 return;
             }
 
-            const response = await fetch(`https://backend-inventory-management-1.onrender.com/api/${orderId}`, {
+            const response = await fetch(`https://backend-inventory-management-1-fxba.onrender.com/api/${orderId}`, {
                 method: 'DELETE',
                 headers: {
                     Authorization: `Bearer ${token}`,

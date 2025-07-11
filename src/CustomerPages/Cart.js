@@ -55,7 +55,7 @@ const Cart = () => {
                 const updatedCartItems = await Promise.all(
                     cartItems.map(async (item) => {
                         try {
-                            const response = await fetch(`https://backend-inventory-management-1.onrender.com/newproduct/${item.productId}`);
+                            const response = await fetch(`https://backend-inventory-management-1-fxba.onrender.com/newproduct/${item.productId}`);
 
                             if (response.ok) {
                                 const productDetails = await response.json();
