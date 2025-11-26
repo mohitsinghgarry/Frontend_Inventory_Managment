@@ -67,7 +67,7 @@ const OrderForm = () => {
 
                 // Now that we have the order, initiate Razorpay payment
                 const razorpayOptions = {
-                    key: process.env.RZP_KEY_ID,
+                    key: "rzp_test_6tK2oG1fTsecK9",
                     amount: totalPrice * 100,
                     currency: 'INR',
                     name: 'InventryPro',
