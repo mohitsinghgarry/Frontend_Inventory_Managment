@@ -22,7 +22,7 @@ const VerifyOTP = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('https://backend-inventory-management-1-fxba.onrender.com/user/verify-otp', {
+      const response = await fetch('https://backend-inventory-management-cy4h.vercel.app/user/verify-otp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

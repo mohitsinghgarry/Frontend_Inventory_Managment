@@ -19,7 +19,7 @@ function PasswordReset() {
         }
 
         try {
-            const response = await fetch('https://backend-inventory-management-1-fxba.onrender.com/user/reset-password', {
+            const response = await fetch('https://backend-inventory-management-cy4h.vercel.app/user/reset-password', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

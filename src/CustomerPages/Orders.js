@@ -41,7 +41,7 @@ const Orders = () => {
         try {
             const token = localStorage.getItem('authToken'); // Assuming `getToken` function retrieves the JWT from localStorage or another store
             console.log(token)
-            const response = await fetch(`https://backend-inventory-management-1-fxba.onrender.com/api/orders/${orderId}/request-cancel`, {
+            const response = await fetch(`https://backend-inventory-management-cy4h.vercel.app/api/orders/${orderId}/request-cancel`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

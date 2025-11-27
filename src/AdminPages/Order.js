@@ -23,7 +23,7 @@ const Order = () => {
 
     const updateStockQuantity = async (productId, quantity) => {
         try {
-            const response = await fetch(`https://backend-inventory-management-1-fxba.onrender.com/products/${productId}/update-stock`, {
+            const response = await fetch(`https://backend-inventory-management-cy4h.vercel.app/products/${productId}/update-stock`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',

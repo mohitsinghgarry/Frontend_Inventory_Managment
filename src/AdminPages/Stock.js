@@ -13,7 +13,7 @@ function Stock() {
     // Function to fetch data from the API
     const fetchProducts = async () => {
       try {
-        const res = await fetch('https://backend-inventory-management-1-fxba.onrender.com/products'); // Your API URL
+        const res = await fetch('https://backend-inventory-management-cy4h.vercel.app/products'); // Your API URL
         const result = await res.json();
 
         // Filter the products based on a 'status' if it exists in the response (if relevant for your case)

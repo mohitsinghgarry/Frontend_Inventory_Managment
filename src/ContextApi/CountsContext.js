@@ -18,11 +18,11 @@ export const CountsProvider = ({ children }) => {
     const fetchCounts = async () => {
       try {
         // Fetching counts from backend endpoints
-        const productsRes = await fetch('https://backend-inventory-management-1-fxba.onrender.com/products/count');
-        const ordersRes = await fetch('https://backend-inventory-management-1-fxba.onrender.com/orders/count');
-        const customersRes = await fetch('https://backend-inventory-management-1-fxba.onrender.com/users/count');
-        const lowStockRes = await fetch('https://backend-inventory-management-1-fxba.onrender.com/products/low-stock'); // Endpoint for low stock
-        const recentOrdersRes = await fetch('https://backend-inventory-management-1-fxba.onrender.com/orders/recent-count'); // Endpoint for recent orders
+        const productsRes = await fetch('https://backend-inventory-management-cy4h.vercel.app/products/count');
+        const ordersRes = await fetch('https://backend-inventory-management-cy4h.vercel.app/orders/count');
+        const customersRes = await fetch('https://backend-inventory-management-cy4h.vercel.app/users/count');
+        const lowStockRes = await fetch('https://backend-inventory-management-cy4h.vercel.app/products/low-stock'); // Endpoint for low stock
+        const recentOrdersRes = await fetch('https://backend-inventory-management-cy4h.vercel.app/orders/recent-count'); // Endpoint for recent orders
 
         // Check if all the responses are OK
         if (!productsRes.ok || !ordersRes.ok || !customersRes.ok || !lowStockRes.ok || !recentOrdersRes.ok) {

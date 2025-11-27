@@ -48,7 +48,7 @@ const SignUp = () => {
     }
 
     try {
-      const response = await fetch('https://backend-inventory-management-1-fxba.onrender.com/user/signup', {
+      const response = await fetch('https://backend-inventory-management-cy4h.vercel.app/user/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
